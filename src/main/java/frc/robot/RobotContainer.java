@@ -15,12 +15,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.CoralFeederSubSystem;
+import frc.robot.subsystems.CoralGroundIntakeSubSystem;
+import frc.robot.subsystems.CoralOutakeSubSystem;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -40,7 +45,17 @@ public class RobotContainer {
     
     private final CommandPS5Controller driver = new CommandPS5Controller(0);
 
+    private final CommandPS5Controller operator = new CommandPS5Controller(1);
+
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
+
+    private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
+
+    private CarriageSubSystem coralCarriage = new CarriageSubSystem();
+
+    private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -79,6 +94,10 @@ public class RobotContainer {
         driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(0.6); coralFeeder.setSpeed(.6); coralCarriage.setSpeed(.6); coralOutake.setSpeed(.6);},coralIntake,coralFeeder,coralCarriage,coralOutake))
+        .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
+
     }
 
     public Command getAutonomousCommand() {
