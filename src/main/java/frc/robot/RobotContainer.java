@@ -19,13 +19,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
+import frc.robot.subsystems.ElevatorSubSystem;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -47,14 +47,11 @@ public class RobotContainer {
     private final CommandPS5Controller operator = new CommandPS5Controller(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-
     private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
-
     private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
-
     private CarriageSubSystem coralCarriage = new CarriageSubSystem();
-
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
+    private final ElevatorSubSystem elevator = new ElevatorSubSystem();
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -97,6 +94,11 @@ public class RobotContainer {
         operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(0.6); coralFeeder.setSpeed(.6); coralCarriage.setSpeed(.6); coralOutake.setSpeed(.6);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
+        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
+        .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
+
+        operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.3);},elevator))
+        .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
     }
 
     public Command getAutonomousCommand() {

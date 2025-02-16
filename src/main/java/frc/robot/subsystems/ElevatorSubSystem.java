@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.controls.Follower;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -22,11 +23,13 @@ public class ElevatorSubSystem extends SubsystemBase {
   public ElevatorSubSystem() {
     motor1 = new TalonFX(Constants.ElevatorSubSystem.CAN_ID_MOTOR1);
     motor2 = new TalonFX(Constants.ElevatorSubSystem.CAN_ID_MOTOR2);
+    motor1.setNeutralMode(NeutralModeValue.Brake);
+    motor2.setNeutralMode(NeutralModeValue.Brake);
 
-    motor2.setControl(new Follower(motor1.getDeviceID(), false));
+    motor2.setControl(new Follower(motor1.getDeviceID(), true));
   }
 
-  public void setElevatorSpeed(double speed){
+  public void setSpeed(double speed){
     motor1.set(speed);
   }
 
