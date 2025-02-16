@@ -95,10 +95,10 @@ public class RobotContainer {
         operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(0.6); coralFeeder.setSpeed(.6); coralCarriage.setSpeed(.6); coralOutake.setSpeed(.6);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
-        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
+        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.3);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.3);},elevator))
+        operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
     }
 
