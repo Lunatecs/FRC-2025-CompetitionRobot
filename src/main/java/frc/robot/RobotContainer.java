@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.ElevatorSixFeetCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -92,14 +93,16 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(0.6); coralFeeder.setSpeed(.6); coralCarriage.setSpeed(.6); coralOutake.setSpeed(.6);},coralIntake,coralFeeder,coralCarriage,coralOutake))
+        operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
-        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.3);},elevator))
+        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
         operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
+
+        operator.square().onTrue(new ElevatorSixFeetCommand(elevator));
     }
 
     public Command getAutonomousCommand() {

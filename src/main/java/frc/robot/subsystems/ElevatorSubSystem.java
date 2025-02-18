@@ -9,6 +9,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.controls.Follower;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,6 +17,10 @@ public class ElevatorSubSystem extends SubsystemBase {
   /** Creates a new ElevatorSubSystem. */
   private TalonFX motor1;
   private TalonFX motor2;
+  private final double gearRatio = 0.25;
+  private final double spoolDiameter = 2.0;
+  private final double rotationToInches = spoolDiameter*Math.PI*gearRatio;
+  private final double initialElevatorHeight = 5.75;
 
   private final DigitalInput elevatorLimitSwitch = new DigitalInput(Constants.ElevatorSubSystem.INPUT_ID);
 
@@ -25,6 +30,7 @@ public class ElevatorSubSystem extends SubsystemBase {
     motor2 = new TalonFX(Constants.ElevatorSubSystem.CAN_ID_MOTOR2);
     motor1.setNeutralMode(NeutralModeValue.Brake);
     motor2.setNeutralMode(NeutralModeValue.Brake);
+    motor1.setPosition(0);
 
     motor2.setControl(new Follower(motor1.getDeviceID(), true));
   }
@@ -37,8 +43,18 @@ public class ElevatorSubSystem extends SubsystemBase {
     return elevatorLimitSwitch.get();
   }
 
+  public double getEncoder(){
+    return motor1.getPosition().getValueAsDouble();
+  }
+
+  public double getElevatorHeight(){
+    return (getEncoder() * rotationToInches) + initialElevatorHeight;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("elevator encoder", getEncoder());
+    SmartDashboard.putNumber("elevator height", getElevatorHeight());
   }
 }
