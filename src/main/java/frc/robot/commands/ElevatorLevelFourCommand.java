@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorSixFeetCommand extends Command {
+public class ElevatorLevelFourCommand extends Command {
 
   private ElevatorSubSystem elevator;
   private PIDController controller;
 
   /** Creates a new ElevatorSixFeetCommand. */
-  public ElevatorSixFeetCommand(ElevatorSubSystem elevator) {
+  public ElevatorLevelFourCommand(ElevatorSubSystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     addRequirements(elevator);

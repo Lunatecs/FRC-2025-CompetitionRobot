@@ -19,7 +19,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.commands.ElevatorSixFeetCommand;
+import frc.robot.commands.ElevatorLevelThreeCommand;
+import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -102,7 +103,8 @@ public class RobotContainer {
         operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.square().onTrue(new ElevatorSixFeetCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelFourCommand(elevator));
+        //operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
     }
 
     public Command getAutonomousCommand() {
