@@ -40,7 +40,9 @@ public class ElevatorLevelOneCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevator.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override

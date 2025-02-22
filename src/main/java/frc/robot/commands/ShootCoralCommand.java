@@ -4,49 +4,51 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
+import java.util.Date;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ElevatorSubSystem;
+import frc.robot.subsystems.CoralOutakeSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorLevelTwoCommand extends Command {
-
-  private ElevatorSubSystem elevator;
-  private PIDController controller;
-
-  /** Creates a new ElevatorSixFeetCommand. */
-  public ElevatorLevelTwoCommand(ElevatorSubSystem elevator) {
+public class ShootCoralCommand extends Command {
+  private CoralOutakeSubSystem outtake;
+  private boolean isFinished;
+  private Date start;
+  /** Creates a new ShootCoralCommand. */
+  public ShootCoralCommand(CoralOutakeSubSystem outtake) {
+    this.outtake = outtake;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.elevator = elevator;
-    addRequirements(elevator);
-    controller = new PIDController(0.03, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031, 0.022
-    controller.setSetpoint(34.875);
-    controller.setTolerance(0.25);
+    addRequirements(outtake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    start = new Date();
+    isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = controller.calculate(elevator.getElevatorHeight());
-    if(Math.abs(speed)> 0.8){
-      speed = Math.signum(speed) * 0.8;
+    if (outtake.hasCoral() || new Date().getTime()-start.getTime() < 500L){
+      outtake.setSpeed(1);
     }
-    elevator.setSpeed(speed);
+    else{
+      outtake.setSpeed(0);
+      isFinished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    elevator.setSpeed(0);
+    outtake.setSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

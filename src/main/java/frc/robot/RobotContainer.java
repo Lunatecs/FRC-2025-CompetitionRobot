@@ -20,7 +20,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
+import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
+import frc.robot.commands.ElevatorLevelOneCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -94,17 +97,24 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        operator.circle().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
+        operator.L1().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
-        operator.cross().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
+        operator.L2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(-1); coralFeeder.setSpeed(-1); coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
+        .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
+
+        operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.triangle().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
+        operator.R1().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.square().onTrue(new ElevatorLevelFourCommand(elevator));
-        //operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
+
+        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
     }
 
     public Command getAutonomousCommand() {

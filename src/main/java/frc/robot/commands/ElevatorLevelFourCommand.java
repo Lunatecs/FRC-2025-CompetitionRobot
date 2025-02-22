@@ -20,7 +20,7 @@ public class ElevatorLevelFourCommand extends Command {
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.05, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031
-    controller.setSetpoint(72.0);
+    controller.setSetpoint(72.75);
     controller.setTolerance(0.25);
   }
 
@@ -32,15 +32,17 @@ public class ElevatorLevelFourCommand extends Command {
   @Override
   public void execute() {
     double speed = controller.calculate(elevator.getElevatorHeight());
-    if(Math.abs(speed)> 1.0){
-      speed = Math.signum(speed) * 1.0;
+    if(Math.abs(speed)> 0.8){
+      speed = Math.signum(speed) * 0.8;
     }
     elevator.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevator.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override

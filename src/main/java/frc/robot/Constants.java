@@ -31,6 +31,7 @@ public final class Constants {
 
   public static class CoralOutakeSubSystemConstants{
     public static final int CAN_ID_OUTTAKE = 15;
+    public static final int CAN_ID_SENSOR = 22;
   }
 
   public static class ClimberSubSystemConstants{
