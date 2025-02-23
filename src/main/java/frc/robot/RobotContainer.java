@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.AlignRobotToTag;
 import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
@@ -31,6 +32,7 @@ import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
+import frc.robot.subsystems.ScoringLimeLightSubSystem;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -40,8 +42,11 @@ public class RobotContainer {
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
+    private final SwerveRequest.RobotCentric robotCentricDrive = new SwerveRequest.RobotCentric()
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     
-            private final SwerveRequest.SwerveDriveBrake xWheels = new SwerveRequest.SwerveDriveBrake();
+    private final SwerveRequest.SwerveDriveBrake xWheels = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
     private final SendableChooser<Command> autoChooser;
@@ -58,6 +63,7 @@ public class RobotContainer {
     private CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
+    private final ScoringLimeLightSubSystem limelightLeft = new ScoringLimeLightSubSystem();
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -77,6 +83,8 @@ public class RobotContainer {
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
+
+        driver.R1().whileTrue(new AlignRobotToTag(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
