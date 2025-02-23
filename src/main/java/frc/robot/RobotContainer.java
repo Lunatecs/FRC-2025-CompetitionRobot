@@ -68,7 +68,9 @@ public class RobotContainer {
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
     private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
-    private final ScoringLimeLightSubSystem limelightLeft = new ScoringLimeLightSubSystem();
+    private final ScoringLimeLightSubSystem limelightLeft = new ScoringLimeLightSubSystem("limelight-left");
+    private final ScoringLimeLightSubSystem limelightRight = new ScoringLimeLightSubSystem("limelight-right");
+
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -94,6 +96,8 @@ public class RobotContainer {
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
         driver.R1().whileTrue(new AlignRobotToTag(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.L1().whileTrue(new AlignRobotToTag(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
