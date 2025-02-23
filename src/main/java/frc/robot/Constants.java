@@ -42,7 +42,7 @@ public final class Constants {
     public static final int CAN_ID_MOTOR1 = 9;
     public static final int CAN_ID_MOTOR2 = 10;
 
-    public static final int INPUT_ID = 1;
+    public static final int INPUT_ID = 0;
   } 
 
   public static class CoralFeederSubSystemConstants{

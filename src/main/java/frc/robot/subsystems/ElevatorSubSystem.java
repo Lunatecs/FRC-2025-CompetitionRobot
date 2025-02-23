@@ -26,6 +26,7 @@ public class ElevatorSubSystem extends SubsystemBase {
 
 
   public ElevatorSubSystem() {
+
     motor1 = new TalonFX(Constants.ElevatorSubSystemConstants.CAN_ID_MOTOR1);
     motor2 = new TalonFX(Constants.ElevatorSubSystemConstants.CAN_ID_MOTOR2);
     motor1.setNeutralMode(NeutralModeValue.Brake);
@@ -53,8 +54,10 @@ public class ElevatorSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("elevator encoder", getEncoder());
     SmartDashboard.putNumber("elevator height", getElevatorHeight());
+    SmartDashboard.putBoolean("Elevator Limit Switch", getLimitSwitch());
   }
 }
