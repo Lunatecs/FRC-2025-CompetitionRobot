@@ -46,6 +46,7 @@ public class ElevatorSubSystem extends SubsystemBase {
 
   public boolean getLimitSwitch(){
     return !elevatorLimitSwitch.get();
+    //inverted it
   }
 
   public double getEncoder(){
