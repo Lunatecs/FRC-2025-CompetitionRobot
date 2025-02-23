@@ -27,15 +27,15 @@ public class AlignRobotToTag extends Command {
 
   public AlignRobotToTag(ScoringLimeLightSubSystem limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.01, 0, 0); //.009375
+    pidStrafe = new PIDController(.7, 0, 0); //.009375
     pidStrafe.setSetpoint(0);
-    pidStrafe.setTolerance(1);
-    pidTranslate = new PIDController(.025, 0, 0); //.009375
+    pidStrafe.setTolerance(0.0);
+    pidTranslate = new PIDController(.4, 0, 0); //.009375
     pidTranslate.setSetpoint(0);
-    pidTranslate.setTolerance(1);
+    pidTranslate.setTolerance(0.0);
     pidRotation = new PIDController(.015, 0, 0);
     pidRotation.setSetpoint(0);
-    pidRotation.setTolerance(1);
+    pidRotation.setTolerance(0.0);
     this.limelight = limelight;
     this.drivetrain = drivetrain;
     this.drive = robotCentric;
@@ -51,29 +51,29 @@ public class AlignRobotToTag extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double strafe = pidStrafe.calculate(limelight.GetTx());
+    double strafe = pidStrafe.calculate(limelight.getTranslationX());
     final double strafeSpeed = MathUtil.clamp(strafe, -1.0, 1.0) * MaxSpeed;
     SmartDashboard.putNumber("strafe", strafeSpeed);
 
-    double translate = pidTranslate.calculate(limelight.GetTy());
+    double translate = pidTranslate.calculate(limelight.getTranslationY());
     final double translateSpeed = -MathUtil.clamp(translate, -1.0, 1.0) * MaxSpeed;
     SmartDashboard.putNumber("translate", translateSpeed);
 
-    double rotation = pidRotation.calculate(limelight.GetTx());
+    double rotation = pidRotation.calculate(limelight.getYaw());
     final double rotationSpeed = MathUtil.clamp(rotation, -1.0, 1.0) * MaxAngularRate;
     SmartDashboard.putNumber("rotation", rotationSpeed);
 
     if(pidRotation.atSetpoint()){
       drive.withRotationalRate(0);
     } else {
-      drive.withRotationalRate(rotationSpeed);
+      drive.withRotationalRate(-rotationSpeed);
     }
     if(pidStrafe.atSetpoint()) {
       drive.withVelocityY(0);
     } else {
-      drive.withVelocityY(strafeSpeed);
+      drive.withVelocityY(-strafeSpeed);
     }
-    if(pidTranslate.atSetpoint() || limelight.GetTy() == 0) {
+    if(pidTranslate.atSetpoint()) {
       drive.withVelocityX(0);
     } else {
       drive.withVelocityX(-translateSpeed);
