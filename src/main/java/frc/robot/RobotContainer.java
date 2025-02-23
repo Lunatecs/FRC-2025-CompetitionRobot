@@ -23,6 +23,7 @@ import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.AlignRobotToTag;
 import frc.robot.commands.AutoDeliverCommand;
+import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
 import frc.robot.generated.TunerConstants;
@@ -130,7 +131,7 @@ public class RobotContainer {
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
 
         operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
-        
+        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
     }
 
     public Command getAutonomousCommand() {
