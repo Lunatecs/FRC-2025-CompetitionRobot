@@ -134,10 +134,10 @@ public class RobotContainer {
         operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
 
-        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
-        //operator.povDown().onTrue(new ElevatorDownCommand(elevator));
-        operator.povUp().onTrue(new RaiseIntakeCommand(pivot));
-        operator.povDown().onTrue(new DropIntakeCommand(pivot));
+        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
+        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+        driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
+        driver.povDown().onTrue(new DropIntakeCommand(pivot));
     }
 
     public Command getAutonomousCommand() {
