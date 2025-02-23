@@ -21,26 +21,22 @@ public class ScoringLimeLightSubSystem extends SubsystemBase {
   private NetworkTableEntry NetworkTx;
   private NetworkTableEntry NetworkTy;
   private NetworkTableEntry NetworkTa;
-  private NetworkTableEntry NetworkBotPose;
   private double[] botpose = new double[6];
-  Pose2d poseA = new Pose2d();
-  Pose2d poseB = new Pose2d();
-  private static final String DEVICE_NAME = "limelight-left";
+  private String name;
   
-  public ScoringLimeLightSubSystem() {
-    limelight = NetworkTableInstance.getDefault().getTable(DEVICE_NAME);
-    
+  public ScoringLimeLightSubSystem(String name) {
+    this.name = name;
+    limelight = NetworkTableInstance.getDefault().getTable(name);
     NetworkTx = limelight.getEntry("tx");
     NetworkTy = limelight.getEntry("ty");
     NetworkTa = limelight.getEntry("ta");
-    NetworkBotPose = limelight.getEntry("botpose");
     LimelightHelpers.setPipelineIndex("limelight", 0);
   }
 
   @Override
   public void periodic() {
     
-    botpose = LimelightHelpers.getBotPose_TargetSpace(DEVICE_NAME);
+    botpose = LimelightHelpers.getBotPose_TargetSpace(name);
     SmartDashboard.putString("bot pose target", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
     //SmartDashboard.putString("values", poseA.getTranslation().getX() + " " + poseA.getTranslation().getY() + " " + poseA.getRotation());
 
