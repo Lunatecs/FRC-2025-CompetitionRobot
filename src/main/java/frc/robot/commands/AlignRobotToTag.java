@@ -27,13 +27,13 @@ public class AlignRobotToTag extends Command {
 
   public AlignRobotToTag(ScoringLimeLightSubSystem limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.009, 0, 0); //.009375
+    pidStrafe = new PIDController(.01, 0, 0); //.009375
     pidStrafe.setSetpoint(0);
     pidStrafe.setTolerance(1);
-    pidTranslate = new PIDController(.009, 0, 0); //.009375
-    pidTranslate.setSetpoint(-18);
+    pidTranslate = new PIDController(.025, 0, 0); //.009375
+    pidTranslate.setSetpoint(0);
     pidTranslate.setTolerance(1);
-    pidRotation = new PIDController(.02, 0, 0);
+    pidRotation = new PIDController(.015, 0, 0);
     pidRotation.setSetpoint(0);
     pidRotation.setTolerance(1);
     this.limelight = limelight;
@@ -66,7 +66,7 @@ public class AlignRobotToTag extends Command {
     if(pidRotation.atSetpoint()){
       drive.withRotationalRate(0);
     } else {
-      drive.withRotationalRate(0);
+      drive.withRotationalRate(rotationSpeed);
     }
     if(pidStrafe.atSetpoint()) {
       drive.withVelocityY(0);
@@ -76,7 +76,8 @@ public class AlignRobotToTag extends Command {
     if(pidTranslate.atSetpoint() || limelight.GetTy() == 0) {
       drive.withVelocityX(0);
     } else {
-      drive.withVelocityX(translateSpeed);
+      drive.withVelocityX(-translateSpeed);
+      //drive.withVelocityX(0);
     }
 
     drivetrain.setControl(drive);
