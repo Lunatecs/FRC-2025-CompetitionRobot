@@ -22,12 +22,12 @@ public class ElevatorSubSystem extends SubsystemBase {
   private final double rotationToInches = spoolDiameter*Math.PI*gearRatio;
   private final double initialElevatorHeight = 5.75;
 
-  private final DigitalInput elevatorLimitSwitch = new DigitalInput(Constants.ElevatorSubSystem.INPUT_ID);
+  private final DigitalInput elevatorLimitSwitch = new DigitalInput(Constants.ElevatorSubSystemConstants.INPUT_ID);
 
 
   public ElevatorSubSystem() {
-    motor1 = new TalonFX(Constants.ElevatorSubSystem.CAN_ID_MOTOR1);
-    motor2 = new TalonFX(Constants.ElevatorSubSystem.CAN_ID_MOTOR2);
+    motor1 = new TalonFX(Constants.ElevatorSubSystemConstants.CAN_ID_MOTOR1);
+    motor2 = new TalonFX(Constants.ElevatorSubSystemConstants.CAN_ID_MOTOR2);
     motor1.setNeutralMode(NeutralModeValue.Brake);
     motor2.setNeutralMode(NeutralModeValue.Brake);
     motor1.setPosition(0);

@@ -22,6 +22,9 @@ public class CoralGroundIntakeSubSystem extends SubsystemBase {
   public void setSpeed(double speed){
     intakeMotor.set(speed);
   }
+  public double getEncoder(){
+    return intakeMotor.getPosition().getValueAsDouble();
+  }
 
   @Override 
   public void periodic() {

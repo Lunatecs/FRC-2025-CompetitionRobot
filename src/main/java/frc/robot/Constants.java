@@ -25,7 +25,7 @@ public final class Constants {
     public static final int CAN_ID_CARRIAGE =11;
   }
 
-  public final class CoralGroundIntakePivotSubSystem{
+  public final class CoralGroundIntakePivotSubSystemConstants{
     public static final int CAN_ID_INTAKE_PIVOT = 12;
   }
 
@@ -38,7 +38,7 @@ public final class Constants {
     public static final int CAN_ID_CLIMBER = 17;
   }
 
-  public static class ElevatorSubSystem{
+  public static class ElevatorSubSystemConstants{
     public static final int CAN_ID_MOTOR1 = 9;
     public static final int CAN_ID_MOTOR2 = 10;
 
