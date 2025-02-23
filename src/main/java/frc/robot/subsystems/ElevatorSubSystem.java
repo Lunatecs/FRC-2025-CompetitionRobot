@@ -36,12 +36,16 @@ public class ElevatorSubSystem extends SubsystemBase {
     motor2.setControl(new Follower(motor1.getDeviceID(), true));
   }
 
+  public double getInitialElevatorHeight(){
+    return initialElevatorHeight;
+  }
+
   public void setSpeed(double speed){
     motor1.set(speed);
   }
 
   public boolean getLimitSwitch(){
-    return elevatorLimitSwitch.get();
+    return !elevatorLimitSwitch.get();
   }
 
   public double getEncoder(){
@@ -54,7 +58,9 @@ public class ElevatorSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-
+    if(getLimitSwitch()) {
+      motor1.setPosition(0);
+    }
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("elevator encoder", getEncoder());
     SmartDashboard.putNumber("elevator height", getElevatorHeight());
