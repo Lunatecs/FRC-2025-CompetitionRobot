@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.AlignRobotToTag;
 import frc.robot.commands.AutoDeliverCommand;
@@ -138,6 +139,8 @@ public class RobotContainer {
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
         driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
         driver.povDown().onTrue(new DropIntakeCommand(pivot));
+
+        operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
     }
 
     public Command getAutonomousCommand() {
