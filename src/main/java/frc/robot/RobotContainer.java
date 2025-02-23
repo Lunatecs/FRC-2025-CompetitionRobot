@@ -84,6 +84,10 @@ public class RobotContainer {
             )
         );
 
+       /*  driver.L1().onTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed)
+                                                                            .withVelocityY(driver.getLeftX() * MaxSpeed)
+                                                                            .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
+*/
         driver.R1().whileTrue(new AlignRobotToTag(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
