@@ -21,8 +21,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.AlignRobotToTag;
 import frc.robot.commands.AutoDeliverCommand;
+import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
@@ -30,6 +32,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralFeederSubSystem;
+import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
 import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
@@ -64,6 +67,7 @@ public class RobotContainer {
     private CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
+    private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystem limelightLeft = new ScoringLimeLightSubSystem();
 
     public RobotContainer() {
@@ -130,8 +134,10 @@ public class RobotContainer {
         operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
 
-        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
-        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
+        //operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+        operator.povUp().onTrue(new RaiseIntakeCommand(pivot));
+        operator.povDown().onTrue(new DropIntakeCommand(pivot));
     }
 
     public Command getAutonomousCommand() {

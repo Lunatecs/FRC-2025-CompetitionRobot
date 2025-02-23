@@ -19,7 +19,7 @@ public class DropIntakeCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0111, 0, 0); 
-    controller.setSetpoint(90);
+    controller.setSetpoint(145);
     controller.setTolerance(2);
   }
 
@@ -31,8 +31,8 @@ public class DropIntakeCommand extends Command {
   @Override
   public void execute() {
     double speed = controller.calculate(pivot.getDegreesOfPivot());
-    if(Math.abs(speed)> 0.2){
-      speed = Math.signum(speed) * 0.2;
+    if(Math.abs(speed)> 0.8){
+      speed = Math.signum(speed) * 0.8;
     }
     pivot.setSpeed(speed);
   }
