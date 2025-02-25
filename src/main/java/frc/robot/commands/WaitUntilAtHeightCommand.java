@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AtHeightCommand extends Command {
+public class WaitUntilAtHeightCommand extends Command {
 
   ElevatorSubSystem elevator;
   boolean isFinished;
   double height;
 
   /** Creates a new AtHeightCommand. */
-  public AtHeightCommand(ElevatorSubSystem elevator, double height) {
+  public WaitUntilAtHeightCommand(ElevatorSubSystem elevator, double height) {
     this.elevator = elevator;
     this.height = height;
     // Use addRequirements() here to declare subsystem dependencies.

@@ -14,14 +14,22 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoDeliverCommand extends ParallelDeadlineGroup {
+public class AutoDeliverCommand extends SequentialCommandGroup {
   /** Creates a new AutoDeliverCommand. */
   public AutoDeliverCommand(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
-
+    addCommands(
+      new ParallelDeadlineGroup(
+        new SequentialCommandGroup(
+            new WaitUntilAtHeightCommand(elevator, shootAtHeight),
+            new ShootCoralCommand(coralOutake)), 
+        goToLevelCommand),
+      new ElevatorDownCommand(elevator)
+    );
+    addRequirements(elevator,coralOutake);
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new SequentialCommandGroup(new AtHeightCommand(elevator, shootAtHeight), new ShootCoralCommand(coralOutake)));
+    //super(new SequentialCommandGroup(new AtHeightCommand(elevator, shootAtHeight), new ShootCoralCommand(coralOutake)));
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(goToLevelCommand);
+    //addCommands(goToLevelCommand);
   }
 }
