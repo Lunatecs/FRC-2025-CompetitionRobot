@@ -27,7 +27,7 @@ public class AlignRobotToTag extends Command {
 
   public AlignRobotToTag(ScoringLimeLightSubSystem limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.7, 0, 0); //.009375
+    pidStrafe = new PIDController(.8, 0, 0); //.009375
     pidStrafe.setSetpoint(0);
     pidStrafe.setTolerance(0.0);
     pidTranslate = new PIDController(.4, 0, 0); //.009375
