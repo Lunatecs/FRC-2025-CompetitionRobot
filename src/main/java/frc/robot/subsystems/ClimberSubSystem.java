@@ -4,15 +4,34 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
 public class ClimberSubSystem extends SubsystemBase {
   /** Creates a new ClimberSubSystem. */
+  private TalonFX motor;
 
+  public ClimberSubSystem() {
+    motor = new TalonFX(Constants.ClimberSubSystemConstants.CAN_ID_CLIMBER);
+    motor.setPosition(0);
+    motor.setNeutralMode(NeutralModeValue.Brake);
+  }
+
+  public void setSpeed(double speed) {
+    motor.set(speed);
+  }
+
+  public double getEncoder(){
+    return motor.getPosition().getValueAsDouble();
+  }
 
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("climber encoder", getEncoder());
   }
 }
