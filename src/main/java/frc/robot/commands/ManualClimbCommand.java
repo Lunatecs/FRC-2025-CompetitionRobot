@@ -4,23 +4,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
+import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ClimberSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakePivotAlgaeCommand extends Command {
-  private CoralGroundIntakePivotSubSystem pivot;
-  PIDController controller;
-  /** Creates a new DropIntakeCommand. */
-  public IntakePivotAlgaeCommand(CoralGroundIntakePivotSubSystem pivot) {
-    this.pivot = pivot;
+public class ManualClimbCommand extends Command {
+  ClimberSubSystem climber;
+  DoubleSupplier supplier;
+  /** Creates a new ManualClimbCommand. */
+  public ManualClimbCommand(ClimberSubSystem climber, DoubleSupplier supplier) {
+    this.climber = climber;
+    this.supplier = supplier;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(pivot);
-    controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(70);
-    controller.setTolerance(2);
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -30,17 +29,14 @@ public class IntakePivotAlgaeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = controller.calculate(pivot.getDegreesOfPivot());
-    if(Math.abs(speed)> 0.8){
-      speed = Math.signum(speed) * 0.8;
-    }
-    pivot.setSpeed(speed);
+    SmartDashboard.putNumber("Power CLimber", supplier.getAsDouble());
+    climber.setSpeed(supplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pivot.setSpeed(0);
+    climber.setSpeed(0);
   }
 
   // Returns true when the command should end.
