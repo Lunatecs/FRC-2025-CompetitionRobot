@@ -4,28 +4,23 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.networktables.DoubleArrayEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructArrayPublisher;
-import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 
-public class ScoringLimeLightSubSystem extends SubsystemBase {
-  /** Creates a new ScoringLimeLightSubSystem. */
+public class ScoringLimeLightSubSystemRight extends SubsystemBase {
+  /** Creates a new ScoringLimeLightSubSystemRight. */
   private NetworkTable limelight;
   private NetworkTableEntry NetworkTx;
   private NetworkTableEntry NetworkTy;
   private NetworkTableEntry NetworkTa;
   private double[] botpose = new double[6];
-  private String name;
-  
-  public ScoringLimeLightSubSystem(String name) {
-    this.name = name;
+  private String name = "limelight-right";
+
+  public ScoringLimeLightSubSystemRight() {
     limelight = NetworkTableInstance.getDefault().getTable(name);
     NetworkTx = limelight.getEntry("tx");
     NetworkTy = limelight.getEntry("ty");
@@ -35,17 +30,11 @@ public class ScoringLimeLightSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    // This method will be called once per scheduler run
     botpose = LimelightHelpers.getBotPose_TargetSpace(name);
-    SmartDashboard.putString("bot pose target", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
-    //SmartDashboard.putString("values", poseA.getTranslation().getX() + " " + poseA.getTranslation().getY() + " " + poseA.getRotation());
-
-    //this.botpose = NetworkBotPose.getDoubleArray(new double[8]);
-
-    //SmartDashboard.putString("vision-left: x = ", this.GetTx() + ", y = " + this.GetTy());
-
-    //SmartDashboard.putString("limelight vals", getTranslationX() + " " + getTranslationY() + " " + getYaw());
-    //SmartDashboard.putNumber("t2d", getSkew());
+    SmartDashboard.putString("bot pose target RIGHT", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
+    SmartDashboard.putNumber("limelight RIGHT x", getTranslationX());
+    SmartDashboard.putNumber("limelight RIGHT y", getTranslationY());
   }
 
   public double getTranslationX() {
@@ -65,11 +54,11 @@ public class ScoringLimeLightSubSystem extends SubsystemBase {
     return NetworkTx.getDouble(0.0);
     }
   
-    public double GetTy(){
+  public double GetTy(){
     return NetworkTy.getDouble(0.0);
-    }
+  }
   
-    public double GetTa(){
+  public double GetTa(){
     return NetworkTa.getDouble(0.0);
-    }
+  }
 }

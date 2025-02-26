@@ -11,27 +11,28 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.ScoringLimeLightSubSystem;
+import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
+import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlignRobotToTag extends Command {
+public class AlignRobotToTagRight extends Command {
   /** Creates a new AlignRobotToTag. */
   PIDController pidStrafe;
   PIDController pidTranslate;
   PIDController pidRotation;
-  ScoringLimeLightSubSystem limelight;
+  ScoringLimeLightSubSystemRight limelight;
   CommandSwerveDrivetrain drivetrain;
   SwerveRequest.RobotCentric drive;
   double MaxSpeed;
   double MaxAngularRate;
 
-  public AlignRobotToTag(ScoringLimeLightSubSystem limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+  public AlignRobotToTagRight(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.8, 0, 0); //.009375
-    pidStrafe.setSetpoint(0);
+    pidStrafe = new PIDController(.6, 0, 0); //.009375
+    pidStrafe.setSetpoint(0.0);
     pidStrafe.setTolerance(0.0);
-    pidTranslate = new PIDController(.4, 0, 0); //.009375
-    pidTranslate.setSetpoint(0);
+    pidTranslate = new PIDController(.35, 0, 0); //.009375
+    pidTranslate.setSetpoint(-0.40);
     pidTranslate.setTolerance(0.0);
     pidRotation = new PIDController(.015, 0, 0);
     pidRotation.setSetpoint(0);

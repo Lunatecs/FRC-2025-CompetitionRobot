@@ -24,7 +24,8 @@ import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.RaiseIntakeCommand;
-import frc.robot.commands.AlignRobotToTag;
+import frc.robot.commands.AlignRobotToTagLeft;
+import frc.robot.commands.AlignRobotToTagRight;
 import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
@@ -32,13 +33,15 @@ import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
+import frc.robot.subsystems.ClimberSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
 import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
-import frc.robot.subsystems.ScoringLimeLightSubSystem;
+import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
+import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -70,8 +73,9 @@ public class RobotContainer {
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
     private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
-    private final ScoringLimeLightSubSystem limelightLeft = new ScoringLimeLightSubSystem("limelight-left");
-    private final ScoringLimeLightSubSystem limelightRight = new ScoringLimeLightSubSystem("limelight-right");
+    private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
+    private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
+    private final ClimberSubSystem climber = new ClimberSubSystem();
 
 
     public RobotContainer() {
@@ -97,8 +101,8 @@ public class RobotContainer {
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
-        driver.R1().whileTrue(new AlignRobotToTag(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        driver.L1().whileTrue(new AlignRobotToTag(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.R1().whileTrue(new AlignRobotToTagLeft(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.L1().whileTrue(new AlignRobotToTagRight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
