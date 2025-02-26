@@ -11,15 +11,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Target and Score RIGHT Pole"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "test second path"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Target and Score LEFT Pole"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "test third path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Target and Score RIGHT Pole"
           }
         }
       ]

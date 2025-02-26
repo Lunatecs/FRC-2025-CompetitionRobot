@@ -11,29 +11,30 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
+import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlignRobotToTagLeft extends Command {
+public class AlignRobotToTagRightLimeLight extends Command {
   /** Creates a new AlignRobotToTag. */
   PIDController pidStrafe;
   PIDController pidTranslate;
   PIDController pidRotation;
-  ScoringLimeLightSubSystemLeft limelight;
+  ScoringLimeLightSubSystemRight limelight;
   CommandSwerveDrivetrain drivetrain;
   SwerveRequest.RobotCentric drive;
   double MaxSpeed;
   double MaxAngularRate;
+  boolean isFinished;
 
-  public AlignRobotToTagLeft(ScoringLimeLightSubSystemLeft limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+  public AlignRobotToTagRightLimeLight(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.40, 0, 0); //.009375
-    pidStrafe.setSetpoint(-0.055);
-    pidStrafe.setTolerance(0.0);
+    pidStrafe = new PIDController(.4, 0, 0); //.009375
+    pidStrafe.setSetpoint(0.07);
+    pidStrafe.setTolerance(0.02);
     pidTranslate = new PIDController(.5, 0, 0); //.009375
     pidTranslate.setSetpoint(-0.40);
-    pidTranslate.setTolerance(0.0);
-    pidRotation = new PIDController(.015, 0, 0);
+    pidTranslate.setTolerance(0.1);
+    pidRotation = new PIDController(.018, 0, 0);
     pidRotation.setSetpoint(0);
     pidRotation.setTolerance(0.0);
     this.limelight = limelight;
@@ -46,7 +47,9 @@ public class AlignRobotToTagLeft extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -81,6 +84,10 @@ public class AlignRobotToTagLeft extends Command {
     }
 
     drivetrain.setControl(drive);
+
+    if (pidTranslate.atSetpoint() && pidStrafe.atSetpoint()) {
+      isFinished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -90,6 +97,6 @@ public class AlignRobotToTagLeft extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

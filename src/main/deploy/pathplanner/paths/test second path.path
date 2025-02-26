@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.3048863636363635,
-        "y": 5.06703125
+        "x": 5.018333333333333,
+        "y": 5.201538461538462
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.753607954545455,
-        "y": 5.804928977272727
+        "x": 4.584871794871794,
+        "y": 5.872371794871794
       },
       "isLocked": false,
       "linkedName": "Coral 1"
@@ -20,28 +20,28 @@
         "y": 7.310639204545454
       },
       "prevControl": {
-        "x": 1.8444931382838945,
-        "y": 7.443792327171553
+        "x": 1.4569565853750734,
+        "y": 7.571976155191894
       },
       "nextControl": {
-        "x": 0.16951704545454538,
-        "y": 6.582713068181818
+        "x": 1.884630681818182,
+        "y": 6.702372159090909
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.9786647727272726,
-        "y": 5.216605113636364
+        "x": 3.270681818181819,
+        "y": 6.094105113636363
       },
       "prevControl": {
-        "x": 3.6894886363636368,
-        "y": 5.655355113636364
+        "x": 2.8618465909090913,
+        "y": 6.363338068181817
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Coral 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -52,7 +52,14 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Station Pick Up Command",
+      "waypointRelativePos": 0.2037652270210437,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -62,7 +69,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 4.0,
     "rotation": -57.26477372789239
   },
   "reversed": false,

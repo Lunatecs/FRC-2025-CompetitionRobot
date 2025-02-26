@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,12 +22,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.FullAlignLeftLimeLight;
+import frc.robot.commands.FullAlignRightLimeLight;
 import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.RaiseIntakeCommand;
-import frc.robot.commands.AlignRobotToTagLeft;
-import frc.robot.commands.AlignRobotToTagRight;
+import frc.robot.commands.AlignRobotToTagLeftLimeLight;
+import frc.robot.commands.AlignRobotToTagRightLimeLight;
 import frc.robot.commands.AutoDeliverCommand;
+import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
+import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
 import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
@@ -82,6 +87,10 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
 
+        NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+
         configureBindings();
     }
 
@@ -101,8 +110,8 @@ public class RobotContainer {
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
-        driver.R1().whileTrue(new AlignRobotToTagLeft(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        driver.L1().whileTrue(new AlignRobotToTagRight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
