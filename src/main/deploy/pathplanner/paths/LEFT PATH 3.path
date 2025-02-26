@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.018333333333333,
-        "y": 5.201538461538462
+        "x": 3.9986079545454545,
+        "y": 5.1966619318181815
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.584871794871794,
-        "y": 5.872371794871794
-      },
-      "isLocked": false,
-      "linkedName": "Coral 1"
-    },
-    {
-      "anchor": {
-        "x": 1.5854829545454543,
-        "y": 7.310639204545454
-      },
-      "prevControl": {
-        "x": 1.4569565853750734,
-        "y": 7.571976155191894
-      },
-      "nextControl": {
-        "x": 1.884630681818182,
-        "y": 6.702372159090909
+        "x": 3.564121066409509,
+        "y": 5.867766236005149
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.270681818181819,
-        "y": 6.094105113636363
+        "x": 1.4887179487179483,
+        "y": 7.214038461538462
       },
       "prevControl": {
-        "x": 2.8618465909090913,
-        "y": 6.363338068181817
+        "x": 2.1479551642516874,
+        "y": 7.811115754768097
+      },
+      "nextControl": {
+        "x": 1.0590425607837315,
+        "y": 6.824877456137022
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.051306818181818,
+        "y": 5.83484375
+      },
+      "prevControl": {
+        "x": 1.7105109794006346,
+        "y": 5.917908770095758
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,8 +46,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9413854351687247,
-      "rotationDegrees": -55.02598772610398
+      "waypointRelativePos": 1,
+      "rotationDegrees": -53.392925187392414
     }
   ],
   "constraintZones": [],
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Station Pick Up Command",
-      "waypointRelativePos": 0.2037652270210437,
+      "waypointRelativePos": 0.21705426356588434,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -70,13 +70,13 @@
   },
   "goalEndState": {
     "velocity": 4.0,
-    "rotation": -57.26477372789239
+    "rotation": -60.25511870305772
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -120.2564371635292
+    "rotation": -59.85861444792466
   },
   "useDefaultConstraints": true
 }

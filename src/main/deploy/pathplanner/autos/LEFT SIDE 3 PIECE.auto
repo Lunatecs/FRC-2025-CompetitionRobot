@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "test first path"
+            "pathName": "LEFT PATH 1"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "test second path"
+            "pathName": "LEFT PATH 2"
           }
         },
         {
@@ -31,7 +31,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "test third path"
+            "pathName": "LEFT PATH 3"
           }
         },
         {

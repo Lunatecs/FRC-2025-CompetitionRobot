@@ -28,13 +28,13 @@ public class AlignRobotToTagLeftLimeLight extends Command {
 
   public AlignRobotToTagLeftLimeLight(ScoringLimeLightSubSystemLeft limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.40, 0, 0); //.009375
+    pidStrafe = new PIDController(.40, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
     pidStrafe.setSetpoint(-0.07);
     pidStrafe.setTolerance(0.02);
-    pidTranslate = new PIDController(.5, 0, 0); //.009375
+    pidTranslate = new PIDController(.5, 0, 0); // Forward/Backward PID (NEEDS TO BE TUNED BETTER)
     pidTranslate.setSetpoint(-0.40);
     pidTranslate.setTolerance(0.1);
-    pidRotation = new PIDController(.018, 0, 0);
+    pidRotation = new PIDController(.018, 0, 0); // Rotation PID
     pidRotation.setSetpoint(0);
     pidRotation.setTolerance(0.0);
     this.limelight = limelight;
