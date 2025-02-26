@@ -66,6 +66,9 @@ public class AlignRobotToTagLeftLimeLight extends Command {
     final double rotationSpeed = MathUtil.clamp(rotation, -1.0, 1.0) * MaxAngularRate;
     SmartDashboard.putNumber("rotation", rotationSpeed);
 
+    SmartDashboard.putBoolean("RIGHT POLE TRANSLATION AT SETPOINT", pidTranslate.atSetpoint());
+    SmartDashboard.putBoolean("RIGHT POLE STRAFE AT SETPOINT", pidStrafe.atSetpoint());
+
     if(pidRotation.atSetpoint()){
       drive.withRotationalRate(0);
     } else {
