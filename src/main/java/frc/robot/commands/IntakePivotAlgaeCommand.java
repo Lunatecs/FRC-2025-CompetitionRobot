@@ -19,7 +19,7 @@ public class IntakePivotAlgaeCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(51);
+    controller.setSetpoint(70);
     controller.setTolerance(2);
   }
 

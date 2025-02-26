@@ -23,6 +23,8 @@ import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.IntakeCoralCommand;
+import frc.robot.commands.IntakePivotAlgaeCommand;
+import frc.robot.commands.ManualClimbCommand;
 import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.AlignRobotToTagLeft;
 import frc.robot.commands.AlignRobotToTagRight;
@@ -96,7 +98,9 @@ public class RobotContainer {
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
-
+        climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
+            return operator.getLeftY();    
+        }));
        /*  driver.L1().onTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed)
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
@@ -153,6 +157,10 @@ public class RobotContainer {
         driver.povDown().onTrue(new DropIntakeCommand(pivot));
 
         operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+
+        driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
+        driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
+        .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
     }
 
     public Command getAutonomousCommand() {
