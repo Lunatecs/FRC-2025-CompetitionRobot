@@ -107,14 +107,15 @@ public class RobotContainer {
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
-        climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
-            return operator.getLeftY();    
-        }));
+        //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
+           // return operator.getLeftY();    
+       // }));
        /*  driver.L1().onTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed)
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
-        driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        //driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.R1().whileTrue(new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
 

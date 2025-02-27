@@ -23,7 +23,7 @@ public class FullAlignLeftLimeLight extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AlignRobotToTagLeftLimeLight(limelightLeft, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
-      new ParallelDeadlineGroup(new WaitCommand(1.0), new InstantCommand(() -> drivetrain.setControl(robotCentric.withVelocityX(2.0))))
+      new ParallelDeadlineGroup(new WaitCommand(1.5), new InstantCommand(() -> drivetrain.setControl(robotCentric.withVelocityX(1.0).withVelocityY(0.0))))
     );
   }
 }
