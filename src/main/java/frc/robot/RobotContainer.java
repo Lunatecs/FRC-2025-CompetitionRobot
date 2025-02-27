@@ -89,14 +89,14 @@ public class RobotContainer {
 
 
     public RobotContainer() {
-        autoChooser = AutoBuilder.buildAutoChooser();
-        SmartDashboard.putData("Auto Mode", autoChooser);
-
-        NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        
         NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+        NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Mode", autoChooser);
         //NamedCommands.registerCommand("testpathing", new testAuto3Piece(path, limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
         configureBindings();
@@ -113,9 +113,9 @@ public class RobotContainer {
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
-        climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
-           return operator.getLeftY();    
-        }));
+        //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
+           //return operator.getLeftY();    
+        //}));
        /*  driver.L1().onTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed)
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
