@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,6 +30,7 @@ import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.IntakePivotAlgaeCommand;
 import frc.robot.commands.ManualClimbCommand;
 import frc.robot.commands.RaiseIntakeCommand;
+import frc.robot.commands.testAuto3Piece;
 import frc.robot.commands.AlignRobotToTagLeftLimeLight;
 import frc.robot.commands.AlignRobotToTagRightLimeLight;
 import frc.robot.commands.AutoDeliverCommand;
@@ -83,6 +85,7 @@ public class RobotContainer {
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
     private final ClimberSubSystem climber = new ClimberSubSystem();
+    //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
     public RobotContainer() {
@@ -91,7 +94,10 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+
+        //NamedCommands.registerCommand("testpathing", new testAuto3Piece(path, limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
         configureBindings();
     }
