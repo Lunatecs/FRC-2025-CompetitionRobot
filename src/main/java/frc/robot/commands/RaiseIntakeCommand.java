@@ -18,7 +18,7 @@ public class RaiseIntakeCommand extends Command {
     this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
-    controller = new PIDController(0.0125, 0, 0); 
+    controller = new PIDController(0.0125, 0, 1); 
     controller.setSetpoint(25);
     controller.setTolerance(2);
   }
