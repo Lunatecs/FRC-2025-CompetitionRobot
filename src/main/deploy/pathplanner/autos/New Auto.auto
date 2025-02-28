@@ -7,13 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LEFT PATH 1"
+            "pathName": "LEFTPATH"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Target and Score RIGHT Pole"
+            "name": "ScoreL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LEFT PATH 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LEFT PATH 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4"
           }
         }
       ]

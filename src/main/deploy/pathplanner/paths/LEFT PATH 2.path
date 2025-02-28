@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.4809685247945525,
-        "y": 5.592612197523671
+        "x": 3.1709659090909086,
+        "y": 6.014332386363637
       },
       "isLocked": false,
       "linkedName": "Coral 1"
     },
     {
       "anchor": {
-        "x": 1.5854829545454543,
-        "y": 7.310639204545454
+        "x": 1.455852272727273,
+        "y": 7.001519886363636
       },
       "prevControl": {
-        "x": 1.38178019927232,
-        "y": 7.455570869457348
+        "x": 1.2521495174541386,
+        "y": 7.14645155127553
       },
       "nextControl": {
-        "x": 2.40433247417817,
-        "y": 6.728039209599159
+        "x": 2.2747017923599913,
+        "y": 6.4189198914173415
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.270681818181819,
-        "y": 6.094105113636363
+        "x": 3.4701136363636365,
+        "y": 5.9245880681818175
       },
       "prevControl": {
-        "x": 2.847365384466285,
-        "y": 6.367567550307588
+        "x": 3.0467972026481025,
+        "y": 6.198050504853042
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.9413854351687247,
-      "rotationDegrees": -55.02598772610398
+      "rotationDegrees": -51.919564228648866
     }
   ],
   "constraintZones": [],
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Station Pick Up Command",
-      "waypointRelativePos": 0.2037652270210437,
+      "waypointRelativePos": 0.0,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -70,7 +70,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -57.26477372789239
+    "rotation": -61.504361381755054
   },
   "reversed": false,
   "folder": null,
