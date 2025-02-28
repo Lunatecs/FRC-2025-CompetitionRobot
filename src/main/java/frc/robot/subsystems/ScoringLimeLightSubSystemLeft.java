@@ -39,6 +39,7 @@ public class ScoringLimeLightSubSystemLeft extends SubsystemBase {
     SmartDashboard.putString("bot pose target LEFT", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
     SmartDashboard.putNumber("limelight LEFT x", getTranslationX());
     SmartDashboard.putNumber("limelight LEFT y", getTranslationY());
+
     //SmartDashboard.putString("values", poseA.getTranslation().getX() + " " + poseA.getTranslation().getY() + " " + poseA.getRotation());
 
     //this.botpose = NetworkBotPose.getDoubleArray(new double[8]);
