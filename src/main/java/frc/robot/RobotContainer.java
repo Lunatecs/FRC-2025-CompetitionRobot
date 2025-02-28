@@ -113,6 +113,12 @@ public class RobotContainer {
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
+
+
+
+
+
+
         //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
            //return operator.getLeftY();    
         //}));
