@@ -19,8 +19,8 @@ public class ElevatorLevelOneCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     addRequirements(elevator);
-    controller = new PIDController(0.01025, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031
-    controller.setSetpoint(25.5);
+    controller = new PIDController(0.03025, 0, 0); //0.01025
+    controller.setSetpoint(23.5); //25.5, 24
     controller.setTolerance(0.25);
   }
 
