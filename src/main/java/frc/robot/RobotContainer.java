@@ -149,6 +149,9 @@ public class RobotContainer {
 
         operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+        
+        operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
+        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
         .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
