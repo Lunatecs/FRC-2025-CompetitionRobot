@@ -63,8 +63,8 @@ public class ElevatorSubSystem extends SubsystemBase {
       motor1.setPosition(0);
     }
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("elevator encoder", getEncoder());
+   // SmartDashboard.putNumber("elevator encoder", getEncoder());
     SmartDashboard.putNumber("elevator height", getElevatorHeight());
-    SmartDashboard.putBoolean("Elevator Limit Switch", getLimitSwitch());
+    //SmartDashboard.putBoolean("Elevator Limit Switch", getLimitSwitch());
   }
 }

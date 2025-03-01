@@ -32,7 +32,10 @@ public class ScoringLimeLightSubSystemRight extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     botpose = LimelightHelpers.getBotPose_TargetSpace(name);
-    SmartDashboard.putString("bot pose target RIGHT", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
+    if(botpose==null || botpose.length<6) {
+      botpose = new double[6];
+    }
+    //SmartDashboard.putString("bot pose target RIGHT", botpose[0] + " " + botpose[2]+ " " +  botpose[4]);
     SmartDashboard.putNumber("limelight RIGHT x", getTranslationX());
     SmartDashboard.putNumber("limelight RIGHT y", getTranslationY());
   }

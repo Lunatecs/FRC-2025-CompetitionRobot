@@ -40,7 +40,7 @@ public class CoralGroundIntakePivotSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Pivot Degrees", getDegreesOfPivot());
+    //SmartDashboard.putNumber("Pivot Degrees", getDegreesOfPivot());
     // This method will be called once per scheduler run
   }
 }

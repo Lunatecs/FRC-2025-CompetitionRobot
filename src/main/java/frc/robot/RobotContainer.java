@@ -36,6 +36,7 @@ import frc.robot.commands.AlignRobotToTagRightLimeLight;
 import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
 import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
+import frc.robot.commands.AutoTrackToReef;
 import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
@@ -84,16 +85,18 @@ public class RobotContainer {
     private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
-    private final ClimberSubSystem climber = new ClimberSubSystem();
+    //private final ClimberSubSystem climber = new ClimberSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
     public RobotContainer() {
         
-        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
+        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.0));
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+
+        NamedCommands.registerCommand("MoveIntakeOut", new RaiseIntakeCommand(pivot));
 
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -119,11 +122,11 @@ public class RobotContainer {
                                                                     .withVelocityY(driver.getLeftX() * MaxSpeed * 0.4)
                                                                     .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.4)));
         
-        driver.square().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.4)
-                                                                                .withVelocityY(driver.getLeftX() * MaxSpeed * 0.4)
-                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.4)));
+        //driver.square().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.4)
+                                                                                //.withVelocityY(driver.getLeftX() * MaxSpeed * 0.4)
+                                                                               // .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.4)));
 
-
+        //driver.square().whileTrue(new AutoTrackToReef(drivetrain));
         //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
            //return operator.getLeftY();    
         //}));
@@ -131,9 +134,10 @@ public class RobotContainer {
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
-        //driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        driver.R1().whileTrue(new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        //driver.R1().whileTrue(new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        
 
 
         /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));

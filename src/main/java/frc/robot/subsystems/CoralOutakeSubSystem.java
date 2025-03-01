@@ -39,18 +39,18 @@ public class CoralOutakeSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Outtake Sensor", sensor.getDistance().getValueAsDouble());
-    SmartDashboard.putBoolean("outtakeSensorTrigger", sensor.getIsDetected(true).getValue());
-    SmartDashboard.putNumber("strengthOfSignal", sensor.getSignalStrength().getValueAsDouble());
-    double dis = sensor.getDistance(true).getValueAsDouble();
+    //SmartDashboard.putNumber("Outtake Sensor", sensor.getDistance().getValueAsDouble());
+    //SmartDashboard.putBoolean("outtakeSensorTrigger", sensor.getIsDetected(true).getValue());
+    //SmartDashboard.putNumber("strengthOfSignal", sensor.getSignalStrength().getValueAsDouble());
+    /*double dis = sensor.getDistance(true).getValueAsDouble();
     boolean test = false; 
     if(dis < .18) {
       test=true;
     } else {
       test=false;
-    }
-    SmartDashboard.putBoolean("This is a boolean express because canrange sucks", test);
-    SmartDashboard.putNumber("Dis for Test", dis);
+    } */
+    //SmartDashboard.putBoolean("This is a boolean express because canrange sucks", test);
+    //SmartDashboard.putNumber("Dis for Test", dis);
     // This method will be called once per scheduler run
   }
 }
