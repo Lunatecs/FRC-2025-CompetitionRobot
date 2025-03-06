@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.Date;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.MathUtil;
@@ -25,18 +27,19 @@ public class AlignRobotToTagRightLimeLight extends Command {
   double MaxSpeed;
   double MaxAngularRate;
   boolean isFinished;
+  Date date;
 
   public AlignRobotToTagRightLimeLight(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.55, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
-    pidStrafe.setSetpoint(0.035);
+    pidStrafe = new PIDController(.585, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
+    pidStrafe.setSetpoint(0.045); //0.035
     pidStrafe.setTolerance(0.001);
-    pidTranslate = new PIDController(.5, 0, 0); // Forward/Backward PID (NEEDS TO BE TUNED BETTER)
+    pidTranslate = new PIDController(.55, 0, 0); // Forward/Backward PID (NEEDS TO BE TUNED BETTER)
     pidTranslate.setSetpoint(-0.40);
-    pidTranslate.setTolerance(0.1);
+    pidTranslate.setTolerance(0.01);
     pidRotation = new PIDController(.03, 0, 0); // Rotation PID
     pidRotation.setSetpoint(0);
-    pidRotation.setTolerance(0.0);
+    pidRotation.setTolerance(0.4);
     this.limelight = limelight;
     this.drivetrain = drivetrain;
     this.drive = robotCentric;
@@ -49,6 +52,7 @@ public class AlignRobotToTagRightLimeLight extends Command {
   @Override
   public void initialize() {
     isFinished = false;
+    date = new Date();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -88,7 +92,7 @@ public class AlignRobotToTagRightLimeLight extends Command {
 
     drivetrain.setControl(drive);
 
-    if (pidTranslate.atSetpoint() && pidStrafe.atSetpoint()) {
+    if ((pidTranslate.atSetpoint() && pidStrafe.atSetpoint()) || (new Date().getTime() - date.getTime() > 2500L)) {
       isFinished = true;
     }
   }

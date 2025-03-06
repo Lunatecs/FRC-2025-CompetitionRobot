@@ -30,6 +30,7 @@ import frc.robot.commands.IntakeCoralCommand;
 import frc.robot.commands.IntakePivotAlgaeCommand;
 import frc.robot.commands.ManualClimbCommand;
 import frc.robot.commands.RaiseIntakeCommand;
+import frc.robot.commands.ReefTrackingCommand;
 import frc.robot.commands.testAuto3Piece;
 import frc.robot.commands.AlignRobotToTagLeftLimeLight;
 import frc.robot.commands.AlignRobotToTagRightLimeLight;
@@ -91,7 +92,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         
-        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.0));
+        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65)); //70.5
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
@@ -118,13 +119,14 @@ public class RobotContainer {
             )
         );
 
-        driver.cross().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.4)
-                                                                    .withVelocityY(driver.getLeftX() * MaxSpeed * 0.4)
-                                                                    .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.4)));
+        driver.R3().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
+                                                                    .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)
+                                                                    .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         
-        //driver.square().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.4)
-                                                                                //.withVelocityY(driver.getLeftX() * MaxSpeed * 0.4)
-                                                                               // .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.4)));
+        //driver.cross().whileTrue(new ReefTrackingCommand(drivetrain));
+        driver.triangle().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
+                                                                                .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)
+                                                                               .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
         //driver.square().whileTrue(new AutoTrackToReef(drivetrain));
         //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
@@ -185,7 +187,8 @@ public class RobotContainer {
         operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
 
-        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
+        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
+        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
         driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
         driver.povDown().onTrue(new DropIntakeCommand(pivot));

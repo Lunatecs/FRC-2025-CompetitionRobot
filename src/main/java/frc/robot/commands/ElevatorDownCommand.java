@@ -38,9 +38,9 @@ public class ElevatorDownCommand extends Command {
       speed = Math.signum(speed) * 0.4;
     }
     if (elevator.getElevatorHeight()<15.0){
-      elevator.setSpeed(Math.signum(speed)*0.05);
+      speed = -0.1;
     }
-    if(elevator.getElevatorHeight()==elevator.getInitialElevatorHeight()) {
+    if(elevator.getLimitSwitch()) {
       speed = 0.0;
       isFinished = true;
     }

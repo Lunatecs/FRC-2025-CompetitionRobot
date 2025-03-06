@@ -11,22 +11,16 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LEFTPATH"
+                  "pathName": "Meter Move"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "MoveIntakeOut"
+                  "name": "Station Pick Up Command"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Target and Score RIGHT Pole"
           }
         }
       ]

@@ -22,7 +22,7 @@ public class AutoTargetScoreLeftPoleL4Sequence extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
-      new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5)
+      new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65) //70.5
     );
   }
 }

@@ -1,0 +1,113 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "One Piece Dead Reckoning"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveIntakeOut"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Side Station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Station Pick Up Command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveIntakeOut"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Station Pick Up Command"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "added path"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Station Pick Up Command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "MoveIntakeOut"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Target and Score RIGHT Pole"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
