@@ -26,10 +26,10 @@ import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAlignLeftLimeLight;
 import frc.robot.commands.FullAlignRightLimeLight;
 import frc.robot.commands.GetCoralSubstationCommand;
-import frc.robot.commands.IntakeCoralCommand;
-import frc.robot.commands.IntakePivotAlgaeCommand;
+//import frc.robot.commands.IntakeCoralCommand;
+//import frc.robot.commands.IntakePivotAlgaeCommand;
 import frc.robot.commands.ManualClimbCommand;
-import frc.robot.commands.RaiseIntakeCommand;
+//import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.ReefTrackingCommand;
 import frc.robot.commands.testAuto3Piece;
 import frc.robot.commands.AlignRobotToTagLeftLimeLight;
@@ -46,9 +46,9 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.ClimberSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.CoralFeederSubSystem;
+//import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
-import frc.robot.subsystems.CoralGroundIntakeSubSystem;
+//import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
 import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
@@ -78,12 +78,12 @@ public class RobotContainer {
     private final CommandPS5Controller operator = new CommandPS5Controller(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
-    private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
+    //private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
+    //private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
     private CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
-    private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
+    //private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
     //private final ClimberSubSystem climber = new ClimberSubSystem();
@@ -97,7 +97,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
-        NamedCommands.registerCommand("MoveIntakeOut", new RaiseIntakeCommand(pivot));
+        //NamedCommands.registerCommand("MoveIntakeOut", new RaiseIntakeCommand(pivot));
 
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -164,11 +164,11 @@ public class RobotContainer {
         //driver.R2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
-        driver.R2().onTrue(new IntakeCoralCommand(pivot, coralIntake, coralFeeder, coralCarriage, coralOutake));
+        //driver.R2().onTrue(new IntakeCoralCommand(pivot, coralIntake, coralFeeder, coralCarriage, coralOutake));
 
 
-        driver.L2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(-1); coralFeeder.setSpeed(-1); coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
-        .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
+        //driver.L2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(-1); coralFeeder.setSpeed(-1); coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
+        //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
         operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
@@ -190,14 +190,14 @@ public class RobotContainer {
         //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
         operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
-        driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
-        driver.povDown().onTrue(new DropIntakeCommand(pivot));
+        //driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
+        //driver.povDown().onTrue(new DropIntakeCommand(pivot));
 
         operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
 
-        driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
-        driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
-        .onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
+        //driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
+       // driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
+        //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
     }
 
     public Command getAutonomousCommand() {
