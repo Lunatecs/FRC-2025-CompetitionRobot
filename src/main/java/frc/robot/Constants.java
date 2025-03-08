@@ -35,7 +35,8 @@ public final class Constants {
   }
 
   public static class ClimberSubSystemConstants{
-    public static final int CAN_ID_CLIMBER = 17;
+    public static final int CAN_ID_CLIMBER1 = 17;
+    public static final int CAN_ID_CLIMBER2 = 18;
   }
 
   public static class ElevatorSubSystemConstants{

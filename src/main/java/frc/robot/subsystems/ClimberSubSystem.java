@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -14,21 +15,27 @@ import frc.robot.Constants;
 
 public class ClimberSubSystem extends SubsystemBase {
   /** Creates a new ClimberSubSystem. */
-  private TalonFX motor;
+  private TalonFX motor1;
+  private TalonFX motor2;
 
   public ClimberSubSystem() {
-    motor = new TalonFX(Constants.ClimberSubSystemConstants.CAN_ID_CLIMBER);
-    motor.setPosition(0);
-    motor.setNeutralMode(NeutralModeValue.Brake);
+    motor1 = new TalonFX(Constants.ClimberSubSystemConstants.CAN_ID_CLIMBER1);
+    motor1.setNeutralMode(NeutralModeValue.Brake);
+    motor2 = new TalonFX(Constants.ClimberSubSystemConstants.CAN_ID_CLIMBER2);
+    motor2.setNeutralMode(NeutralModeValue.Brake);
+    motor1.setPosition(0);
+    motor2.setControl(new Follower(motor1.getDeviceID(), true));
   }
 
   public void setSpeed(double speed) {
-    motor.set(speed);
+    motor1.set(speed);
   }
 
   public double getEncoder(){
-    return motor.getPosition().getValueAsDouble();
+    return motor1.getPosition().getValueAsDouble();
   }
+
+  
 
   public void periodic() {
     // This method will be called once per scheduler run
