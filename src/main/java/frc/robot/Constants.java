@@ -56,4 +56,8 @@ public final class Constants {
   public static class AlgaePivotSubSystemConstants{
     public static final int CAN_ID_ALGAE_PIVOT = 19;
   }
+
+  public static class AlgaeLiberatorSubSystemConstants{
+    public static final int CAN_ID_ALGAE_LIBERATOR = 16;
+  }
 }
