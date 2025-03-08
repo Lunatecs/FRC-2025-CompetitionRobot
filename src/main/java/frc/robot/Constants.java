@@ -49,6 +49,10 @@ public final class Constants {
     public static final int CAN_ID_FEEDER = 14;
   }
 
+  public static class CoralHopperSubSystemConstants{
+    public static final int CAN_ID_HOPPER = 20;
+  }
+
   public static class AlgaePivotSubSystemConstants{
     public static final int CAN_ID_ALGAE_PIVOT = 19;
   }
