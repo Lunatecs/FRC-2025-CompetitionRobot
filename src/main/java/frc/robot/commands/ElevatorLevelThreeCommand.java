@@ -20,7 +20,7 @@ public class ElevatorLevelThreeCommand extends Command {
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.033, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031,0.027
-    controller.setSetpoint(48.625);
+    controller.setSetpoint(49.625);
     controller.setTolerance(0.25);
   }
 

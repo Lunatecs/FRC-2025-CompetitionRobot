@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
 public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Subsystem {
@@ -199,7 +200,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         }
     }
 
-    private void configureAutoBuilder() {
+    public void configureAutoBuilder() {
         try {
             var config = RobotConfig.fromGUISettings();
             AutoBuilder.configure(
@@ -265,7 +266,29 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
         LimelightHelpers.SetRobotOrientation("limelight-left", getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
         SmartDashboard.putString("pose", "" + getState().Pose);
+        
+        //addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
+        
+        try {
+            Pose2d ll_bot=LimelightHelpers.getBotPose2d("limelight-left");
+            SmartDashboard.putString("ll bot", ll_bot.toString());
+            //Pose2d 
+            //Pose2d ll_botblue = LimelightHelpers.getTargetCount("limelight-left");
+            PoseEstimate poseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
+            Pose2d pose = poseEstimate.pose;
+            if (pose != null){
+                SmartDashboard.putString("Vision measurement", pose.toString());
+                if (pose.getTranslation().getX() != 0 || pose.getTranslation().getY() != 0 || pose.getRotation().getDegrees() != 0){
+                    getState().Pose = pose;
+                }
+            }
+        } catch(Exception e) {
+            DriverStation.reportError("Error getting POSE from LIMELIGHT (check ethernet): " + e.getMessage(), e.getStackTrace());
+        }
+        SmartDashboard.putString("Periodic Robot Pose", getState().Pose.toString());
 
+        
+ 
         /*
          * Periodically try to apply the operator perspective.
          * If we haven't applied the operator perspective before, then we should apply it regardless of DS state.

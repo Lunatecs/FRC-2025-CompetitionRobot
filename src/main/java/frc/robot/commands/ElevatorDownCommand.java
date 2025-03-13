@@ -34,8 +34,8 @@ public class ElevatorDownCommand extends Command {
   @Override
   public void execute() {
     double speed = controller.calculate(elevator.getElevatorHeight());
-    if(Math.abs(speed)> 0.4){
-      speed = Math.signum(speed) * 0.4;
+    if(Math.abs(speed)> 0.5){
+      speed = Math.signum(speed) * 0.5;
     }
     if (elevator.getElevatorHeight()<15.0){
       speed = -0.1;

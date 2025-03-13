@@ -6,20 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
+import frc.robot.subsystems.AlgaePivotSubSystem;
 
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakePivotAlgaeCommand extends Command {
-  private CoralGroundIntakePivotSubSystem pivot;
+public class AlgaeFromReefPivotCommand extends Command {
+  private AlgaePivotSubSystem pivot;
   PIDController controller;
   /** Creates a new DropIntakeCommand. */
-  public IntakePivotAlgaeCommand(CoralGroundIntakePivotSubSystem pivot) {
+  public AlgaeFromReefPivotCommand(AlgaePivotSubSystem pivot) {
     this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(70);
+    controller.setSetpoint(70); 
     controller.setTolerance(2);
   }
 

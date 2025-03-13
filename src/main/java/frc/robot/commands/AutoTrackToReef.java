@@ -15,9 +15,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.AprilTagPositions;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoTrackToReef extends Command {
@@ -35,18 +37,26 @@ public class AutoTrackToReef extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //drive.configureAutoBuilder();
+    //Pose2d botPose2d = LimelightHelpers.getBotPose2d_wpiRed("limelight-left");
+    //SmartDashboard.putString("limelight bot pose", botPose2d.toString());
+    //drive.addVisionMeasurement(LimelightHelpers.getBotPose2d_wpiRed("limelight-left"), LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
     Pose2d closestAprilTagPose = getClosestReefAprilTagPose();
+    SmartDashboard.putString("april tag pose", closestAprilTagPose.toString());
     Command pathfindPath = AutoBuilder.pathfindToPose(
       translateCoord(closestAprilTagPose, closestAprilTagPose.getRotation().getDegrees(), -0.1),
+      //closestAprilTagPose,
         new PathConstraints(
             3.0, 4.0,
             Units.degreesToRadians(540), Units.degreesToRadians(720)));
-
+    //pathfindPath.schedule();
+             
     try {
       // Load the path you want to follow using its name in the GUI
       PathPlannerPath pathToFront = new PathPlannerPath(
           PathPlannerPath.waypointsFromPoses(
             translateCoord(closestAprilTagPose, closestAprilTagPose.getRotation().getDegrees(), -0.1),
+            //drive.getState().Pose,
               closestAprilTagPose),
           new PathConstraints(3.0, 3.0, 2 * Math.PI, 4 * Math.PI),
           null, 
@@ -54,8 +64,9 @@ public class AutoTrackToReef extends Command {
       );
       pathToFront.preventFlipping = true;
       fullPath = pathfindPath.andThen(AutoBuilder.followPath(pathToFront));
-      fullPath.schedule();
+      fullPath.schedule(); 
     } catch (Exception e) {
+      e.printStackTrace();
       DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
     }
   }
@@ -87,8 +98,10 @@ public class AutoTrackToReef extends Command {
         aprilTagsToAlignTo = AprilTagPositions.WELDED_RED_CORAL_APRIL_TAG_POSITIONS;
       }
     }
-
+    //Pose2d currentPose = LimelightHelpers.getBotPose2d_wpiRed("limelight-left");
     Pose2d currentPose = drive.getState().Pose;
+    //drive.getState().Pose = currentPose;
+    SmartDashboard.putString("Robot Pose", currentPose.toString());
     Pose2d closestPose = new Pose2d();
     double closestDistance = Double.MAX_VALUE;
     Integer aprilTagNum = -1;
@@ -102,7 +115,7 @@ public class AutoTrackToReef extends Command {
         aprilTagNum = entry.getKey();
       }
     }
-
+    SmartDashboard.putString("April Tag NUmber", aprilTagNum.toString());
     Pose2d inFrontOfAprilTag = translateCoord(closestPose, closestPose.getRotation().getDegrees(),
         -Units.inchesToMeters(15.773));
 

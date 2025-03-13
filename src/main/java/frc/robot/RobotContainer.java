@@ -86,7 +86,7 @@ public class RobotContainer {
     //private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
-    //private final ClimberSubSystem climber = new ClimberSubSystem();
+    private final ClimberSubSystem climber = new ClimberSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
@@ -119,7 +119,7 @@ public class RobotContainer {
             )
         );
 
-        driver.R3().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
+        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
                                                                     .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)
                                                                     .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         
@@ -159,7 +159,11 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
         driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
+        driver.square().onTrue(new AutoTrackToReef(drivetrain));
+        driver.cross().onTrue(new InstantCommand(() -> {},drivetrain));
+
         drivetrain.registerTelemetry(logger::telemeterize);
+
         
         //driver.R2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
@@ -195,6 +199,12 @@ public class RobotContainer {
 
         operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
 
+        /*operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
+            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+
+        operator.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
+        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+        */
         //driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
        // driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
