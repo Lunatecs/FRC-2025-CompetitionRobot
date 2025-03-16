@@ -246,8 +246,10 @@ public class RobotContainer {
             .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
         driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
         driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
-
-        //driver.povRight().onTrue(new PathFindToPose(drivetrain));
+        driver.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
+            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+        driver.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
+            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
 
         //OPERATOR BINDINGS BELOW 
         //ALL CORAL STUFF
