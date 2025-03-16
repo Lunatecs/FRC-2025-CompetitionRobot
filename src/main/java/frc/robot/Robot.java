@@ -44,12 +44,12 @@ public class Robot extends TimedRobot {
 
     
   }
-
+/*
   @Override
   public void robotInit() {
-    super.robotInit();
-    FollowPathCommand.warmupCommand().schedule();
-  }
+    //super.robotInit();
+    //FollowPathCommand.warmupCommand().schedule();
+  } */
 
   @Override
   public void disabledInit() {}

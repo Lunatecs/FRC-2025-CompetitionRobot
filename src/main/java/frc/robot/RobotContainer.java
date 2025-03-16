@@ -107,9 +107,10 @@ public class RobotContainer {
     public RobotContainer() {
         
         NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65)); //70.5
-        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+        NamedCommands.registerCommand("Station Pick Up Command", new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        //NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));\
+        NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
         //NamedCommands.registerCommand("MoveIntakeOut", new RaiseIntakeCommand(pivot));
 
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -241,7 +242,7 @@ public class RobotContainer {
         driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
         driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
-        driver.povRight().onTrue(new PathFindToPose(drivetrain));
+        //driver.povRight().onTrue(new PathFindToPose(drivetrain));
 
         //OPERATOR BINDINGS BELOW 
         //ALL CORAL STUFF
