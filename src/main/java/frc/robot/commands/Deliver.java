@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CoralOutakeSubSystem;
@@ -14,16 +13,18 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DeliverCoralAtHeight extends ParallelDeadlineGroup {
-  /** Creates a new DeliverCoralAtHeight. */
-  public DeliverCoralAtHeight(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(new SequentialCommandGroup(
-            new WaitUntilAtHeightCommand(elevator, shootAtHeight),
-            new ShootCoralCommand(coralOutake)));
-    addCommands(goToLevelCommand);
+public class Deliver extends SequentialCommandGroup {
+  /** Creates a new Deliver. */
+  public Deliver(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
+    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    addCommands(
+      new ParallelDeadlineGroup(
+        new SequentialCommandGroup(
+            new WaitUntilAtHeightCommand(elevator, shootAtHeight),
+            new ShootCoralCommand(coralOutake)), 
+        goToLevelCommand)
+    );
     addRequirements(elevator,coralOutake);
   }
 }

@@ -46,6 +46,7 @@ import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
 import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
 import frc.robot.commands.AutoTrackToReef;
+import frc.robot.commands.Deliver;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;

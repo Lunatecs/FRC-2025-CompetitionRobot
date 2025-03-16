@@ -71,27 +71,11 @@
       "name": "Elevator Down",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "L1"
-        }
-      }
+      "command": null
     },
     {
       "name": "Station Pick Up Command",
       "waypointRelativePos": 0.6334440753045358,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "L1"
-        }
-      }
-    },
-    {
-      "name": "L4",
-      "waypointRelativePos": 1.860465116279074,
       "endWaypointRelativePos": null,
       "command": null
     }
