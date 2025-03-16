@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
+import frc.robot.commands.ElevatorLevelTwoAlgaeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAlignLeftLimeLight;
 import frc.robot.commands.FullAlignRightLimeLight;
@@ -47,6 +48,7 @@ import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
+import frc.robot.commands.ElevatorLevelThreeAlgaeCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.AlgaeLiberatorSubSystem;
 import frc.robot.subsystems.AlgaePivotSubSystem;
@@ -186,11 +188,6 @@ public class RobotContainer {
         //driver.L2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(-1); coralFeeder.setSpeed(-1); coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
 
-        operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
-                    .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
-        
-        operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
-        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         //operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
         //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
@@ -198,14 +195,10 @@ public class RobotContainer {
         //operator.R1().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
         //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
-        operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
-        operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
-        operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
+        
 
         //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
         //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
-        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
         //driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
         //driver.povDown().onTrue(new DropIntakeCommand(pivot));
 
@@ -218,28 +211,76 @@ public class RobotContainer {
 
         //operator.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
         //operator.povRight().onTrue(new AlgaePivotResetCommand(pivot));
-        operator.povUp().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        //operator.povUp().onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
-        operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
-        .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+        //operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
+        //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
-        operator.R2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
-        .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+        //operator.R2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+        //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
         //(new InstantCommand(()-> {pivot.setSpeed(-0.2);}, pivot))
             //.onFalse(new InstantCommand(()-> {pivot.setSpeed(0);}, pivot));
 
         //operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
 
-        operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
-            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+        //operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
+            //.onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
 
-        operator.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
-        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+        //operator.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
+        //.onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
         
         //driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
        // driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
+
+
+        //DRIVER BINDINGS:
+        driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+            .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+        driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
+
+        //OPERATOR BINDINGS BELOW 
+        //ALL CORAL STUFF
+        //Coral Elevator Bindings
+        operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
+        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+        //Coral Outtake Bindings
+        operator.L1().and(operator.R1()).onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
+                    .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+        
+        operator.L2().and(operator.R1()).onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
+        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+
+        //Coral Intake Bindings
+        operator.povRight().and(operator.R1()).onTrue(new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
+
+
+        //ALL ALGAE STUFF
+        //ALGAE ELEVATOR STUFF
+        operator.cross().and(operator.R2()).onTrue(new ElevatorLevelOneCommand(elevator));
+        operator.square().and(operator.R2()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
+        operator.triangle().and(operator.R2()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+        operator.circle().and(operator.R2()).onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+
+        //Algae Outtake Bindings
+        operator.L1().and(operator.R2()).whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
+            .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+
+        //Algae Intake Bindings
+        operator.L2().and(operator.R2()).whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+            .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+
+
+        //Algae Pivot Position Bindings
+        operator.povLeft().and(operator.R2()).onTrue(new AlgaeFromReefPivotCommand(pivot));
+        operator.povUp().and(operator.R2()).onTrue(new AlgaePivotResetCommand(pivot));
+
     }
 
     public Command getAutonomousCommand() {
