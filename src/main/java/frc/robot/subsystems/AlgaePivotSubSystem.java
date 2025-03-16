@@ -21,6 +21,7 @@ public class AlgaePivotSubSystem extends SubsystemBase {
     pivotMotor = new TalonFX(Constants.AlgaePivotSubSystemConstants.CAN_ID_ALGAE_PIVOT);
     pivotMotor.setPosition(0);
     pivotMotor.setNeutralMode(NeutralModeValue.Brake);
+    pivotMotor.setInverted(true);
   }
 
   public void setSpeed(double speed){

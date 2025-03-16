@@ -16,6 +16,7 @@ public class CoralHopperSubSystem extends SubsystemBase {
   public CoralHopperSubSystem() {
     hopperMotor=new TalonFX(Constants.CoralHopperSubSystemConstants.CAN_ID_HOPPER);
     hopperMotor.setNeutralMode(NeutralModeValue.Coast);
+    hopperMotor.setInverted(true);
   }
   public void setSpeed(double speed){
     hopperMotor.set(speed);

@@ -10,16 +10,16 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlgaeFromReefPivotCommand extends Command {
+public class AlgaePivotResetCommand extends Command {
   private AlgaePivotSubSystem pivot;
   PIDController controller;
   /** Creates a new DropIntakeCommand. */
-  public AlgaeFromReefPivotCommand(AlgaePivotSubSystem pivot) {
+  public AlgaePivotResetCommand(AlgaePivotSubSystem pivot) {
     this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(70); 
+    controller.setSetpoint(0); 
     controller.setTolerance(2);
   }
 

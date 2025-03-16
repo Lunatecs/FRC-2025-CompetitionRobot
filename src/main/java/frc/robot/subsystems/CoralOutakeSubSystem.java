@@ -33,14 +33,14 @@ public class CoralOutakeSubSystem extends SubsystemBase {
   }
 
   public boolean hasCoral(){
-    return sensor.getDistance().getValueAsDouble() < 0.18;
+    return sensor.getDistance().getValueAsDouble() < 0.2;
   }
     
 
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("Outtake Sensor", sensor.getDistance().getValueAsDouble());
-    //SmartDashboard.putBoolean("outtakeSensorTrigger", sensor.getIsDetected(true).getValue());
+    SmartDashboard.putNumber("Outtake Sensor", sensor.getDistance().getValueAsDouble());
+    SmartDashboard.putBoolean("outtakeSensorTrigger", sensor.getIsDetected(true).getValue());
     //SmartDashboard.putNumber("strengthOfSignal", sensor.getSignalStrength().getValueAsDouble());
     /*double dis = sensor.getDistance(true).getValueAsDouble();
     boolean test = false; 

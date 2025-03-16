@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -26,12 +27,16 @@ import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAlignLeftLimeLight;
 import frc.robot.commands.FullAlignRightLimeLight;
 import frc.robot.commands.GetCoralSubstationCommand;
+import frc.robot.commands.HopperIntakeCommand;
 //import frc.robot.commands.IntakeCoralCommand;
 //import frc.robot.commands.IntakePivotAlgaeCommand;
 import frc.robot.commands.ManualClimbCommand;
 //import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.ReefTrackingCommand;
 import frc.robot.commands.testAuto3Piece;
+import frc.robot.commands.AlgaeFromGroundPivotCommand;
+import frc.robot.commands.AlgaeFromReefPivotCommand;
+import frc.robot.commands.AlgaePivotResetCommand;
 import frc.robot.commands.AlignRobotToTagLeftLimeLight;
 import frc.robot.commands.AlignRobotToTagRightLimeLight;
 import frc.robot.commands.AutoDeliverCommand;
@@ -43,11 +48,14 @@ import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.AlgaeLiberatorSubSystem;
+import frc.robot.subsystems.AlgaePivotSubSystem;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.ClimberSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 //import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
+import frc.robot.subsystems.CoralHopperSubSystem;
 //import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
@@ -80,13 +88,16 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     //private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
     //private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
-    private CarriageSubSystem coralCarriage = new CarriageSubSystem();
-    private CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
+    private final CarriageSubSystem coralCarriage = new CarriageSubSystem();
+    private final CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
     //private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
     private final ClimberSubSystem climber = new ClimberSubSystem();
+    private final CoralHopperSubSystem hopper = new CoralHopperSubSystem();
+    private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
+    private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
@@ -109,6 +120,7 @@ public class RobotContainer {
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
+        liberator.setDefaultCommand(new InstantCommand(()-> {liberator.setSpeed(0.04);}, liberator));
 
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
@@ -180,11 +192,11 @@ public class RobotContainer {
         operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
-        operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
-        .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
+        //operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
+        //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
-        operator.R1().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
-        .onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
+        //operator.R1().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
+        //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
 
         operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
         operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
@@ -192,19 +204,39 @@ public class RobotContainer {
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
 
         //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
-        operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
+        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
         //driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
         //driver.povDown().onTrue(new DropIntakeCommand(pivot));
 
-        operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+        //operator.povLeft().onTrue(new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
+        //(new InstantCommand(()-> {hopper.setSpeed(0.2);}, hopper))
+            //.onFalse(new InstantCommand(()->{hopper.setSpeed(0);}, hopper));
+        
+        //operator.povRight().onTrue(new InstantCommand(()-> {pivot.setSpeed(0.2);}, pivot))
+            //.onFalse(new InstantCommand(()-> {pivot.setSpeed(0);}, pivot));
 
-        /*operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
+        //operator.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
+        //operator.povRight().onTrue(new AlgaePivotResetCommand(pivot));
+        operator.povUp().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+
+        operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
+        .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+
+        operator.R2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+        .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+
+        //(new InstantCommand(()-> {pivot.setSpeed(-0.2);}, pivot))
+            //.onFalse(new InstantCommand(()-> {pivot.setSpeed(0);}, pivot));
+
+        //operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+
+        operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
             .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
 
         operator.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
-        */
+        
         //driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
        // driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
         //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));

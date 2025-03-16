@@ -59,7 +59,7 @@ public class ElevatorSubSystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(getLimitSwitch()) {
+    if(getLimitSwitch() && this.getEncoder()!=0) {
       motor1.setPosition(0);
     }
     // This method will be called once per scheduler run
