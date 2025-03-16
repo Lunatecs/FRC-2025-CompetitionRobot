@@ -19,7 +19,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "first path of 3"
+                              "pathName": "one of 3"
                             }
                           },
                           {
@@ -40,7 +40,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "1.5 of 3"
+                        "pathName": "two of 3"
                       }
                     },
                     {
@@ -77,7 +77,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "2.5 of 3"
+                        "pathName": "three of 3"
                       }
                     },
                     {

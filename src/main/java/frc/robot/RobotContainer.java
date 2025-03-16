@@ -27,6 +27,7 @@ import frc.robot.commands.ElevatorLevelTwoAlgaeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAlignLeftLimeLight;
 import frc.robot.commands.FullAlignRightLimeLight;
+import frc.robot.commands.GetCoralCommand;
 import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.HopperIntakeCommand;
 //import frc.robot.commands.IntakeCoralCommand;
@@ -45,6 +46,7 @@ import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
 import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
 import frc.robot.commands.AutoTrackToReef;
+import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DropIntakeCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
@@ -107,11 +109,14 @@ public class RobotContainer {
     public RobotContainer() {
         
         NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65)); //70.5
-        NamedCommands.registerCommand("Station Pick Up Command", new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
+        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake));
         NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
         //NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));\
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
-        //NamedCommands.registerCommand("MoveIntakeOut", new RaiseIntakeCommand(pivot));
+        NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
+        NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
+        NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65));
+
 
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);

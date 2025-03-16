@@ -32,7 +32,7 @@ public class ShootCoralCommand extends Command {
   @Override
   public void execute() {
     if (outtake.hasCoral() || new Date().getTime()-start.getTime() < 500L){
-      outtake.setSpeed(1);
+      outtake.setSpeed(0.4);
     }
     else{
       outtake.setSpeed(0);

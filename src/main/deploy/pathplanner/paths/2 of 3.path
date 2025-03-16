@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5506410256410255,
-        "y": 7.203717948717949
+        "x": 1.560961538461538,
+        "y": 7.17275641025641
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.830384615384615,
-        "y": 6.151025641025641
+        "x": 2.840705128205127,
+        "y": 6.120064102564102
       },
       "isLocked": false,
       "linkedName": "pick up1"
@@ -31,7 +31,14 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "L4",
+      "waypointRelativePos": 0.7464008859357656,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
