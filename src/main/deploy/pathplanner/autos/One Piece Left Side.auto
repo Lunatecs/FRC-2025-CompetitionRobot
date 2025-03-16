@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "One Piece Left Side"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
-                }
               }
             ]
           }

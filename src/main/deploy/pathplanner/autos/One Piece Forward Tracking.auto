@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "One Piece Half Forward"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
-                }
               }
             ]
           }

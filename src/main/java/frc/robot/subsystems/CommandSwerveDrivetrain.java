@@ -156,7 +156,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         super(drivetrainConstants, odometryUpdateFrequency, modules);
         configureAutoBuilder();
 
-        addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
+        //addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
 
         if (Utils.isSimulation()) {
             startSimThread();
@@ -190,7 +190,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, odometryStandardDeviation, visionStandardDeviation, modules);
-        addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
+        //addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
 
         configureAutoBuilder();
 
@@ -264,11 +264,13 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     @Override
     public void periodic() {
 
-        LimelightHelpers.SetRobotOrientation("limelight-left", getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
-        SmartDashboard.putString("pose", "" + getState().Pose);
+        SmartDashboard.putString("Swerve Robot Pose", getState().Pose.toString());
+
+        //LimelightHelpers.SetRobotOrientation("limelight-left", getState().Pose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
+        //SmartDashboard.putString("pose", "" + getState().Pose);
         
         //addVisionMeasurement(LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").pose, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left").timestampSeconds);
-        
+        /*
         try {
             Pose2d ll_bot=LimelightHelpers.getBotPose2d("limelight-left");
             SmartDashboard.putString("ll bot", ll_bot.toString());
@@ -286,7 +288,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             DriverStation.reportError("Error getting POSE from LIMELIGHT (check ethernet): " + e.getMessage(), e.getStackTrace());
         }
         SmartDashboard.putString("Periodic Robot Pose", getState().Pose.toString());
-
+        */
         
  
         /*

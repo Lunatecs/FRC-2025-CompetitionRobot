@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "One Piece Right"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
-                }
               }
             ]
           }

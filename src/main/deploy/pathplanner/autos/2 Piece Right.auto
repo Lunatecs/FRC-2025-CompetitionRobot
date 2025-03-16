@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "One Piece Dead Reckoning"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
-                }
               }
             ]
           }
@@ -43,12 +37,6 @@
                 "type": "named",
                 "data": {
                   "name": "Station Pick Up Command"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
                 }
               }
             ]
@@ -87,12 +75,6 @@
                 "type": "named",
                 "data": {
                   "name": "Station Pick Up Command"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "MoveIntakeOut"
                 }
               }
             ]
