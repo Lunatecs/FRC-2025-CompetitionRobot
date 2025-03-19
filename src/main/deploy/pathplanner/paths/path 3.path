@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "third coral"
     }
   ],
   "rotationTargets": [
@@ -56,7 +56,7 @@
       "minWaypointRelativePos": 0.6749156355455521,
       "maxWaypointRelativePos": 1.430821147356567,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
