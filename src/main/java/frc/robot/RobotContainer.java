@@ -116,7 +116,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
         NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
-        NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65));
+        NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
 
 
         autoChooser = AutoBuilder.buildAutoChooser();
