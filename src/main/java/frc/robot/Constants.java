@@ -61,4 +61,8 @@ public final class Constants {
   public static class AlgaeLiberatorSubSystemConstants{
     public static final int CAN_ID_ALGAE_LIBERATOR = 16;
   }
+
+  public static class LEDSubSystemConstants{
+    public static final int PWM_ID_LED = 9;
+  }
 }
