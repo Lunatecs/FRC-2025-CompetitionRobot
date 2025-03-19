@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 
+import com.ctre.phoenix6.configs.FovParamsConfigs;
 import com.ctre.phoenix6.configs.ProximityParamsConfigs;
 import com.ctre.phoenix6.hardware.CANrange;
 
@@ -18,22 +19,26 @@ public class CoralAlignmentSubSystem extends SubsystemBase {
 
   public CoralAlignmentSubSystem() {
     sensor = new CANrange(Constants.CoralAlignmentSubSystemConstants.CAN_ID_SENSOR2);
-    /*ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
-    proxConfig.ProximityThreshold = 0.16;//0.1525;
-    proxConfig.ProximityHysteresis = 0.03;//0.0225;
-    sensor.getConfigurator().apply(proxConfig); */
+    //ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
+    //proxConfig.ProximityThreshold = 0.16;//0.1525;
+    //proxConfig.ProximityHysteresis = 0.03;//0.0225;
+    //sensor.getConfigurator().apply(proxConfig); 
+    FovParamsConfigs fovConfig = new FovParamsConfigs();
+    fovConfig.withFOVRangeX(7);
+    fovConfig.withFOVRangeY(7);
+    sensor.getConfigurator().apply(fovConfig);
   }
 
 
-  public boolean isAligned(){
-    return sensor.getDistance().getValueAsDouble() < 0.2;
+  public boolean isAlignedL4(){
+    return sensor.getDistance().getValueAsDouble() < 0.35;
   }
     
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Alignment Sensor", sensor.getDistance().getValueAsDouble());
-    //SmartDashboard.putBoolean("Alignmnent Sensor Trigger", sensor.getIsDetected(true).getValue());
+    SmartDashboard.putBoolean("You're clear kid.", isAlignedL4());
     //SmartDashboard.putNumber("strengthOfSignal", sensor.getSignalStrength().getValueAsDouble());
     /*double dis = sensor.getDistance(true).getValueAsDouble();
     boolean test = false; 
