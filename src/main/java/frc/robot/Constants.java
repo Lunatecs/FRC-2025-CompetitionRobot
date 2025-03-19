@@ -34,6 +34,10 @@ public final class Constants {
     public static final int CAN_ID_SENSOR = 22;
   }
 
+  public static class CoralAlignmentSubSystemConstants{
+    public static final int CAN_ID_SENSOR2 = 21;
+  }
+
   public static class ClimberSubSystemConstants{
     public static final int CAN_ID_CLIMBER1 = 17;
     public static final int CAN_ID_CLIMBER2 = 18;
