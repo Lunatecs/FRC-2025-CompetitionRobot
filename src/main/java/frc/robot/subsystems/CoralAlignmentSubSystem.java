@@ -18,10 +18,10 @@ public class CoralAlignmentSubSystem extends SubsystemBase {
 
   public CoralAlignmentSubSystem() {
     sensor = new CANrange(Constants.CoralAlignmentSubSystemConstants.CAN_ID_SENSOR2);
-    ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
+    /*ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
     proxConfig.ProximityThreshold = 0.16;//0.1525;
     proxConfig.ProximityHysteresis = 0.03;//0.0225;
-    sensor.getConfigurator().apply(proxConfig);
+    sensor.getConfigurator().apply(proxConfig); */
   }
 
 
@@ -33,7 +33,7 @@ public class CoralAlignmentSubSystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Alignment Sensor", sensor.getDistance().getValueAsDouble());
-    SmartDashboard.putBoolean("Alignmnent Sensor Trigger", sensor.getIsDetected(true).getValue());
+    //SmartDashboard.putBoolean("Alignmnent Sensor Trigger", sensor.getIsDetected(true).getValue());
     //SmartDashboard.putNumber("strengthOfSignal", sensor.getSignalStrength().getValueAsDouble());
     /*double dis = sensor.getDistance(true).getValueAsDouble();
     boolean test = false; 

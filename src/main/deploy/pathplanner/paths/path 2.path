@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.7364102564102561,
-        "y": 7.069551282051282
+        "x": 1.6851988636363635,
+        "y": 7.141122159090909
       },
       "prevControl": {
-        "x": 2.188463519278926,
-        "y": 7.427426781814854
+        "x": 2.1731069738144044,
+        "y": 7.448323561795601
       },
       "nextControl": {
-        "x": 1.4887179487127882,
-        "y": 6.873461538461539
+        "x": 1.1467329545454548,
+        "y": 6.802088068181818
       },
       "isLocked": false,
       "linkedName": null
@@ -50,7 +50,34 @@
       "rotationDegrees": -51.98200279483233
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.7739032620922385,
+      "maxWaypointRelativePos": 1.4218222722159788,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.8897637795275697,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
@@ -69,9 +96,22 @@
       "waypointRelativePos": 0.6112956810631258,
       "endWaypointRelativePos": null,
       "command": {
-        "type": "named",
+        "type": "sequential",
         "data": {
-          "name": "Station Pick Up Command"
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Station Pick Up Command"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "L1"
+              }
+            }
+          ]
         }
       }
     },

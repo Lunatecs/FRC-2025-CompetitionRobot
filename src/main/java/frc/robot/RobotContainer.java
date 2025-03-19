@@ -59,6 +59,7 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.ClimberSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.CoralAlignmentSubSystem;
 //import frc.robot.subsystems.CoralFeederSubSystem;
 import frc.robot.subsystems.CoralGroundIntakePivotSubSystem;
 import frc.robot.subsystems.CoralHopperSubSystem;
@@ -104,6 +105,7 @@ public class RobotContainer {
     private final CoralHopperSubSystem hopper = new CoralHopperSubSystem();
     private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
+    private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
