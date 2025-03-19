@@ -268,7 +268,7 @@ public class RobotContainer {
         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         //Coral Intake Bindings
-        operator.povRight().and(operator.R1()).onTrue(new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
+        operator.povRight().and(operator.R1()).onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
 
 
         //ALL ALGAE STUFF
