@@ -257,42 +257,42 @@ public class RobotContainer {
         //OPERATOR BINDINGS BELOW 
         //ALL CORAL STUFF
         //Coral Elevator Bindings
-        operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoCommand(elevator));
-        operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelThreeCommand(elevator));
-        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.triangle().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.circle().onTrue(new ElevatorLevelFourCommand(elevator));
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
         //Coral Outtake Bindings
-        operator.L1().and(operator.R1()).onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
+        operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
         
-        operator.L2().and(operator.R1()).onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
+        operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         //Coral Intake Bindings
-        operator.povRight().and(operator.R1()).onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
+        operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
 
 
         //ALL ALGAE STUFF
         //ALGAE ELEVATOR STUFF
-        operator.cross().and(operator.R2()).onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().and(operator.R2()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
-        operator.triangle().and(operator.R2()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
-        operator.circle().and(operator.R2()).onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
+        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
+        operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
 
         //Algae Outtake Bindings
-        operator.L1().and(operator.R2()).whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
+        operator.L1().and(operator.R1()).whileTrue(new RunCommand(()-> {liberator.setSpeed(-0.4); coralOutake.setSpeed(-0.4);}, liberator, coralOutake))
             .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
         //Algae Intake Bindings
-        operator.L2().and(operator.R2()).whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+        operator.L2().and(operator.R1()).whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
             .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
 
         //Algae Pivot Position Bindings
-        operator.povLeft().and(operator.R2()).onTrue(new AlgaeFromReefPivotCommand(pivot));
-        operator.povUp().and(operator.R2()).onTrue(new AlgaePivotResetCommand(pivot));
+        operator.povLeft().and(operator.R1()).onTrue(new AlgaeFromReefPivotCommand(pivot));
+        operator.povUp().and(operator.R1()).onTrue(new AlgaePivotResetCommand(pivot));
 
     }
 
