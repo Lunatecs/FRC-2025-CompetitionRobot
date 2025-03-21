@@ -159,9 +159,9 @@ public class RobotContainer {
                                                                             .withVelocityY(driver.getLeftX() * MaxSpeed)
                                                                             .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 */
-        driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        //driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
         //driver.R1().whileTrue(new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
+        //driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
         
 
 
@@ -182,8 +182,8 @@ public class RobotContainer {
         // reset the field-centric heading on left bumper press
         driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        driver.square().onTrue(new AutoTrackToReef(drivetrain));
-        driver.cross().onTrue(new InstantCommand(() -> {},drivetrain));
+        //driver.square().onTrue(new AutoTrackToReef(drivetrain));
+        //driver.cross().onTrue(new InstantCommand(() -> {},drivetrain));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
