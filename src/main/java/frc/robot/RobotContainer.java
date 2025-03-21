@@ -258,10 +258,12 @@ public class RobotContainer {
         //ALL CORAL STUFF
         //Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
-        operator.triangle().onTrue(new ElevatorLevelThreeCommand(elevator));
-        operator.circle().onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
+        
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+
         //Coral Outtake Bindings
         operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
@@ -276,10 +278,10 @@ public class RobotContainer {
         //ALL ALGAE STUFF
         //ALGAE ELEVATOR STUFF
         operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
-        operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
-        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
-        operator.povDown().onTrue(new ElevatorDownCommand(elevator));
+        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
+        operator.square().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+        operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.povDown().and(operator.R1()).onTrue(new ElevatorDownCommand(elevator));
 
         //Algae Outtake Bindings
         operator.L1().and(operator.R1()).whileTrue(new RunCommand(()-> {liberator.setSpeed(-0.4); coralOutake.setSpeed(-0.4);}, liberator, coralOutake))
