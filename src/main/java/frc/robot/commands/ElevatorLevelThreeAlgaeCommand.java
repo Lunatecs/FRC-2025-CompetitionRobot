@@ -20,7 +20,7 @@ public class ElevatorLevelThreeAlgaeCommand extends Command {
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.03, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031, 0.022
-    controller.setSetpoint(40.625);//48.625-6, 42.625
+    controller.setSetpoint(36.625);//48.625-6, 42.625, 40.625
     controller.setTolerance(0.25);
   }
 

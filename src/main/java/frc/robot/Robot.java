@@ -9,6 +9,7 @@ import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +24,14 @@ public class Robot extends TimedRobot {
   public Robot() {
     m_robotContainer = new RobotContainer();
   }
+
+  @Override public void driverStationConnected() {
+
+      double targetRotationDegrees = (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : 180;
+      m_robotContainer.drivetrain.resetRotation(Rotation2d.fromDegrees(targetRotationDegrees));
+//todo: reset our pose to this angle
+  }
+
 
   @Override
   public void robotPeriodic() {

@@ -24,7 +24,7 @@ public class GetCoralCommand extends SequentialCommandGroup {
     addCommands(
       new HopperIntakeCommand(hopper, carriage, outake), 
       new ParallelDeadlineGroup(
-        new WaitCommand(0.25), 
+        new WaitCommand(0.25), //0.25
         new InstantCommand(()->{outake.setSpeed(-1);},outake)),
       new InstantCommand(()->{outake.setSpeed(0);},outake));
       addRequirements(hopper,carriage,outake);

@@ -68,6 +68,7 @@ import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
 import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
 import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
+import frc.robot.subsystems.WhaleTailReleaseSubSystem;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -106,6 +107,7 @@ public class RobotContainer {
     private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
+    private final WhaleTailReleaseSubSystem dropServo = new WhaleTailReleaseSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
 
@@ -147,9 +149,12 @@ public class RobotContainer {
                                                                     .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         
         //driver.cross().whileTrue(new ReefTrackingCommand(drivetrain));
-        driver.triangle().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
+        driver.L1().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
                                                                                 .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
+
+       driver.cross().onTrue(new InstantCommand(() -> {dropServo.dropTail(true);}, dropServo))
+       .onFalse(new InstantCommand(() -> {dropServo.dropTail(false);}, dropServo));
 
         //driver.square().whileTrue(new AutoTrackToReef(drivetrain));
         //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
@@ -258,8 +263,8 @@ public class RobotContainer {
         //ALL CORAL STUFF
         //Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.circle().onTrue(new ElevatorLevelTwoCommand(elevator));
-        operator.square().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
         operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
         
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
@@ -267,6 +272,11 @@ public class RobotContainer {
         //Coral Outtake Bindings
         operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+
+        operator.R2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);}, coralCarriage,coralOutake))
+                    .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+
+        
         
         operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
@@ -278,8 +288,8 @@ public class RobotContainer {
         //ALL ALGAE STUFF
         //ALGAE ELEVATOR STUFF
         operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
-        operator.square().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
         operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
         operator.povDown().and(operator.R1()).onTrue(new ElevatorDownCommand(elevator));
 
