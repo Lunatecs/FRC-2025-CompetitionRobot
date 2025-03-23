@@ -33,6 +33,7 @@ import frc.robot.commands.HopperIntakeCommand;
 //import frc.robot.commands.IntakeCoralCommand;
 //import frc.robot.commands.IntakePivotAlgaeCommand;
 import frc.robot.commands.ManualClimbCommand;
+import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.PathFindToPose;
 //import frc.robot.commands.RaiseIntakeCommand;
 import frc.robot.commands.ReefTrackingCommand;
@@ -46,6 +47,7 @@ import frc.robot.commands.AutoDeliverCommand;
 import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
 import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
 import frc.robot.commands.AutoTrackToReef;
+import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.Deliver;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DropIntakeCommand;
@@ -144,13 +146,13 @@ public class RobotContainer {
             )
         );
 
-        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
+        driver.R1().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
                                                                     .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)
                                                                     .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         
         //driver.cross().whileTrue(new ReefTrackingCommand(drivetrain));
-        driver.L1().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
-                                                                                .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)
+        driver.L1().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)
+                                                                                .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.15)
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
        driver.cross().onTrue(new InstantCommand(() -> {dropServo.dropTail(true);}, dropServo))
@@ -288,8 +290,16 @@ public class RobotContainer {
         //ALL ALGAE STUFF
         //ALGAE ELEVATOR STUFF
         operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.circle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
-        operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
+        //operator.circle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
+       // operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
+
+        // NEEDS TO BE TESTED BUDDY
+        operator.square().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelTwoAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
+                                                .onFalse(new NewAlageDown(pivot, elevator));
+        operator.circle().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelThreeAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
+                                            .onFalse(new NewAlageDown(pivot, elevator));
+
+
         operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
         operator.povDown().and(operator.R1()).onTrue(new ElevatorDownCommand(elevator));
 
@@ -303,8 +313,8 @@ public class RobotContainer {
 
 
         //Algae Pivot Position Bindings
-        operator.povLeft().and(operator.R1()).onTrue(new AlgaeFromReefPivotCommand(pivot));
-        operator.povUp().and(operator.R1()).onTrue(new AlgaePivotResetCommand(pivot));
+        operator.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
+        operator.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
     }
 
