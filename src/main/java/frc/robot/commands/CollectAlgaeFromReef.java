@@ -21,12 +21,13 @@ public class CollectAlgaeFromReef extends ParallelDeadlineGroup {
   public CollectAlgaeFromReef(Command elevatorCommand, AlgaePivotSubSystem pivot, AlgaeLiberatorSubSystem roller, CoralOutakeSubSystem coralOutake, ElevatorSubSystem elevator) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new HasAlgae());
+    //super(new HasAlgae(roller));
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
+    super(
+      new HasAlgae(roller),
       elevatorCommand,
       new AlgaeFromReefPivotCommand(pivot),
-      new RunCommand(()-> {roller.setSpeed(-0.4); coralOutake.setSpeed(-0.4);}, roller, coralOutake));
+      new RunCommand(()-> {roller.setSpeed(0.4); coralOutake.setSpeed(0.4);}, roller, coralOutake));
     addRequirements(elevator, pivot, roller, coralOutake);
   }
 }

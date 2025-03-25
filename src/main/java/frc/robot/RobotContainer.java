@@ -48,6 +48,7 @@ import frc.robot.commands.AutoTargetScoreLeftPoleL4Sequence;
 import frc.robot.commands.AutoTargetScoreRightPoleL4Sequence;
 import frc.robot.commands.AutoTrackToReef;
 import frc.robot.commands.BensalemAlgaeClutch;
+import frc.robot.commands.BlinkAlignCommand;
 import frc.robot.commands.Deliver;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DropIntakeCommand;
@@ -68,6 +69,7 @@ import frc.robot.subsystems.CoralHopperSubSystem;
 //import frc.robot.subsystems.CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
+import frc.robot.subsystems.LEDSubSystem;
 import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
 import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 import frc.robot.subsystems.WhaleTailReleaseSubSystem;
@@ -110,8 +112,8 @@ public class RobotContainer {
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
     private final WhaleTailReleaseSubSystem dropServo = new WhaleTailReleaseSubSystem();
+    private final LEDSubSystem blink = new LEDSubSystem();
     //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
-
 
     public RobotContainer() {
         
@@ -132,10 +134,15 @@ public class RobotContainer {
         configureBindings();
     }
 
+    public void dropWhaleTale() {
+        dropServo.dropTail(true);
+    }
+
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         liberator.setDefaultCommand(new InstantCommand(()-> {liberator.setSpeed(0.04);}, liberator));
+        blink.setDefaultCommand(new BlinkAlignCommand(blink, align));
 
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
@@ -155,8 +162,8 @@ public class RobotContainer {
                                                                                 .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.15)
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
-       driver.cross().onTrue(new InstantCommand(() -> {dropServo.dropTail(true);}, dropServo))
-       .onFalse(new InstantCommand(() -> {dropServo.dropTail(false);}, dropServo));
+       //driver.cross().onTrue(new InstantCommand(() -> {dropServo.dropTail(true);}, dropServo))
+       //.onFalse(new InstantCommand(() -> {dropServo.dropTail(false);}, dropServo));
 
         //driver.square().whileTrue(new AutoTrackToReef(drivetrain));
         //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
@@ -295,9 +302,9 @@ public class RobotContainer {
 
         // NEEDS TO BE TESTED BUDDY
         operator.square().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelTwoAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
-                                                .onFalse(new NewAlageDown(pivot, elevator));
+                                                .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
         operator.circle().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelThreeAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
-                                            .onFalse(new NewAlageDown(pivot, elevator));
+                                            .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
 
 
         operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));

@@ -21,8 +21,7 @@ public class BensalemAlgaeClutch extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new CollectAlgaeFromReef(elevatorCommand, pivot, roller, coralOutake, elevator),
-      new AlgaePivotResetCommand(pivot),
-      new ElevatorDownCommand(elevator)
+      new NewAlageDown(pivot, elevator, roller, coralOutake)
     );
     addRequirements(elevator, pivot, roller, coralOutake);
   }
