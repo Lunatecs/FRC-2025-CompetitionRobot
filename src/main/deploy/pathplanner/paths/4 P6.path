@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.699460227272727,
+        "y": 5.037116477272727
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.9476987276080595,
+        "y": 5.007491370500513
+      },
+      "isLocked": false,
+      "linkedName": "third coral"
+    },
+    {
+      "anchor": {
+        "x": 1.261666666666666,
+        "y": 6.9147435897435905
+      },
+      "prevControl": {
+        "x": 2.252435897435897,
+        "y": 6.1923076923076925
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "four piece pick up 4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -53.880659150520174
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -60.25511870305775
+  },
+  "useDefaultConstraints": true
+}
