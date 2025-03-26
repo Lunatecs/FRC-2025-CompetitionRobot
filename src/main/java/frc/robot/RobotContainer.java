@@ -81,7 +81,7 @@ public class RobotContainer {
     public RobotContainer() {
         
         // Event Marker Commands for Path Planner
-        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake));
+        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
         NamedCommands.registerCommand("L2", new ElevatorLevelTwoCommand(elevator));
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
@@ -156,7 +156,7 @@ public class RobotContainer {
                         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         // Hopper
-        operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
+        operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
 
         // Algae Bindings
         // ALGAE Elevator Commands

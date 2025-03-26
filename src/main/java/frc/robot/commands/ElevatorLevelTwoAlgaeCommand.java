@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorLevelTwoAlgaeCommand extends Command {
+public class ElevatorLevelTwoAlgaeCommand extends AbstractAlgaeElevatorCommand  {
 
   private ElevatorSubSystem elevator;
   private PIDController controller;
+  private static double setPoint = 22.875; 
 
   /** Creates a new ElevatorSixFeetCommand. */
   public ElevatorLevelTwoAlgaeCommand(ElevatorSubSystem elevator) {
@@ -20,7 +21,7 @@ public class ElevatorLevelTwoAlgaeCommand extends Command {
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.03, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031, 0.022
-    controller.setSetpoint(22.875);//34.875-6, 28.875, 26.875
+    controller.setSetpoint(setPoint);//34.875-6, 28.875, 26.875
     controller.setTolerance(0.25);
   }
 
@@ -48,5 +49,10 @@ public class ElevatorLevelTwoAlgaeCommand extends Command {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  @Override
+  public double getSetpoint() {
+     return setPoint;
   }
 }

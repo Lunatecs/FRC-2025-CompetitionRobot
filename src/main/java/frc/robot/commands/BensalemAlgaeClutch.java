@@ -16,7 +16,7 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class BensalemAlgaeClutch extends SequentialCommandGroup {
   /** Creates a new BensalemAlgaeClutch. */
-  public BensalemAlgaeClutch(Command elevatorCommand, AlgaePivotSubSystem pivot, AlgaeLiberatorSubSystem roller, CoralOutakeSubSystem coralOutake, ElevatorSubSystem elevator) {
+  public BensalemAlgaeClutch(AbstractAlgaeElevatorCommand  elevatorCommand, AlgaePivotSubSystem pivot, AlgaeLiberatorSubSystem roller, CoralOutakeSubSystem coralOutake, ElevatorSubSystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
