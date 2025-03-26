@@ -25,6 +25,7 @@ import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
 import frc.robot.commands.AlgaePivotResetCommand;
+import frc.robot.commands.AlignToReefPoseCommand;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
@@ -114,6 +115,8 @@ public class RobotContainer {
 
 
         // DRIVER CONTROLS
+
+        driver.cross().whileTrue(new AlignToReefPoseCommand(drivetrain));
         //Slow Mode
         driver.R1().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
                                                                     .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)

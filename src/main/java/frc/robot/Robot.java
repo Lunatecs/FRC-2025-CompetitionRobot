@@ -52,12 +52,13 @@ public class Robot extends TimedRobot {
             DriverStation.reportError("Error getting POSE from LIMELIGHT (check ethernet): " + e.getMessage(), e.getStackTrace());
     }
   }
-/*
+
   @Override
   public void robotInit() {
-    //super.robotInit();
-    //FollowPathCommand.warmupCommand().schedule();
-  } */
+    super.robotInit();
+    FollowPathCommand.warmupCommand().schedule();
+  } 
+
 
   @Override
   public void disabledInit() {}
