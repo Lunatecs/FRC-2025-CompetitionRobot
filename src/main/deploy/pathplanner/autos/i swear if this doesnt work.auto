@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "path 1"
+            "pathName": "LEFT 3 Piece Path 1"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "path 2"
+            "pathName": "LEFT 3 Piece Path 2"
           }
         },
         {
@@ -31,7 +31,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "path 3"
+            "pathName": "LEFT 3 Piece Path 3"
           }
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "end path"
+            "pathName": "LEFT 3 Piece End Path"
           }
         }
       ]

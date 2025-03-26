@@ -75,10 +75,13 @@ import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 import frc.robot.subsystems.WhaleTailReleaseSubSystem;
 
 public class RobotContainer {
+
+    // Swerve Set Up
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    // private final SwerveRequest.SwerveDriveBrake xWheels = new SwerveRequest.SwerveDriveBrake();
+    // private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
 
-    /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
@@ -86,24 +89,18 @@ public class RobotContainer {
     private final SwerveRequest.RobotCentric robotCentricDrive = new SwerveRequest.RobotCentric()
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
     
-    private final SwerveRequest.SwerveDriveBrake xWheels = new SwerveRequest.SwerveDriveBrake();
-    private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+    private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final SendableChooser<Command> autoChooser;
 
-    private final Telemetry logger = new Telemetry(MaxSpeed);
-    
     private final CommandPS5Controller driver = new CommandPS5Controller(0);
-
     private final CommandPS5Controller operator = new CommandPS5Controller(1);
 
+    // Subsystem Instantiation
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    //private CoralGroundIntakeSubSystem coralIntake = new CoralGroundIntakeSubSystem();
-    //private CoralFeederSubSystem coralFeeder = new CoralFeederSubSystem(); 
     private final CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private final CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
-    //private final CoralGroundIntakePivotSubSystem pivot = new CoralGroundIntakePivotSubSystem();
     private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
     private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
     private final ClimberSubSystem climber = new ClimberSubSystem();
@@ -113,23 +110,19 @@ public class RobotContainer {
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
     private final WhaleTailReleaseSubSystem dropServo = new WhaleTailReleaseSubSystem();
     private final LEDSubSystem blink = new LEDSubSystem();
-    //PathPlannerPath path = PathPlannerPath.fromPathFile("LEFTPATH");
 
     public RobotContainer() {
         
-        NamedCommands.registerCommand("ScoreL4", new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65)); //70.5
+        // Event Marker Commands for Path Planner
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake));
-        NamedCommands.registerCommand("Target and Score LEFT Pole", new AutoTargetScoreLeftPoleL4Sequence(limelightRight, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        //NamedCommands.registerCommand("Target and Score RIGHT Pole", new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));\
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
         NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
         NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
 
-
+        // Auto Mode Set Up
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
-        //NamedCommands.registerCommand("testpathing", new testAuto3Piece(path, limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
 
         configureBindings();
     }
@@ -139,176 +132,80 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        // Note that X is defined as forward according to WPILib convention,
-        // and Y is defined as to the left according to WPILib convention.
+        // Default Commands
+        drivetrain.setDefaultCommand(
+            drivetrain.applyRequest(() ->
+                drive.withVelocityX(driver.getLeftY() * MaxSpeed)
+                    .withVelocityY(driver.getLeftX() * MaxSpeed)
+                    .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
+
         liberator.setDefaultCommand(new InstantCommand(()-> {liberator.setSpeed(0.04);}, liberator));
         blink.setDefaultCommand(new BlinkAlignCommand(blink, align));
 
-        drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(driver.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(driver.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
-        );
+        drivetrain.registerTelemetry(logger::telemeterize);
 
+
+        // DRIVER CONTROLS
+        //Slow Mode
         driver.R1().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
                                                                     .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)
                                                                     .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
-        
-        //driver.cross().whileTrue(new ReefTrackingCommand(drivetrain));
+        // Robot Centric (at Slow Mode Speed)
         driver.L1().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)
                                                                                 .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.15)
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
-       //driver.cross().onTrue(new InstantCommand(() -> {dropServo.dropTail(true);}, dropServo))
-       //.onFalse(new InstantCommand(() -> {dropServo.dropTail(false);}, dropServo));
-
-        //driver.square().whileTrue(new AutoTrackToReef(drivetrain));
-        //climber.setDefaultCommand(new ManualClimbCommand(climber, () -> {
-           //return operator.getLeftY();    
-        //}));
-       /*  driver.L1().onTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(driver.getLeftY() * MaxSpeed)
-                                                                            .withVelocityY(driver.getLeftX() * MaxSpeed)
-                                                                            .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
-*/
-        //driver.R1().whileTrue(new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        //driver.R1().whileTrue(new AutoTargetScoreRightPoleL4Sequence(limelightLeft, drivetrain, elevator, coralOutake, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        //driver.L1().whileTrue(new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentricDrive, MaxSpeed, MaxAngularRate));
-        
-
-
-        /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        )); */
-
-        // Run SysId routines when holding back/start and X/Y.
-        // Note that each routine should be run exactly once in a single log.
-        /*
-        driver.triangle().and(driver.R1()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        driver.triangle().and(driver.L1()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        driver.square().and(driver.R1()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        driver.square().and(driver.L1()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-        */
-
-        // reset the field-centric heading on left bumper press
+        // Field Centric Heading Reset
         driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        //driver.square().onTrue(new AutoTrackToReef(drivetrain));
-        //driver.cross().onTrue(new InstantCommand(() -> {},drivetrain));
-
-        drivetrain.registerTelemetry(logger::telemeterize);
-
-        
-        //driver.R2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(1); coralFeeder.setSpeed(1); coralCarriage.setSpeed(1); coralOutake.setSpeed(1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
-        //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
-
-        //driver.R2().onTrue(new IntakeCoralCommand(pivot, coralIntake, coralFeeder, coralCarriage, coralOutake));
-
-
-        //driver.L2().onTrue(new InstantCommand(()->{ coralIntake.setSpeed(-1); coralFeeder.setSpeed(-1); coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);},coralIntake,coralFeeder,coralCarriage,coralOutake))
-        //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0); coralFeeder.setSpeed(0); coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralIntake,coralFeeder,coralCarriage,coralOutake));
-
-
-        //operator.R2().onTrue(new InstantCommand(()->{elevator.setSpeed(-0.1);},elevator))
-        //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
-
-        //operator.R1().onTrue(new InstantCommand(()->{elevator.setSpeed(0.3);},elevator))
-        //.onFalse(new InstantCommand(()->{elevator.setSpeed(0);},elevator));
-
-        
-
-        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 71.5));
-        //operator.povUp().onTrue(new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.0));
-        //driver.povUp().onTrue(new RaiseIntakeCommand(pivot));
-        //driver.povDown().onTrue(new DropIntakeCommand(pivot));
-
-        //operator.povLeft().onTrue(new HopperIntakeCommand(hopper, coralCarriage, coralOutake));
-        //(new InstantCommand(()-> {hopper.setSpeed(0.2);}, hopper))
-            //.onFalse(new InstantCommand(()->{hopper.setSpeed(0);}, hopper));
-        
-        //operator.povRight().onTrue(new InstantCommand(()-> {pivot.setSpeed(0.2);}, pivot))
-            //.onFalse(new InstantCommand(()-> {pivot.setSpeed(0);}, pivot));
-
-        //operator.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
-        //operator.povRight().onTrue(new AlgaePivotResetCommand(pivot));
-        //operator.povUp().onTrue(new AlgaeFromGroundPivotCommand(pivot));
-
-        //operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-1); coralOutake.setSpeed(-1);}, liberator, coralOutake))
-        //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
-
-        //operator.R2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
-        //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
-
-        //(new InstantCommand(()-> {pivot.setSpeed(-0.2);}, pivot))
-            //.onFalse(new InstantCommand(()-> {pivot.setSpeed(0);}, pivot));
-
-        //operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
-
-        //operator.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
-            //.onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
-
-        //operator.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
-        //.onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
-        
-        //driver.povRight().onTrue(new IntakePivotAlgaeCommand(pivot));
-       // driver.povLeft().onTrue(new InstantCommand(()->{coralIntake.setSpeed(.3);}))
-        //.onFalse(new InstantCommand(()->{coralIntake.setSpeed(0);}));
-
-
-        //DRIVER BINDINGS:
         driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
-            .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
-        driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
-        driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
-        driver.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
-            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
-        driver.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
-            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+                    .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
-        //OPERATOR BINDINGS BELOW 
-        //ALL CORAL STUFF
-        //Coral Elevator Bindings
+        driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+
+        driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
+
+        driver.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
+                        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+
+        driver.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
+                            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
+
+        // OPERATOR CONTROLS
+        // Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
         operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
         operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
         operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
         
+        // Elevator Down
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
 
-        //Coral Outtake Bindings
+        // Run End Effector
         operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
-        operator.R2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);}, coralCarriage,coralOutake))
-                    .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
-
-        
-        
         operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
-        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+                        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
-        //Coral Intake Bindings
+        // Reverse End Effector
+        operator.R2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(-1); coralOutake.setSpeed(-1);}, coralCarriage,coralOutake))
+                        .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
+
+        // Hopper
         operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
 
 
-        //ALL ALGAE STUFF
-        //ALGAE ELEVATOR STUFF
-        operator.cross().and(operator.R1()).onTrue(new ElevatorLevelOneCommand(elevator));
-        //operator.circle().and(operator.R1()).onTrue(new ElevatorLevelThreeAlgaeCommand(elevator));
-       // operator.square().and(operator.R1()).onTrue(new ElevatorLevelTwoAlgaeCommand(elevator));
-
-        // NEEDS TO BE TESTED BUDDY
+        // Algae Bindings
+        // ALGAE ELEVATOR STUFF
         operator.square().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelTwoAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
                                                 .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
+
         operator.circle().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelThreeAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
                                             .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
 
 
         operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
-        operator.povDown().and(operator.R1()).onTrue(new ElevatorDownCommand(elevator));
 
         //Algae Outtake Bindings
         operator.L1().and(operator.R1()).whileTrue(new RunCommand(()-> {liberator.setSpeed(-0.4); coralOutake.setSpeed(-0.4);}, liberator, coralOutake))
@@ -323,6 +220,21 @@ public class RobotContainer {
         operator.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
         operator.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
+        // Back Up Driving Features
+        /*joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        joystick.b().whileTrue(drivetrain.applyRequest(() ->
+            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+        )); */
+        
+        // Sys ID Routines
+        // Run SysId routines when holding back/start and X/Y.
+        // Note that each routine should be run exactly once in a single log.
+        /*
+        driver.triangle().and(driver.R1()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        driver.triangle().and(driver.L1()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        driver.square().and(driver.R1()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        driver.square().and(driver.L1()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        */
     }
 
     public Command getAutonomousCommand() {
