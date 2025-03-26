@@ -38,7 +38,7 @@ public class AlignToReefPoseCommand extends Command {
   @Override
   public void initialize() {
     currentPose = swerve.getState().Pose;
-    goalPose = new Pose2d(3.231, 3.830, Rotation2d.fromDegrees(180));
+    goalPose = new Pose2d(3.161, 3.850, Rotation2d.fromDegrees(180));
     SmartDashboard.putString("goal pose", goalPose.toString());
     waypoints = PathPlannerPath.waypointsFromPoses(currentPose, goalPose);
     constraints = new PathConstraints(3.0, 3.0, 2 * Math.PI, 4 * Math.PI);
