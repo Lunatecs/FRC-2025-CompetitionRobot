@@ -101,9 +101,6 @@ public class RobotContainer {
     private final CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private final CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
-    private final ScoringLimeLightSubSystemLeft limelightLeft = new ScoringLimeLightSubSystemLeft();
-    private final ScoringLimeLightSubSystemRight limelightRight = new ScoringLimeLightSubSystemRight();
-    private final ClimberSubSystem climber = new ClimberSubSystem();
     private final CoralHopperSubSystem hopper = new CoralHopperSubSystem();
     private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
@@ -164,12 +161,6 @@ public class RobotContainer {
         driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
         driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
-
-        driver.povLeft().onTrue(new InstantCommand(() -> {climber.setSpeed(-0.3);}, climber))
-                        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
-
-        driver.povRight().onTrue(new InstantCommand(() -> {climber.setSpeed(.3);}, climber))
-                            .onFalse(new InstantCommand(() -> {climber.setSpeed(0);}, climber));
 
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
