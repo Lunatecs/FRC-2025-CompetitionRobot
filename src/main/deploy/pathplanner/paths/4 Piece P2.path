@@ -52,7 +52,54 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Elevator Down"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.6201550387596874,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Station Pick Up Command"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "L2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 1.736434108527126,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -66,7 +113,7 @@
     "rotation": -57.5288077091516
   },
   "reversed": false,
-  "folder": "4 Piece Straight Auto Paths",
+  "folder": "4 Piece Optimized",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.51149855709028

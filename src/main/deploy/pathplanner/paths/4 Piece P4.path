@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.2823076923076917,
-        "y": 6.9147435897435905
+        "x": 1.6228846153846148,
+        "y": 7.203717948717949
       },
       "prevControl": {
-        "x": 1.8654298987850813,
-        "y": 7.49229967263642
+        "x": 2.2060068218620055,
+        "y": 7.781274031610779
       },
       "nextControl": {
-        "x": 0.5971872714215267,
-        "y": 6.236162904251821
+        "x": 0.9377641944984498,
+        "y": 6.5251372632261795
       },
       "isLocked": false,
       "linkedName": null
@@ -48,11 +48,62 @@
     {
       "waypointRelativePos": 0.9754385964912213,
       "rotationDegrees": -53.67133864148086
+    },
+    {
+      "waypointRelativePos": 1.3508771929824666,
+      "rotationDegrees": -34.02083167372382
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Elevator Down"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.5182724252491646,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Station Pick Up Command"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "L2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 1.6566998892580214,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -66,7 +117,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "4 Piece Straight Auto Paths",
+  "folder": "4 Piece Optimized",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -60.25511870305775

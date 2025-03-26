@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
 
       double targetRotationDegrees = (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : 180;
       m_robotContainer.drivetrain.resetRotation(Rotation2d.fromDegrees(targetRotationDegrees));
-//todo: reset our pose to this angle
   }
 
 
@@ -52,8 +51,6 @@ public class Robot extends TimedRobot {
     } catch(Exception e) {
             DriverStation.reportError("Error getting POSE from LIMELIGHT (check ethernet): " + e.getMessage(), e.getStackTrace());
     }
-
-    
   }
 /*
   @Override

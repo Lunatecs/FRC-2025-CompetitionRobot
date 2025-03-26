@@ -3,10 +3,10 @@
   "robotLength": 0.813,
   "holonomicMode": true,
   "pathFolders": [
-    "4 Piece Optimized Auto Paths",
-    "4 Piece Straight Auto Paths",
-    "LEFT 3 Piece Paths",
     "1323 Compliement Paths",
+    "4 Piece Straight",
+    "4 Piece Optimized",
+    "LEFT 3 Piece Paths",
     "RIGHT 3 Piece Paths"
   ],
   "autoFolders": [],

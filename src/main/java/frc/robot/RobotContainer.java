@@ -83,6 +83,7 @@ public class RobotContainer {
         // Event Marker Commands for Path Planner
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake));
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
+        NamedCommands.registerCommand("L2", new ElevatorLevelTwoCommand(elevator));
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
         NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
         NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
@@ -132,6 +133,7 @@ public class RobotContainer {
 
         driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
+
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
@@ -156,9 +158,8 @@ public class RobotContainer {
         // Hopper
         operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake));
 
-
         // Algae Bindings
-        // ALGAE ELEVATOR STUFF
+        // ALGAE Elevator Commands
         operator.square().and(operator.R1()).onTrue(new BensalemAlgaeClutch(new ElevatorLevelTwoAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
                                                 .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
 
