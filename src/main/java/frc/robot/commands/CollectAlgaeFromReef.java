@@ -26,6 +26,7 @@ public class CollectAlgaeFromReef extends ParallelDeadlineGroup {
     super(
       elevatorCommand,
       new SequentialCommandGroup(
+      new WaitTillSetpointElevatorCommand(elevator, elevatorCommand.getSetpoint()),
       new AlgaeFromReefPivotCommand(pivot)),
       new ParallelDeadlineGroup(
         new HasAlgae(roller),

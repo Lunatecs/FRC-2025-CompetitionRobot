@@ -11,12 +11,12 @@ import frc.robot.subsystems.ElevatorSubSystem;
 public class WaitTillSetpointElevatorCommand extends Command {
   public boolean isFinished;
   public ElevatorSubSystem elevator;
-  public AbstractAlgaeElevatorCommand setpoint;
+  public double setpoint;
   /** Creates a new WaitTillSetpointElevatorCommand. */
-  public WaitTillSetpointElevatorCommand(ElevatorSubSystem elevator, Double setpoint) {
+  public WaitTillSetpointElevatorCommand(ElevatorSubSystem elevator, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
-    addRequirements(elevator);
+    this.setpoint = setpoint;
   }
 
   // Called when the command is initially scheduled.
@@ -28,8 +28,8 @@ public class WaitTillSetpointElevatorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(setpoint.getSetpoint() >= (setpoint.getSetpoint() - 3) && setpoint.getSetpoint() <= (setpoint.getSetpoint() + 3)){
-
+    if(setpoint >= (elevator.getElevatorHeight() - 3) && setpoint <= (elevator.getElevatorHeight() + 3)){
+      isFinished = true;
     }
   }
 
