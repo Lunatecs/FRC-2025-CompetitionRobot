@@ -29,6 +29,7 @@ import frc.robot.commands.AlignToReefPoseCommand;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
+import frc.robot.commands.CoralLevelOnePivotCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
@@ -138,7 +139,7 @@ public class RobotContainer {
 
         driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
-        driver.povLeft().onTrue(new AlgaeFromReefPivotCommand(pivot));
+        driver.povLeft().onTrue(new CoralLevelOnePivotCommand(pivot));
 
         driver.povRight().onTrue(new CoralFromGroundPivotCommand(pivot));
 
