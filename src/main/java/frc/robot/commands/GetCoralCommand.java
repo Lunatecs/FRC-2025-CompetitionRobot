@@ -28,7 +28,7 @@ public class GetCoralCommand extends SequentialCommandGroup {
         new WaitCommand(0.25), //0.25
         new InstantCommand(()->{outake.setSpeed(-1);},outake)),
       new InstantCommand(()->{outake.setSpeed(0);},outake),
-      new ElevatorLevelOneCommand(elevator));
+      new ElevatorLevelZeroCommand(elevator));
 
       addRequirements(hopper,carriage,outake, elevator);
   }

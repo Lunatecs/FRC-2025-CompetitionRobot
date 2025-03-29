@@ -6,21 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AlgaePivotSubSystem;
-
+import frc.robot.subsystems.ElevatorSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlgaeFromGroundPivotCommand extends Command {
-  private AlgaePivotSubSystem pivot;
-  PIDController controller;
-  /** Creates a new DropIntakeCommand. */
-  public AlgaeFromGroundPivotCommand(AlgaePivotSubSystem pivot) {
-    this.pivot = pivot;
+public class ElevatorLevelZeroCommand extends Command {
+
+  private ElevatorSubSystem elevator;
+  private PIDController controller;
+
+  /** Creates a new ElevatorSixFeetCommand. */
+  public ElevatorLevelZeroCommand(ElevatorSubSystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(pivot);
-    controller = new PIDController(0.008, 0, 0); 
-    controller.setSetpoint(110); 
-    controller.setTolerance(2);
+    this.elevator = elevator;
+    addRequirements(elevator);
+    controller = new PIDController(0.03025, 0, 0); //0.01025
+    controller.setSetpoint(18); //25.5, 24
+    controller.setTolerance(0.25);
   }
 
   // Called when the command is initially scheduled.
@@ -30,17 +31,17 @@ public class AlgaeFromGroundPivotCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = controller.calculate(pivot.getDegreesOfPivot());
-    if(Math.abs(speed)> 0.5){
-      speed = Math.signum(speed) * 0.5;
+    double speed = controller.calculate(elevator.getElevatorHeight());
+    if(Math.abs(speed)> 1.0){
+      speed = Math.signum(speed) * 1.0;
     }
-    pivot.setSpeed(speed);
+    elevator.setSpeed(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pivot.setSpeed(0);
+    elevator.setSpeed(0);
   }
 
   // Returns true when the command should end.

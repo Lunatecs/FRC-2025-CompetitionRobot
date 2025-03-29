@@ -19,7 +19,7 @@ public class AlgaePivotResetCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(0); 
+    controller.setSetpoint(10); 
     controller.setTolerance(2);
   }
 
