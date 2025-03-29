@@ -173,7 +173,7 @@ public class Field {
             Entry<Integer,ReefPose> value = iter.next();
             double length = getLineLength(value.getValue().getCenterX(), robotPose.getX(), 
                                             value.getValue().getCenterY(), robotPose.getY());
-            lengths = value.getValue().getAprilTagNumber() + ": " + length + "--";
+            lengths = value.getValue().getAprilTagNumber() + ": " + length + "\r\n" + lengths;
             if(length < shortest){
                 shortest = length;
                 aprilTagNum = value.getValue().getAprilTagNumber();
