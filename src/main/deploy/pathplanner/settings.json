@@ -4,9 +4,10 @@
   "holonomicMode": true,
   "pathFolders": [
     "1323 Compliement Paths",
-    "4 Piece Straight",
     "4 Piece Optimized",
+    "4 Piece Straight",
     "LEFT 3 Piece Paths",
+    "Reef Poses",
     "RIGHT 3 Piece Paths"
   ],
   "autoFolders": [],

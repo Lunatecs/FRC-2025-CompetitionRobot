@@ -16,6 +16,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.field.Field;
+import frc.robot.field.ReefPose;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -38,7 +40,9 @@ public class AlignToReefPoseCommand extends Command {
   @Override
   public void initialize() {
     currentPose = swerve.getState().Pose;
-    goalPose = new Pose2d(3.161, 3.850, Rotation2d.fromDegrees(0));
+    ReefPose reefPose = Field.getField().getClosestReefPose(swerve.getState().Pose);
+    SmartDashboard.putString("AprilTag", reefPose.getAprilTagNumber() +"");
+    goalPose =  reefPose.getLeftPose();//new Pose2d(3.161, 3.850, Rotation2d.fromDegrees(0));
     SmartDashboard.putString("goal pose", goalPose.toString());
     waypoints = PathPlannerPath.waypointsFromPoses(currentPose, goalPose);
     constraints = new PathConstraints(3, 2, 2 * Math.PI, 4 * Math.PI);
