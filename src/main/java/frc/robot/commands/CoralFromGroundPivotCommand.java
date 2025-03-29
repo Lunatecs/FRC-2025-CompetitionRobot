@@ -19,7 +19,7 @@ public class CoralFromGroundPivotCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.008, 0, 0); 
-    controller.setSetpoint(130); 
+    controller.setSetpoint(155); 
     controller.setTolerance(2);
   }
 
