@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Field {
 
     private static HashMap<Integer,ReefPose> blueNear = new HashMap<>();
+    private static HashMap<Integer,ReefPose> blueNearNew = new HashMap<>();
     private static HashMap<Integer, ReefPose> redNear = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueFar = new HashMap<>();
     private static HashMap<Integer, ReefPose> redFar = new HashMap<>();
@@ -27,6 +28,40 @@ public class Field {
 
 
     private Field(){
+
+        blueNearNew.put(17, new ReefPose(17, 
+            new Pose2d(4.08, 3.78, Rotation2d.fromDegrees(-120)), 
+            new Pose2d(4.38, 3.61, Rotation2d.fromDegrees(-120)), 
+            4.26, 3.67));
+
+        blueNearNew.put(18, new ReefPose(18,
+         new Pose2d(4.06, 4.27, Rotation2d.fromDegrees(180)),
+          new Pose2d(4.07, 3.9, Rotation2d.fromDegrees(180)),
+          4.07, 4.03));
+
+        blueNearNew.put(19, new ReefPose(19,
+         new Pose2d(4.49, 4.55, Rotation2d.fromDegrees(120)),
+          new Pose2d(4.21, 4.34, Rotation2d.fromDegrees(120)),
+           4.33, 4.42));
+
+        blueNearNew.put(20, new ReefPose(20,
+         new Pose2d(4.92, 4.29, Rotation2d.fromDegrees(60)),
+          new Pose2d(4.58, 4.44, Rotation2d.fromDegrees(60)),
+           4.73, 4.38));
+
+        blueNearNew.put(21, new ReefPose(21,
+         new Pose2d(4.91, 3.87, Rotation2d.fromDegrees(0)),
+          new Pose2d(4.91, 4.14, Rotation2d.fromDegrees(0)),
+           4.91, 4.02));
+
+        blueNearNew.put(22, new ReefPose(22,
+         new Pose2d(4.56, 3.58, Rotation2d.fromDegrees(-60)),
+         new Pose2d(4.84, 3.73, Rotation2d.fromDegrees(-60)),
+          4.67, 3.66));
+
+
+
+
         blueNear.put(17, new ReefPose(17, 
             new Pose2d(3.994, 2.83, Rotation2d.fromDegrees(60)), 
             new Pose2d(3.709, 3.007, Rotation2d.fromDegrees(60)), 
@@ -154,12 +189,14 @@ public class Field {
     }
 
     public ReefPose getClosestReefPose(Pose2d robotPose) {
+        return Field.blueNearNew.get(22);
+        /* 
         Alliance color = DriverStation.getAlliance().orElse(Alliance.Blue);
         HashMap<Integer,ReefPose> reefMap = null;
         if(color.equals(Alliance.Blue)) {
-            reefMap = Field.blueNear;
+            reefMap = Field.blueNearNew;
         } else {
-            reefMap = Field.blueNear; //Field.redNear;
+            reefMap = Field.blueNearNew; //Field.redNear;
         }
 
         Set<Entry<Integer,ReefPose>> values = reefMap.entrySet();
@@ -171,19 +208,23 @@ public class Field {
         String lengths = "";
         while(iter.hasNext()) {
             Entry<Integer,ReefPose> value = iter.next();
-            double length = getLineLength(value.getValue().getCenterX(), robotPose.getX(), 
-                                            value.getValue().getCenterY(), robotPose.getY());
+            double length = getLineLength(value.getValue().getCenterX(), robotPose.getTranslation().getX(), 
+                                            value.getValue().getCenterY(), robotPose.getTranslation().getY());
             lengths = value.getValue().getAprilTagNumber() + ": " + length + "\r\n" + lengths;
+            SmartDashboard.putString("April Tag " + value.getValue().getAprilTagNumber(), 
+                    length + "= " +
+                    value.getValue().getCenterX() + "-" + robotPose.getTranslation().getX() + "+" + 
+                    value.getValue().getCenterY() + "-" + robotPose.getTranslation().getY());
             if(length < shortest){
                 shortest = length;
                 aprilTagNum = value.getValue().getAprilTagNumber();
             }
 
         }
-
+        
         SmartDashboard.putString("lengths", lengths);
 
-        return reefMap.get(aprilTagNum);
+        return reefMap.get(aprilTagNum);*/
     }
 
     public double getLineLength(double x1, double x2, double y1, double y2){
