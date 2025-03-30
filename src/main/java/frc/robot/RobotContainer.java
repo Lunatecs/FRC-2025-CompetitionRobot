@@ -20,12 +20,14 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
 import frc.robot.commands.ElevatorLevelTwoAlgaeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
+import frc.robot.commands.FullAutoDeliverCoralTeleop;
 import frc.robot.commands.GetCoralCommand;
 import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
 import frc.robot.commands.AlgaePivotResetCommand;
 import frc.robot.commands.AlignToReefPoseCommand;
+import frc.robot.commands.AutoDeliverCoralTeleop;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
@@ -106,8 +108,8 @@ public class RobotContainer {
         // Default Commands
         drivetrain.setDefaultCommand(
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(driver.getLeftY() * MaxSpeed)
-                    .withVelocityY(driver.getLeftX() * MaxSpeed)
+                drive.withVelocityX(-driver.getLeftY() * MaxSpeed)//Changed to negative
+                    .withVelocityY(-driver.getLeftX() * MaxSpeed)//Changed to negative
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 
         blink.setDefaultCommand(new BlinkAlignCommand(blink, align));
@@ -117,23 +119,29 @@ public class RobotContainer {
 
         // DRIVER CONTROLS
 
-        driver.cross().whileTrue(new AlignToReefPoseCommand(drivetrain));
+        //driver.cross().whileTrue(new AlignToReefPoseCommand(drivetrain));
 
-        driver.triangle().onTrue(new InstantCommand(()->{this.dropServo.dropTail(true);}));
+        driver.R1().whileTrue(new AlignToReefPoseCommand(drivetrain, "right"));
+        driver.L1().whileTrue(new AlignToReefPoseCommand(drivetrain, "left"));
+
+        //driver.cross().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
+        //driver.square().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
+        //driver.triangle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
+        //driver.triangle().onTrue(new InstantCommand(()->{this.dropServo.dropTail(true);}));
         //Slow Mode
-        driver.R1().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25)
-                                                                    .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)
-                                                                    .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
+        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
+                                                               .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)
+                                                               .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         // Robot Centric (at Slow Mode Speed)
-        driver.L1().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)
-                                                                                .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.15)
+        driver.L2().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)
+                                                                               .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.15)
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
         // Field Centric Heading Reset
         driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
-        driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
-                    .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
+        //driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+                    //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
         driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
@@ -146,18 +154,21 @@ public class RobotContainer {
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
-        operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
-        operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
+        //operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
+        //operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
+        //operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
+        operator.square().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
+        operator.circle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
+        operator.triangle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
         
         // Elevator Down
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
 
         // Run End Effector
-        operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(1); coralOutake.setSpeed(1);}, coralCarriage,coralOutake))
+        operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(-0.75); coralOutake.setSpeed(-0.75);}, coralCarriage,coralOutake))
                     .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
-        operator.L2().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.3); coralOutake.setSpeed(0.3);}, coralCarriage,coralOutake))
+        operator.L1().onTrue(new InstantCommand(() -> {coralCarriage.setSpeed(0.45); coralOutake.setSpeed(0.45);}, coralCarriage,coralOutake))
                         .onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         // Reverse End Effector

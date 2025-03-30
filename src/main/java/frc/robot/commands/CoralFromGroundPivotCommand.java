@@ -13,6 +13,7 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 public class CoralFromGroundPivotCommand extends Command {
   private AlgaePivotSubSystem pivot;
   PIDController controller;
+  boolean isFinished;
   /** Creates a new DropIntakeCommand. */
   public CoralFromGroundPivotCommand(AlgaePivotSubSystem pivot) {
     this.pivot = pivot;
