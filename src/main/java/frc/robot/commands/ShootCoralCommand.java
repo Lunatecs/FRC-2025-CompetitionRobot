@@ -31,7 +31,7 @@ public class ShootCoralCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (outtake.hasCoral() || new Date().getTime()-start.getTime() < 750L){
+    if (outtake.hasCoral() || new Date().getTime()-start.getTime() < 1000L){
       outtake.setSpeed(0.4);
     }
     else{

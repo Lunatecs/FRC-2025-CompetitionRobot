@@ -21,6 +21,7 @@ public class Field {
     private static HashMap<Integer,ReefPose> blueNear = new HashMap<>();
     private static HashMap<Integer,ReefPose> blueNearNew = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueNearNewNew = new HashMap<>();
+    private static HashMap<Integer, ReefPose> blueNearFinal = new HashMap<>();
     private static HashMap<Integer, ReefPose> redNear = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueFar = new HashMap<>();
     private static HashMap<Integer, ReefPose> redFar = new HashMap<>();
@@ -63,6 +64,9 @@ public class Field {
           4.67, 3.66));
 
 
+
+
+
         
           blueNearNewNew.put(17, new ReefPose(17,
           new Pose2d(3.995, 2.844, Rotation2d.fromDegrees(60)), 
@@ -93,6 +97,45 @@ public class Field {
          new Pose2d(5.264, 3.008, Rotation2d.fromDegrees(120)), 
          new Pose2d(4.976, 2.852, Rotation2d.fromDegrees(120)), 
          5.12, 2.928));
+
+
+
+
+
+
+
+
+
+
+         blueNearFinal.put(17, new ReefPose(17,
+         new Pose2d(4.007, 2.86, Rotation2d.fromDegrees(60)), 
+         new Pose2d(3.721, 3.026, Rotation2d.fromDegrees(60)), 
+         4.07, 3.306));
+         
+         blueNearFinal.put(18, new ReefPose(18,
+         new Pose2d(3.239, 3.86, Rotation2d.fromDegrees(0)), 
+         new Pose2d(3.239, 4.191, Rotation2d.fromDegrees(0)), 
+         3.658, 4.026)); 
+         
+         blueNearFinal.put(19, new ReefPose(19,
+         new Pose2d(3.721, 5.026, Rotation2d.fromDegrees(-60)), 
+         new Pose2d(4.007, 5.19, Rotation2d.fromDegrees(-60)), 
+         4.074, 4.745));
+
+       blueNearFinal.put(20, new ReefPose(20,
+        new Pose2d(4.971, 5.19, Rotation2d.fromDegrees(-120)), 
+        new Pose2d(5.257, 5.026, Rotation2d.fromDegrees(-120)), 
+        4.905, 4.745));
+
+        blueNearFinal.put(21, new ReefPose(21,
+        new Pose2d(5.74, 4.191, Rotation2d.fromDegrees(180)), 
+        new Pose2d(5.73, 3.86, Rotation2d.fromDegrees(180)), 
+        5.321, 4.026));
+        
+        blueNearFinal.put(22, new ReefPose(22,
+        new Pose2d(5.257, 3.026, Rotation2d.fromDegrees(120)), 
+        new Pose2d(4.971, 2.86, Rotation2d.fromDegrees(120)), 
+        4.90, 3.306));
 
         
 
@@ -230,9 +273,9 @@ public class Field {
         Alliance color = DriverStation.getAlliance().orElse(Alliance.Blue);
         HashMap<Integer,ReefPose> reefMap = null;
         if(color.equals(Alliance.Blue)) {
-            reefMap = Field.blueNearNewNew;
+            reefMap = Field.blueNearFinal;
         } else {
-            reefMap = Field.blueNearNewNew; //Field.redNear;
+            reefMap = Field.blueNearFinal; //Field.redNear;
         }
 
         Set<Entry<Integer,ReefPose>> values = reefMap.entrySet();

@@ -124,9 +124,9 @@ public class RobotContainer {
         driver.R1().whileTrue(new AlignToReefPoseCommand(drivetrain, "right"));
         driver.L1().whileTrue(new AlignToReefPoseCommand(drivetrain, "left"));
 
-        //driver.cross().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
-        //driver.square().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
-        //driver.triangle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
+        driver.cross().onTrue(new FullAutoDeliverCoralTeleop(2, new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5, align, blink));
+        driver.square().onTrue(new FullAutoDeliverCoralTeleop(3, new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5, align, blink));
+        driver.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8, align, blink));
         //driver.triangle().onTrue(new InstantCommand(()->{this.dropServo.dropTail(true);}));
         //Slow Mode
         driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
@@ -143,9 +143,11 @@ public class RobotContainer {
         //driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
                     //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
-        driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        //driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        operator.L3().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        operator.R3().onTrue(new AlgaePivotResetCommand(pivot));
 
-        driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
+        //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
         driver.povLeft().onTrue(new CoralLevelOnePivotCommand(pivot));
 
@@ -154,12 +156,12 @@ public class RobotContainer {
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        //operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
-        //operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
-        //operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
-        operator.square().onTrue(new FullAutoDeliverCoralTeleop(2, new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
-        operator.circle().onTrue(new FullAutoDeliverCoralTeleop(3, new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
-        operator.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
+        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
+        operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
+        //operator.square().onTrue(new FullAutoDeliverCoralTeleop(2, new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5, align, blink));
+        //operator.circle().onTrue(new FullAutoDeliverCoralTeleop(3, new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5, align, blink));
+        //operator.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8, align, blink));
         
         // Elevator Down
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));
