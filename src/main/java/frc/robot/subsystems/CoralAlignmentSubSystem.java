@@ -33,6 +33,14 @@ public class CoralAlignmentSubSystem extends SubsystemBase {
   public boolean isAlignedL4(){
     return sensor.getDistance().getValueAsDouble() < 0.35;
   }
+
+  public boolean isAlignedL3() {
+    return sensor.getDistance().getValueAsDouble() < 0.60;
+  }
+
+  public boolean isAlignedL2() {
+    return sensor.getDistance().getValueAsDouble() < 0.60;
+  }
     
 
   @Override

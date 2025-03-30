@@ -157,9 +157,9 @@ public class RobotContainer {
         //operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
         //operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
         //operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
-        operator.square().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
-        operator.circle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
-        operator.triangle().onTrue(new FullAutoDeliverCoralTeleop(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
+        operator.square().onTrue(new FullAutoDeliverCoralTeleop(2, new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5));
+        operator.circle().onTrue(new FullAutoDeliverCoralTeleop(3, new ElevatorLevelThreeCommand(elevator), elevator, coralOutake, 47.5));
+        operator.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8));
         
         // Elevator Down
         operator.povDown().onTrue(new ElevatorDownCommand(elevator));

@@ -16,11 +16,12 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDeliverCoralTeleop extends ParallelDeadlineGroup {
   /** Creates a new DeliverCoralAtHeight. */
-  public AutoDeliverCoralTeleop(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
+  public AutoDeliverCoralTeleop(int level, Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
     super(new SequentialCommandGroup(
             new WaitUntilAtHeightCommand(elevator, shootAtHeight),
+            new SensorAlignToPole(level),
             new ShootCoralCommand(coralOutake)));
     addCommands(goToLevelCommand);
     // addCommands(new FooCommand(), new BarCommand());

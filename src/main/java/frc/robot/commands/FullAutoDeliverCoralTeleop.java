@@ -14,8 +14,8 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FullAutoDeliverCoralTeleop extends SequentialCommandGroup {
   /** Creates a new FullAutoDeliverCoralTeleop. */
-  public FullAutoDeliverCoralTeleop(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
-    addCommands(new AutoDeliverCoralTeleop(goToLevelCommand, elevator, coralOutake, shootAtHeight),
+  public FullAutoDeliverCoralTeleop(int level, Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
+    addCommands(new AutoDeliverCoralTeleop(level, goToLevelCommand, elevator, coralOutake, shootAtHeight),
     new ElevatorDownCommand(elevator));
   }
 }
