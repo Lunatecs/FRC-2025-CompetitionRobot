@@ -30,8 +30,10 @@ public class AlignToReefPoseCommand extends Command {
   PathConstraints constraints;
   PathPlannerPath path;
   Command run;
-  public AlignToReefPoseCommand(CommandSwerveDrivetrain swerve) {
+  String side;
+  public AlignToReefPoseCommand(CommandSwerveDrivetrain swerve, String side) {
     this.swerve = swerve;
+    this.side = side;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerve);
   }
@@ -42,7 +44,12 @@ public class AlignToReefPoseCommand extends Command {
     currentPose = swerve.getState().Pose;
     ReefPose reefPose = Field.getField().getClosestReefPose(swerve.getState().Pose);
     SmartDashboard.putString("AprilTag", reefPose.getAprilTagNumber() +"");
-    goalPose =  reefPose.getLeftPose();//new Pose2d(3.161, 3.850, Rotation2d.fromDegrees(0));
+    if (side.equals("right")){
+      goalPose =  reefPose.getRightPose();
+    }//new Pose2d(3.161, 3.850, Rotation2d.fromDegrees(0));
+    if (side.equals("left")){
+      goalPose =  reefPose.getLeftPose();
+    }
     SmartDashboard.putString("goal pose", goalPose.toString());
     waypoints = PathPlannerPath.waypointsFromPoses(currentPose, goalPose);
     constraints = new PathConstraints(3, 2, 2 * Math.PI, 4 * Math.PI);
