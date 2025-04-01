@@ -22,6 +22,7 @@ public class Field {
     private static HashMap<Integer,ReefPose> blueNearNew = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueNearNewNew = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueNearFinal = new HashMap<>();
+    private static HashMap<Integer, ReefPose> redNearFinal = new HashMap<>();
     private static HashMap<Integer, ReefPose> redNear = new HashMap<>();
     private static HashMap<Integer, ReefPose> blueFar = new HashMap<>();
     private static HashMap<Integer, ReefPose> redFar = new HashMap<>();
@@ -136,6 +137,38 @@ public class Field {
         new Pose2d(5.257, 3.026, Rotation2d.fromDegrees(120)), 
         new Pose2d(4.971, 2.86, Rotation2d.fromDegrees(120)), 
         4.90, 3.306));
+
+
+
+        redNearFinal.put(6, new ReefPose(6,
+         new Pose2d(13.827, 3.0259, Rotation2d.fromDegrees(120)),
+          new Pose2d(13.541, 2.8608, Rotation2d.fromDegrees(120)),
+           13.4744, 3.3063));
+
+         redNearFinal.put(7, new ReefPose(7,
+          new Pose2d(14.3096, 4.191, Rotation2d.fromDegrees(180)),
+           new Pose2d(14.3096, 3.8608, Rotation2d.fromDegrees(180)),
+            13.8905, 4.0295));
+
+         redNearFinal.put(8, new ReefPose(8,
+          new Pose2d(13.541, 5.191, Rotation2d.fromDegrees(-120)),
+           new Pose2d(13.827, 5.0259, Rotation2d.fromDegrees(-120)),
+            13.4744, 4.7455));
+
+         redNearFinal.put(9, new ReefPose(9,
+          new Pose2d(12.2908, 5.0259, Rotation2d.fromDegrees(-60)),
+           new Pose2d(12.5768, 5.191, Rotation2d.fromDegrees(-60)),
+            12.6434, 4.7455));
+
+         redNearFinal.put(10, new ReefPose(10,
+          new Pose2d(11.8082, 3.8608, Rotation2d.fromDegrees(0)),
+           new Pose2d(11.8082, 4.191, Rotation2d.fromDegrees(0)),
+            12.2273, 4.0259));
+
+         redNearFinal.put(11, new ReefPose(11,
+          new Pose2d(12.5768, 2.8608, Rotation2d.fromDegrees(60)),
+           new Pose2d(12.2908, 3.0259, Rotation2d.fromDegrees(60)),
+            12.6434, 3.3063));
 
         
 
@@ -275,7 +308,7 @@ public class Field {
         if(color.equals(Alliance.Blue)) {
             reefMap = Field.blueNearFinal;
         } else {
-            reefMap = Field.blueNearFinal; //Field.redNear;
+            reefMap = Field.redNearFinal; //Field.redNear;
         }
 
         Set<Entry<Integer,ReefPose>> values = reefMap.entrySet();

@@ -24,7 +24,7 @@ public class AutoDeliverCoralTeleop extends ParallelDeadlineGroup {
     // addCommands().
     super(new SequentialCommandGroup(
             new WaitUntilAtHeightCommand(elevator, shootAtHeight),
-            new SensorAlignToPole(level, align, led),
+            //new SensorAlignToPole(level, align, led),
             new ShootCoralCommand(coralOutake)));
     addCommands(goToLevelCommand);
     // addCommands(new FooCommand(), new BarCommand());
