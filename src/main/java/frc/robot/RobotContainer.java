@@ -146,7 +146,8 @@ public class RobotContainer {
         //driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
         operator.L3().onTrue(new AlgaeFromGroundPivotCommand(pivot));
         operator.R3().onTrue(new AlgaePivotResetCommand(pivot));
-
+        operator.axisLessThan(2, -0.75).onTrue(new CoralFromGroundPivotCommand(pivot));
+        operator.axisGreaterThan(2, 0.75).onTrue(new CoralLevelOnePivotCommand(pivot));
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
         driver.povLeft().onTrue(new CoralLevelOnePivotCommand(pivot));
