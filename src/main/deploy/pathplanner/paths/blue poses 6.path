@@ -3,47 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.245384615384616,
-        "y": 5.036410256410257
+        "x": 5.730448717948717,
+        "y": 4.190128205128206
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.213333333333333,
-        "y": 6.243910256410256
+        "x": 6.730448717948717,
+        "y": 4.190128205128206
       },
       "isLocked": false,
-      "linkedName": "first real point"
+      "linkedName": "TAG 21 RIGHT"
     },
     {
       "anchor": {
-        "x": 1.7054487179487177,
-        "y": 7.275961538461538
+        "x": 5.73,
+        "y": 3.8598717948717947
       },
       "prevControl": {
-        "x": 2.4129302991705432,
-        "y": 6.815166115374939
+        "x": 8.217243589743582,
+        "y": 3.983717948717949
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "four piece pick up 1"
+      "linkedName": "TAG 21 LEFT"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "Elevator Down"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -54,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -53.880659150520174
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "4 Piece Straight",
+  "folder": "Reef Poses",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.51149855709028
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
