@@ -44,10 +44,15 @@
       }
     },
     {
-      "name": "Station Pick Up Command",
-      "waypointRelativePos": 0.7409836065573779,
+      "name": "",
+      "waypointRelativePos": 0.7060109289617474,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Station Pick Up Command"
+        }
+      }
     }
   ],
   "globalConstraints": {
