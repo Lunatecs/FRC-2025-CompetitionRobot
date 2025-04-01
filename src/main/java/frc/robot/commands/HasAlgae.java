@@ -26,7 +26,7 @@ public class HasAlgae extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (roller.getMotorCurrent() > 20) {    // THESHOLD NEEDS TO BE TESTED
+    if (roller.getMotorCurrent() > 25) {    // THESHOLD NEEDS TO BE TESTED
       isFinished = true;
     }
   }
