@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.261666666666666,
-        "y": 6.9147435897435905
+        "x": 1.7054487179487177,
+        "y": 7.275961538461538
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4924462945570354,
-        "y": 6.421184909545366
+        "x": 2.259942603895192,
+        "y": 6.921346056087058
       },
       "isLocked": false,
-      "linkedName": "four piece pick up 4"
+      "linkedName": "four piece pick up 1"
     },
     {
       "anchor": {
-        "x": 3.2328846153846147,
-        "y": 4.159166666666667
+        "x": 4.965852272727273,
+        "y": 5.146803977272728
       },
       "prevControl": {
-        "x": 3.1008522231267537,
-        "y": 4.46227685437596
+        "x": 4.7616097827846415,
+        "y": 5.2909740341570695
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,30 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Station Pick Up Command"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.7658157602663682,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -42,7 +65,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.2188752351313514
+    "rotation": -124.38034472384491
   },
   "reversed": false,
   "folder": "4 Piece Straight",

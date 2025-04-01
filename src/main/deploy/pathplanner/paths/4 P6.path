@@ -8,30 +8,42 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9476987276080595,
-        "y": 5.007491370500513
+        "x": 4.004297488374394,
+        "y": 4.817814655944949
       },
       "isLocked": false,
       "linkedName": "third coral"
     },
     {
       "anchor": {
-        "x": 1.261666666666666,
-        "y": 6.9147435897435905
+        "x": 1.7054487179487177,
+        "y": 7.275961538461538
       },
       "prevControl": {
-        "x": 2.252435897435897,
-        "y": 6.1923076923076925
+        "x": 2.4487682748707655,
+        "y": 6.230313479023455
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "four piece pick up 4"
+      "linkedName": "four piece pick up 1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Elevator Down"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
