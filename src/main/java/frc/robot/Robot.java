@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 
   @Override public void driverStationConnected() {
 
-      double targetRotationDegrees = (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 180 : 0; //Switched 180 and 0
+      double targetRotationDegrees = (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : 180; //Switched 180 and 0, 4/1 SWITCHED IT BACK
       m_robotContainer.drivetrain.resetRotation(Rotation2d.fromDegrees(targetRotationDegrees));
   }
 
