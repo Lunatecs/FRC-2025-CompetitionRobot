@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.159602272727272,
-        "y": 5.4
+        "x": 3.9886363636363638,
+        "y": 2.88974358974359
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.091544552836365,
-        "y": 5.458645259804217
+        "x": 4.401326382603081,
+        "y": 3.2669636561995
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "second coral right"
     },
     {
       "anchor": {
-        "x": 5.245384615384616,
-        "y": 5.036410256410257
+        "x": 1.712928082191781,
+        "y": 0.7494006849315065
       },
       "prevControl": {
-        "x": 6.3360061180339855,
-        "y": 5.234069215911305
+        "x": 2.266402694737536,
+        "y": 1.283442816097307
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "first real point"
+      "linkedName": "right pick up"
     }
   ],
   "rotationTargets": [],
@@ -39,18 +39,18 @@
       "command": {
         "type": "named",
         "data": {
-          "name": "L1"
+          "name": "Elevator Down"
         }
       }
     },
     {
       "name": "",
-      "waypointRelativePos": 0.9694915254237279,
+      "waypointRelativePos": 0.892537313432836,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "L4"
+          "name": "Station Pick Up Command"
         }
       }
     }
@@ -65,13 +65,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.51149855709028
+    "rotation": 52.76516601842542
   },
   "reversed": false,
-  "folder": "4 Piece Straight",
+  "folder": "Right 4 Piece",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.57242749316657
+    "rotation": 57.724355685422424
   },
   "useDefaultConstraints": true
 }
