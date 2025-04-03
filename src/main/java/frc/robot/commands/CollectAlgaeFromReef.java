@@ -30,7 +30,7 @@ public class CollectAlgaeFromReef extends ParallelDeadlineGroup {
       new AlgaeFromReefPivotCommand(pivot)),
       new ParallelDeadlineGroup(
         new HasAlgae(roller),
-        new RunCommand(()-> {roller.setSpeed(0.4); coralOutake.setSpeed(0.4);}, roller, coralOutake)));
+        new RunCommand(()-> {roller.setSpeed(1.0); coralOutake.setSpeed(0.4);}, roller, coralOutake)));
       
     addRequirements(elevator, pivot, roller, coralOutake);
   }

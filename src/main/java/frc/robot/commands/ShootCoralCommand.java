@@ -42,7 +42,7 @@ public class ShootCoralCommand extends Command {
     } else if (!outtake.hasCoral() && secondary == null) {
       secondary = new Date();
       outtake.setSpeed(1.0);
-    } else if (secondary != null && (now - secondary.getTime() < 200L)) {
+    } else if (secondary != null && (now - secondary.getTime() < 400L)) {
       outtake.setSpeed(1.0);
     } else {
       isFinished = true;

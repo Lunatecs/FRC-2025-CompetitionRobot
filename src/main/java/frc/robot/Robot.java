@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.drivetrain.resetRotation(autonEndingAngle.plus(Rotation2d.fromDegrees(180)));
+    m_robotContainer.drivetrain.resetRotation(autonEndingAngle);
   }
 
   @Override

@@ -10,6 +10,8 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -114,8 +116,8 @@ public class RobotContainer {
         // Default Commands
         drivetrain.setDefaultCommand(
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(driver.getLeftY() * MaxSpeed)//Changed back to positive
-                    .withVelocityY(driver.getLeftX() * MaxSpeed)//Changed back to positive
+                drive.withVelocityX(-driver.getLeftY() * MaxSpeed)//Changed back to positive
+                    .withVelocityY(-driver.getLeftX() * MaxSpeed)//Changed back to positive
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 
         blink.setDefaultCommand(new BlinkAlignCommand(blink, align));
@@ -135,8 +137,8 @@ public class RobotContainer {
         driver.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8, align, blink));
         //driver.triangle().onTrue(new InstantCommand(()->{this.dropServo.dropTail(true);}));
         //Slow Mode
-        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25) //switched back
-                                                               .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)  //switched back
+        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25) //switched back
+                                                               .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)  //switched back
                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         // Robot Centric (at Slow Mode Speed)
         driver.L2().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)
@@ -144,9 +146,10 @@ public class RobotContainer {
                                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
 
         // Field Centric Heading Reset
-        driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        //driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        driver.circle().onTrue(drivetrain.runOnce(() -> drivetrain.resetRotation(Rotation2d.fromDegrees(0))));
 
-        //driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
+        //driver.L2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); (coralOutake.setSpeed(1);}, liberator, coralOutake))
                     //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
         //driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
