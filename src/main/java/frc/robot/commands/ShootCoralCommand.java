@@ -12,8 +12,10 @@ import frc.robot.subsystems.CoralOutakeSubSystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShootCoralCommand extends Command {
   private CoralOutakeSubSystem outtake;
-  private boolean isFinished;
   private Date start;
+  private Date secondary;
+  boolean isFinished;
+
   /** Creates a new ShootCoralCommand. */
   public ShootCoralCommand(CoralOutakeSubSystem outtake) {
     this.outtake = outtake;
@@ -25,19 +27,27 @@ public class ShootCoralCommand extends Command {
   @Override
   public void initialize() {
     start = new Date();
+    secondary = null;
     isFinished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (outtake.hasCoral() || new Date().getTime()-start.getTime() < 750L){
+    long now = new Date().getTime();
+    long runningTime = now - start.getTime();
+
+    if (outtake.hasCoral() || runningTime < 300L) {
       outtake.setSpeed(0.4);
-    }
-    else{
-      outtake.setSpeed(0);
+    } else if (!outtake.hasCoral() && secondary == null) {
+      secondary = new Date();
+      outtake.setSpeed(1.0);
+    } else if (secondary != null && (now - secondary.getTime() < 200L)) {
+      outtake.setSpeed(1.0);
+    } else {
       isFinished = true;
     }
+
   }
 
   // Called once the command ends or is interrupted.

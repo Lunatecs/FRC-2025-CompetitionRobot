@@ -50,7 +50,18 @@
       "command": {
         "type": "named",
         "data": {
-          "name": "L4"
+          "name": "L4 Check"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.8765027322404362,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4 Check"
         }
       }
     }

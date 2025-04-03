@@ -13,6 +13,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
@@ -92,6 +93,11 @@ public class RobotContainer {
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
         NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
         NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
+        NamedCommands.registerCommand("L4 Check", new ConditionalCommand(
+            new ElevatorLevelFourCommand(elevator),
+            new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator),
+            () -> elevator.getElevatorHeight() > 6.0
+        ));
 
         // Auto Mode Set Up
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -108,8 +114,8 @@ public class RobotContainer {
         // Default Commands
         drivetrain.setDefaultCommand(
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-driver.getLeftY() * MaxSpeed)//Changed to negative
-                    .withVelocityY(-driver.getLeftX() * MaxSpeed)//Changed to negative
+                drive.withVelocityX(driver.getLeftY() * MaxSpeed)//Changed back to positive
+                    .withVelocityY(driver.getLeftX() * MaxSpeed)//Changed back to positive
                     .withRotationalRate(-driver.getRightX() * MaxAngularRate)));
 
         blink.setDefaultCommand(new BlinkAlignCommand(blink, align));
@@ -129,8 +135,8 @@ public class RobotContainer {
         driver.triangle().onTrue(new FullAutoDeliverCoralTeleop(4, new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8, align, blink));
         //driver.triangle().onTrue(new InstantCommand(()->{this.dropServo.dropTail(true);}));
         //Slow Mode
-        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.25)
-                                                               .withVelocityY(-driver.getLeftX() * MaxSpeed * 0.25)
+        driver.R2().whileTrue(drivetrain.applyRequest(() -> drive.withVelocityX(driver.getLeftY() * MaxSpeed * 0.25) //switched back
+                                                               .withVelocityY(driver.getLeftX() * MaxSpeed * 0.25)  //switched back
                                                                .withRotationalRate(-driver.getRightX() * MaxAngularRate * 0.3)));
         // Robot Centric (at Slow Mode Speed)
         driver.L2().whileTrue(drivetrain.applyRequest(() -> robotCentricDrive.withVelocityX(-driver.getLeftY() * MaxSpeed * 0.15)

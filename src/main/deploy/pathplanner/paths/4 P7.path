@@ -45,12 +45,23 @@
     },
     {
       "name": "",
-      "waypointRelativePos": 0.6644808743169304,
+      "waypointRelativePos": 0.57704918032787,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "L4"
+          "name": "L4 Check"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.79562841530054,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4 Check"
         }
       }
     }
