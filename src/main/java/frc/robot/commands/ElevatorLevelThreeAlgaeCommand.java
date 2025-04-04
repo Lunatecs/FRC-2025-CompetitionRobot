@@ -13,7 +13,7 @@ public class ElevatorLevelThreeAlgaeCommand extends AbstractAlgaeElevatorCommand
 
   private ElevatorSubSystem elevator;
   private PIDController controller;
-  private static double setPoint = 38; //36.625 //35.8 was running at 6:45 PM 4/3/25
+  private static double setPoint = 36.625; //36.625 //35.8 was running at 6:45 PM 4/3/25
 
   /** Creates a new ElevatorSixFeetCommand. */
   public ElevatorLevelThreeAlgaeCommand(ElevatorSubSystem elevator) {
