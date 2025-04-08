@@ -9,6 +9,7 @@ import java.time.Instant;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.AlgaeLiberatorSubSystem;
 import frc.robot.subsystems.AlgaePivotSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
@@ -24,7 +25,7 @@ public class NewAlageDown extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AlgaePivotResetCommand(pivot),
-      new InstantCommand(()-> {roller.setSpeed(0.04); outake.setSpeed(0);}, roller, outake),
+      new InstantCommand(()-> {roller.setSpeed(Constants.DEFAULT_ALGEA_INTAKE); outake.setSpeed(0);}, roller, outake),
       new ElevatorDownCommand(elevator)
     );
   }
