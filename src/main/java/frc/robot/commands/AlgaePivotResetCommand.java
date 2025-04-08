@@ -13,6 +13,7 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 public class AlgaePivotResetCommand extends Command {
   private AlgaePivotSubSystem pivot;
   PIDController controller;
+  boolean isFinished;
   /** Creates a new DropIntakeCommand. */
   public AlgaePivotResetCommand(AlgaePivotSubSystem pivot) {
     this.pivot = pivot;
@@ -25,7 +26,9 @@ public class AlgaePivotResetCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    isFinished = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -35,6 +38,7 @@ public class AlgaePivotResetCommand extends Command {
       speed = Math.signum(speed) * 0.5;
     }
     pivot.setSpeed(speed);
+    isFinished = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +50,6 @@ public class AlgaePivotResetCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }
