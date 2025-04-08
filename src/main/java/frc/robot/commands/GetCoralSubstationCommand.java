@@ -20,7 +20,7 @@ public class GetCoralSubstationCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelDeadlineGroup(new ReceiveCoralCommand(outake, carriage), new ElevatorCoralStationCommand(elevator)),
-        new ElevatorDownCommand(elevator)
+        new ElevatorLevelZeroCommand(elevator)
     );
     addRequirements(elevator, outake, carriage);
   }
