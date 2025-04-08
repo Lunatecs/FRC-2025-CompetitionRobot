@@ -25,17 +25,20 @@ import frc.robot.commands.ElevatorLevelTwoAlgaeCommand;
 import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAutoDeliverCoralTeleop;
 import frc.robot.commands.GetCoralCommand;
+import frc.robot.commands.GetCoralFromGroundSequentialCommand;
 import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
 import frc.robot.commands.AlgaePivotResetCommand;
 import frc.robot.commands.AlignToReefPoseCommand;
 import frc.robot.commands.AutoDeliverCoralTeleop;
+import frc.robot.commands.BabyBirdFromStationSequentialCommand;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
 import frc.robot.commands.CoralLevelOnePivotCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
+import frc.robot.commands.DeliverCoralLevelOneSequentialCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
@@ -153,10 +156,19 @@ public class RobotContainer {
                     //.onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
 
         //driver.povDown().onTrue(new AlgaeFromGroundPivotCommand(pivot));
-        operator.L3().onTrue(new AlgaeFromGroundPivotCommand(pivot));
-        operator.R3().onTrue(new AlgaePivotResetCommand(pivot));
-        operator.axisLessThan(2, -0.75).onTrue(new CoralFromGroundPivotCommand(pivot));
-        operator.axisGreaterThan(2, 0.75).onTrue(new CoralLevelOnePivotCommand(pivot));
+        //operator.L3().onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        //operator.R3().onTrue(new AlgaePivotResetCommand(pivot));
+        //operator.axisLessThan(2, -0.75).onTrue(new CoralFromGroundPivotCommand(pivot));
+        //operator.axisGreaterThan(2, 0.75).onTrue(new CoralLevelOnePivotCommand(pivot));
+        operator.L3().onTrue(new DeliverCoralLevelOneSequentialCommand(pivot, liberator))
+                .onFalse(new AlgaePivotResetCommand(pivot));
+        operator.axisLessThan(1, -0.75).onTrue(new BabyBirdFromStationSequentialCommand(liberator, elevator));
+        operator.axisGreaterThan(1, 0.75).onTrue(new GetCoralFromGroundSequentialCommand(pivot, liberator));
+
+        operator.axisLessThan(5, -0.75).onTrue(new AlgaePivotResetCommand(pivot));
+        operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
+
+
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
         driver.povLeft().onTrue(new CoralLevelOnePivotCommand(pivot));
