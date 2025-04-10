@@ -10,11 +10,12 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralLevelOnePivotCommand extends Command {
+public class CoralLevelOnePivotCommandEndable extends Command{
   private AlgaePivotSubSystem pivot;
   PIDController controller;
+  boolean isFinished;
   /** Creates a new DropIntakeCommand. */
-  public CoralLevelOnePivotCommand(AlgaePivotSubSystem pivot) {
+  public CoralLevelOnePivotCommandEndable(AlgaePivotSubSystem pivot) {
     this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
@@ -26,6 +27,7 @@ public class CoralLevelOnePivotCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isFinished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +38,10 @@ public class CoralLevelOnePivotCommand extends Command {
       speed = Math.signum(speed) * 0.5;
     }
     pivot.setSpeed(speed);
+
+    if (controller.atSetpoint()) {
+      isFinished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +53,6 @@ public class CoralLevelOnePivotCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }

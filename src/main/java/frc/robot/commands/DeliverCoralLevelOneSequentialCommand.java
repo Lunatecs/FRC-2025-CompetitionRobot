@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.AlgaeLiberatorSubSystem;
@@ -18,8 +19,8 @@ public class DeliverCoralLevelOneSequentialCommand extends SequentialCommandGrou
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new CoralLevelOnePivotCommand(pivot),
-      new RunCommand(()-> {roller.setSpeed(0.75);}, roller)
+      new CoralLevelOnePivotCommandEndable(pivot),
+      new InstantCommand(()-> {roller.setSpeed(0.75);}, roller)
     );
   }
 }
