@@ -20,7 +20,7 @@ public class DropGetGroundCoralCommand extends ParallelDeadlineGroup {
     // addCommands().
     super(new HasCoralLevelOne(roller),
 
-    new AlgaeFromGroundPivotCommand(pivot),
+    new CoralFromGroundPivotCommand(pivot),
     new RunCommand(()-> {roller.setSpeed(-0.4);}, roller)
     );
     // addCommands(new FooCommand(), new BarCommand());

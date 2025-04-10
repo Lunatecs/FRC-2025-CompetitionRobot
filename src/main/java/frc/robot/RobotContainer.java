@@ -214,7 +214,7 @@ public class RobotContainer {
         //operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
 
         //Algae Outtake Bindings
-        operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-0.4); coralOutake.setSpeed(-0.4);}, liberator, coralOutake))
+        operator.R1().whileTrue(new RunCommand(()-> {liberator.setSpeed(-0.4); coralOutake.setSpeed(0);}, liberator, coralOutake))
             .onFalse(new InstantCommand(()-> {liberator.setSpeed(0); coralOutake.setSpeed(0);}, liberator, coralOutake));
         operator.R2().whileTrue(new RunCommand(()-> {liberator.setSpeed(1); coralOutake.setSpeed(1);}, liberator, coralOutake))
             .onFalse(new InstantCommand(()-> {liberator.setSpeed(Constants.DEFAULT_ALGEA_INTAKE); coralOutake.setSpeed(0);}, liberator, coralOutake));
