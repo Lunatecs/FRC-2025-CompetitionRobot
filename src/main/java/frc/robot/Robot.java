@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    m_robotContainer.dropWhaleTale();
+    //m_robotContainer.dropWhaleTale();
   }
 
   @Override

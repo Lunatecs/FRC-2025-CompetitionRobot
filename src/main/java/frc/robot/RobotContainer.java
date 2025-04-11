@@ -26,6 +26,7 @@ import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAutoDeliverCoralTeleop;
 import frc.robot.commands.GetCoralCommand;
 import frc.robot.commands.GetCoralFromGroundSequentialCommand;
+import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
@@ -39,6 +40,7 @@ import frc.robot.commands.CoralFromGroundPivotCommand;
 import frc.robot.commands.CoralLevelOnePivotCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DeliverCoralLevelOneSequentialCommand;
+import frc.robot.commands.ElevatorCoralStationCommand;
 import frc.robot.commands.ElevatorDownCommand;
 import frc.robot.commands.ElevatorLevelFourCommand;
 import frc.robot.commands.ElevatorLevelOneCommand;
@@ -49,7 +51,8 @@ import frc.robot.subsystems.AlgaePivotSubSystem;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralAlignmentSubSystem;
-import frc.robot.subsystems.CoralHopperSubSystem;
+//import frc.robot.subsystems.CoralHopperSubSystem;
+//No longer using the HOPPER sub system
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
 import frc.robot.subsystems.LEDSubSystem;
@@ -82,7 +85,8 @@ public class RobotContainer {
     private final CarriageSubSystem coralCarriage = new CarriageSubSystem();
     private final CoralOutakeSubSystem coralOutake = new CoralOutakeSubSystem();
     private final ElevatorSubSystem elevator = new ElevatorSubSystem();
-    private final CoralHopperSubSystem hopper = new CoralHopperSubSystem();
+    //private final CoralHopperSubSystem hopper = new CoralHopperSubSystem();
+    //We are not using the hopper subsystem
     private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
@@ -92,7 +96,9 @@ public class RobotContainer {
     public RobotContainer() {
         
         // Event Marker Commands for Path Planner
-        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
+        NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
+        //new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
+        //Removed this because we don't use the hopper anymore
         NamedCommands.registerCommand("L1", new ElevatorLevelOneCommand(elevator));
         NamedCommands.registerCommand("L2", new ElevatorLevelTwoCommand(elevator));
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
@@ -100,7 +106,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
         NamedCommands.registerCommand("L4 Check", new ConditionalCommand(
             new ElevatorLevelFourCommand(elevator),
-            new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator),
+            new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage),
+            //new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator),
+            //Removed because we aren't using the hopper to intake anymore
             () -> elevator.getElevatorHeight() > 6.0
         ));
 
@@ -110,11 +118,11 @@ public class RobotContainer {
 
         configureBindings();
     }
-
+/* 
     public void dropWhaleTale() {
-        dropServo.dropTail(true);
+       // dropServo.dropTail(true);
     }
-
+*/
     private void configureBindings() {
         // Default Commands
         drivetrain.setDefaultCommand(
@@ -178,7 +186,8 @@ public class RobotContainer {
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
         operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
+        operator.square().onTrue(new ElevatorCoralStationCommand(elevator));
+        //Changed from Level 1 Elevator command to Coral Station command on 4/10
         operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
         operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));
         //operator.square().onTrue(new FullAutoDeliverCoralTeleop(2, new ElevatorLevelTwoCommand(elevator), elevator, coralOutake, 32.5, align, blink));
@@ -200,7 +209,9 @@ public class RobotContainer {
                         //.onFalse(new InstantCommand(() -> {coralCarriage.setSpeed(0); coralOutake.setSpeed(0);},coralCarriage,coralOutake));
 
         // Hopper
-        operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
+        //operator.povRight().onTrue(new GetCoralCommand(hopper, coralCarriage, coralOutake, elevator));
+        //Removed this because the hopper is no longer being used
+        operator.povRight().onTrue(new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
 
         // Algae Bindings
         // ALGAE Elevator Commands

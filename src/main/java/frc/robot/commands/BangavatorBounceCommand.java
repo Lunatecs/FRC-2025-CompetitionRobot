@@ -9,19 +9,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorCoralStationCommand extends Command {
+public class BangavatorBounceCommand extends Command {
 
   private ElevatorSubSystem elevator;
   private PIDController controller;
 
   /** Creates a new ElevatorSixFeetCommand. */
-  public ElevatorCoralStationCommand(ElevatorSubSystem elevator) {
+  public BangavatorBounceCommand(ElevatorSubSystem elevator) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     addRequirements(elevator);
-    controller = new PIDController(0.03, 0, 0); //0.01025
-    controller.setSetpoint(15.0);
-    controller.setTolerance(0.25);
+    controller = new PIDController(0.285, 0, 0); //0.01025
+    controller.setSetpoint(15.00000000000000015);
+    controller.setTolerance(0);
   }
 
   // Called when the command is initially scheduled.
