@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorLevelThreeCommand;
@@ -169,7 +170,7 @@ public class RobotContainer {
         //operator.axisLessThan(2, -0.75).onTrue(new CoralFromGroundPivotCommand(pivot));
         //operator.axisGreaterThan(2, 0.75).onTrue(new CoralLevelOnePivotCommand(pivot));
         operator.L3().onTrue(new DeliverCoralLevelOneSequentialCommand(pivot, liberator))
-                .onFalse(new AlgaePivotResetCommand(pivot));
+                .onFalse(new SequentialCommandGroup (new InstantCommand(()-> {liberator.setSpeed(0);}, liberator), new AlgaePivotResetCommand(pivot)));
         operator.axisLessThan(1, -0.75).onTrue(new BabyBirdFromStationSequentialCommand(liberator, elevator));
         operator.axisGreaterThan(1, 0.75).onTrue(new GetCoralFromGroundSequentialCommand(pivot, liberator));
 
