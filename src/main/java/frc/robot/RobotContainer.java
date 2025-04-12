@@ -27,6 +27,7 @@ import frc.robot.commands.ElevatorLevelTwoCommand;
 import frc.robot.commands.FullAutoDeliverCoralTeleop;
 import frc.robot.commands.GetCoralFromGroundSequentialCommand;
 import frc.robot.commands.GetCoralSubstationCommand;
+import frc.robot.commands.ManualClimbCommand;
 import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
@@ -49,6 +50,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.AlgaeLiberatorSubSystem;
 import frc.robot.subsystems.AlgaePivotSubSystem;
 import frc.robot.subsystems.CarriageSubSystem;
+import frc.robot.subsystems.ClimberSubSystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralAlignmentSubSystem;
 //import frc.robot.subsystems.CoralHopperSubSystem;
@@ -92,6 +94,7 @@ public class RobotContainer {
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
     private final WhaleTailReleaseSubSystem dropServo = new WhaleTailReleaseSubSystem();
     private final LEDSubSystem blink = new LEDSubSystem();
+    private final ClimberSubSystem climber = new ClimberSubSystem();
 
     public RobotContainer() {
         
@@ -176,6 +179,10 @@ public class RobotContainer {
         operator.axisLessThan(5, -0.75).onTrue(new AlgaePivotResetCommand(pivot));
         operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
+        operator.axisGreaterThan(0, 0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+                                        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
+        operator.axisLessThan(0, -0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+                                        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 

@@ -23,7 +23,7 @@ public class ZZ_AutoTargetScoreRightPoleL4Sequence extends SequentialCommandGrou
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ZZ_FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
-      new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65) //70.5
+      new ZZ_AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65) //70.5
     );
   }
 }

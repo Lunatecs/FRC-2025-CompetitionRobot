@@ -14,9 +14,9 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoDeliverCommand extends SequentialCommandGroup {
+public class ZZ_AutoDeliverCommand extends SequentialCommandGroup {
   /** Creates a new AutoDeliverCommand. */
-  public AutoDeliverCommand(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
+  public ZZ_AutoDeliverCommand(Command goToLevelCommand, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, double shootAtHeight) {
     addCommands(
       new ParallelDeadlineGroup(
         new SequentialCommandGroup(
