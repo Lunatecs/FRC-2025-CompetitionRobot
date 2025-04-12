@@ -8,23 +8,23 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class WhaleTailReleaseSubSystem extends SubsystemBase {
+public class ChuteReleaseSubSystem extends SubsystemBase {
   /** Creates a new WhaleTailReleaseSubSystem. */
-  private final Servo dropServo = new Servo(8);  // CHANGE
+  private final Servo dropServo = new Servo(7);  // CHANGE
 
-  public WhaleTailReleaseSubSystem() {
+  public ChuteReleaseSubSystem() {
     dropServo.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);    
     //setBounds(2.0,1.8,1.5,1.2,1.0);
     dropServo.set(1.0);
   }
 
-  public void releaseTail() {
-    dropServo.set(0.0);
-}
+  public void releaseChute() {
+      dropServo.set(0.0);
+  }
 
-public void setTail(){
-  dropServo.set(1);
-}
+  public void setChute(){
+    dropServo.set(1);
+  }
 
 
   @Override

@@ -59,6 +59,7 @@ import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
 import frc.robot.subsystems.LEDSubSystem;
 import frc.robot.subsystems.WhaleTailReleaseSubSystem;
+import frc.robot.subsystems.ChuteReleaseSubSystem;
 
 public class RobotContainer {
 
@@ -92,7 +93,8 @@ public class RobotContainer {
     private final AlgaePivotSubSystem pivot = new AlgaePivotSubSystem();
     private final AlgaeLiberatorSubSystem liberator = new AlgaeLiberatorSubSystem();
     private final CoralAlignmentSubSystem align = new CoralAlignmentSubSystem();
-    private final WhaleTailReleaseSubSystem dropServo = new WhaleTailReleaseSubSystem();
+    private final WhaleTailReleaseSubSystem whaleServo = new WhaleTailReleaseSubSystem();
+    private final ChuteReleaseSubSystem chuteServo = new ChuteReleaseSubSystem();
     private final LEDSubSystem blink = new LEDSubSystem();
     private final ClimberSubSystem climber = new ClimberSubSystem();
 
@@ -121,11 +123,8 @@ public class RobotContainer {
 
         configureBindings();
     }
-/* 
-    public void dropWhaleTale() {
-       // dropServo.dropTail(true);
-    }
-*/
+ 
+
     private void configureBindings() {
         // Default Commands
         drivetrain.setDefaultCommand(
@@ -183,6 +182,12 @@ public class RobotContainer {
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
         operator.axisLessThan(0, -0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
+
+        operator.axisGreaterThan(2, 0.5).onTrue(new InstantCommand(() -> {chuteServo.releaseChute();}));
+        operator.axisLessThan(2, -0.5).onTrue(new InstantCommand(() -> {chuteServo.setChute();}));
+
+        operator.options().onTrue(new InstantCommand(()-> {whaleServo.releaseTail();}));
+        operator.touchpad().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
