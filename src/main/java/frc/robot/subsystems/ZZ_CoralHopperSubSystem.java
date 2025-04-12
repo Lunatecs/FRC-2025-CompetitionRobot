@@ -10,10 +10,10 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CoralHopperSubSystem extends SubsystemBase {
+public class ZZ_CoralHopperSubSystem extends SubsystemBase {
   public TalonFX hopperMotor;
   /** Creates a new CoralHopperSubSystem. */
-  public CoralHopperSubSystem() {
+  public ZZ_CoralHopperSubSystem() {
     hopperMotor=new TalonFX(2607);
     hopperMotor.setNeutralMode(NeutralModeValue.Coast);
     hopperMotor.setInverted(true);

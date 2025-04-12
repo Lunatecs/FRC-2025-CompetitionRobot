@@ -4,19 +4,19 @@
 
 package frc.robot.commands;
 
-import java.util.Date;
-
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.SetDoubleSupplier;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlignRobotToTagLeftLimeLight extends Command {
+public class ZZ_AlignRobotToTagLeftLimeLightAUTO extends Command {
   /** Creates a new AlignRobotToTag. */
   PIDController pidStrafe;
   PIDController pidTranslate;
@@ -27,24 +27,30 @@ public class AlignRobotToTagLeftLimeLight extends Command {
   double MaxSpeed;
   double MaxAngularRate;
   boolean isFinished;
-  Date date;
+  PPHolonomicDriveController driveController;
+  SetDoubleSupplier rotationDoubleSupplier = new SetDoubleSupplier();
+  SetDoubleSupplier translationDoubleSupplier = new SetDoubleSupplier();
+  SetDoubleSupplier strafeDoubleSupplier = new SetDoubleSupplier();
 
-  public AlignRobotToTagLeftLimeLight(ScoringLimeLightSubSystemLeft limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+  public ZZ_AlignRobotToTagLeftLimeLightAUTO(ScoringLimeLightSubSystemLeft limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate, PPHolonomicDriveController driveController) {
     // Use addRequirements() here to declare subsystem dependencies.
-    pidStrafe = new PIDController(.585, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)  was .585
-    pidStrafe.setSetpoint(-0.045); //-0.045
+    pidStrafe = new PIDController(.55, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
+    pidStrafe.setSetpoint(-0.045);
     pidStrafe.setTolerance(0.001);
-    pidTranslate = new PIDController(.55, 0, 0); // Forward/Backward PID was .5
+    pidTranslate = new PIDController(.5, 0, 0); // Forward/Backward PID (NEEDS TO BE TUNED BETTER)
     pidTranslate.setSetpoint(-0.40);
-    pidTranslate.setTolerance(0.01);
+    pidTranslate.setTolerance(0.1);
     pidRotation = new PIDController(.03, 0, 0); // Rotation PID
     pidRotation.setSetpoint(0);
-    pidRotation.setTolerance(0.4); // was 0.0
+    pidRotation.setTolerance(0.0);
     this.limelight = limelight;
     this.drivetrain = drivetrain;
     this.drive = robotCentric;
     this.MaxSpeed = MaxSpeed;
     this.MaxAngularRate = MaxAngularRate;
+    driveController.overrideRotationFeedback(rotationDoubleSupplier);
+    driveController.overrideXFeedback(translationDoubleSupplier);
+    driveController.overrideYFeedback(strafeDoubleSupplier);
     addRequirements(drivetrain);
   }
 
@@ -52,7 +58,9 @@ public class AlignRobotToTagLeftLimeLight extends Command {
   @Override
   public void initialize() {
     isFinished = false;
-    date = new Date();
+    this.rotationDoubleSupplier.set(0);
+    this.strafeDoubleSupplier.set(0);
+    this.translationDoubleSupplier.set(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,23 +82,29 @@ public class AlignRobotToTagLeftLimeLight extends Command {
     SmartDashboard.putBoolean("RIGHT POLE STRAFE AT SETPOINT", pidStrafe.atSetpoint());
 
     if(pidRotation.atSetpoint()){
-      drive.withRotationalRate(0);
+      //drive.withRotationalRate(0);
+      this.rotationDoubleSupplier.set(0);
     } else {
-      drive.withRotationalRate(-rotationSpeed);
+      this.rotationDoubleSupplier.set(-rotationSpeed);
+      //drive.withRotationalRate(-rotationSpeed);
     }
     if(pidStrafe.atSetpoint()) {
-      drive.withVelocityY(0);
+      //drive.withVelocityY(0);
+      this.strafeDoubleSupplier.set(0);
     } else {
-      drive.withVelocityY(-strafeSpeed);
+      //drive.withVelocityY(-strafeSpeed);
+      this.strafeDoubleSupplier.set(-strafeSpeed);
     }
     if(pidTranslate.atSetpoint()) {
-      drive.withVelocityX(0);
+      //drive.withVelocityX(0);
+      this.translationDoubleSupplier.set(0);
     } else {
-      drive.withVelocityX(-translateSpeed);
+      //drive.withVelocityX(-translateSpeed);
+      this.translationDoubleSupplier.set(-translateSpeed);
     }
-    drivetrain.setControl(drive);
+    //drivetrain.setControl(drive);
 
-    if (pidTranslate.atSetpoint() && pidStrafe.atSetpoint() || (new Date().getTime() - date.getTime() > 2500L)) {
+    if (pidTranslate.atSetpoint() && pidStrafe.atSetpoint()) {
       isFinished = true;
     }
 

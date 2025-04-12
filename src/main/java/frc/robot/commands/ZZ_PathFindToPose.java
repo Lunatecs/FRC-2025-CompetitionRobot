@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PathFindToPose extends Command {
+public class ZZ_PathFindToPose extends Command {
   /** Creates a new PathFindToPose. */
   CommandSwerveDrivetrain swerve;
   //Pose2d Tag18 = new Pose2d(3.26, 4.20, new Rotation2d(0));
@@ -32,7 +32,7 @@ public class PathFindToPose extends Command {
 
   
 
-  public PathFindToPose(CommandSwerveDrivetrain swerve) {
+  public ZZ_PathFindToPose(CommandSwerveDrivetrain swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.swerve = swerve;
     addRequirements(swerve);

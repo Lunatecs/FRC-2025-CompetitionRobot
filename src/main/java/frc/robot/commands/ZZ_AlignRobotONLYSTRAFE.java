@@ -16,7 +16,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlignRobotONLYSTRAFE extends Command {
+public class ZZ_AlignRobotONLYSTRAFE extends Command {
   /** Creates a new AlignRobotToTag. */
   PIDController pidStrafe;
   PIDController pidRotation;
@@ -28,7 +28,7 @@ public class AlignRobotONLYSTRAFE extends Command {
   boolean isFinished;
   Date date;
 
-  public AlignRobotONLYSTRAFE(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+  public ZZ_AlignRobotONLYSTRAFE(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Use addRequirements() here to declare subsystem dependencies.
     pidStrafe = new PIDController(.585, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
     pidStrafe.setSetpoint(0.035);

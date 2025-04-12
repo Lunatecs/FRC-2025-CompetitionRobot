@@ -5,19 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CoralHopperSubSystem;
+import frc.robot.subsystems.ZZ_CoralHopperSubSystem;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class HopperIntakeCommand extends Command {
+public class ZZ_HopperIntakeCommand extends Command {
   /** Creates a new HopperIntakeCommand. */
-  private CoralHopperSubSystem hopper;
+  private ZZ_CoralHopperSubSystem hopper;
   private CarriageSubSystem carriage;
   private CoralOutakeSubSystem outake;
   private boolean isFinished;
 
-  public HopperIntakeCommand(CoralHopperSubSystem hopper, CarriageSubSystem carriage, CoralOutakeSubSystem outake) {
+  public ZZ_HopperIntakeCommand(ZZ_CoralHopperSubSystem hopper, CarriageSubSystem carriage, CoralOutakeSubSystem outake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.hopper = hopper;
     this.carriage = carriage;

@@ -9,12 +9,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CoralGroundIntakeSubSystem extends SubsystemBase {
+public class ZZ_CoralGroundIntakeSubSystem extends SubsystemBase {
   /** Creates a new CoralGroundIntake. */
 
   public TalonFX intakeMotor;
 
-  public CoralGroundIntakeSubSystem() {
+  public ZZ_CoralGroundIntakeSubSystem() {
     intakeMotor=new TalonFX(Constants.CoralGroundIntakeSubSystemConstants.CAN_ID_INTAKE);
 
   }

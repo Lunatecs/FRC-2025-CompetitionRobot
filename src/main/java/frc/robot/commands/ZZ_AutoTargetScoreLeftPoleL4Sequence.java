@@ -5,24 +5,23 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
-import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
+import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoTargetScoreRightPoleL4Sequence extends SequentialCommandGroup {
-  /** Creates a new AutoTargetScoreL4Sequence. */
-  public AutoTargetScoreRightPoleL4Sequence(ScoringLimeLightSubSystemLeft limelightLeft, CommandSwerveDrivetrain drivetrain, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+public class ZZ_AutoTargetScoreLeftPoleL4Sequence extends SequentialCommandGroup {
+  /** Creates a new AutoTargetScoreLeftPoleL4Sequence. */
+  public ZZ_AutoTargetScoreLeftPoleL4Sequence(ScoringLimeLightSubSystemRight limelightRight, CommandSwerveDrivetrain drivetrain, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new FullAlignLeftLimeLight(limelightLeft, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
+      new ZZ_FullAlignRightLimeLight(limelightRight, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
       new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65) //70.5
     );
   }

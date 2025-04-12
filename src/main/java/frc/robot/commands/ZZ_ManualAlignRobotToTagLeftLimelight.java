@@ -13,26 +13,26 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
+import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ManualAlignRobotToTagRightLimeLight extends Command {
+public class ZZ_ManualAlignRobotToTagLeftLimelight extends Command {
   /** Creates a new AlignRobotToTag. */
   DoubleSupplier translateSupplier;
   PIDController pidStrafe;
   PIDController pidTranslate;
   PIDController pidRotation;
-  ScoringLimeLightSubSystemRight limelight;
+  ScoringLimeLightSubSystemLeft limelight;
   CommandSwerveDrivetrain drivetrain;
   SwerveRequest.RobotCentric drive;
   double MaxSpeed;
   double MaxAngularRate;
   boolean isFinished;
 
-  public ManualAlignRobotToTagRightLimeLight(ScoringLimeLightSubSystemRight limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate, DoubleSupplier translateSupplier) {
+  public ZZ_ManualAlignRobotToTagLeftLimelight(ScoringLimeLightSubSystemLeft limelight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate, DoubleSupplier translateSupplier) {
     // Use addRequirements() here to declare subsystem dependencies.
     pidStrafe = new PIDController(.55, 0, 0); // Horizontal PID (NEEDS TO BE TUNED BETTER)
-    pidStrafe.setSetpoint(0.035);
+    pidStrafe.setSetpoint(-0.045);
     pidStrafe.setTolerance(0.001);
     pidTranslate = new PIDController(.5, 0, 0); // Forward/Backward PID (NEEDS TO BE TUNED BETTER)
     pidTranslate.setSetpoint(-0.40);
@@ -70,8 +70,8 @@ public class ManualAlignRobotToTagRightLimeLight extends Command {
     final double rotationSpeed = MathUtil.clamp(rotation, -1.0, 1.0) * MaxAngularRate;
     SmartDashboard.putNumber("rotation", rotationSpeed);
 
-    SmartDashboard.putBoolean("LEFT POLE TRANSLATION AT SETPOINT", pidTranslate.atSetpoint());
-    SmartDashboard.putBoolean("LEFT POLE STRAFE AT SETPOINT", pidStrafe.atSetpoint());
+    SmartDashboard.putBoolean("RIGHT POLE TRANSLATION AT SETPOINT", pidTranslate.atSetpoint());
+    SmartDashboard.putBoolean("RIGHT POLE STRAFE AT SETPOINT", pidStrafe.atSetpoint());
 
     if(pidRotation.atSetpoint()){
       drive.withRotationalRate(0);
@@ -87,19 +87,20 @@ public class ManualAlignRobotToTagRightLimeLight extends Command {
       drive.withVelocityX(0);
     } else {
       drive.withVelocityX(-translateSpeed);
-      //drive.withVelocityX(0);
     }
-
     drivetrain.setControl(drive);
 
     if (pidTranslate.atSetpoint() && pidStrafe.atSetpoint()) {
       isFinished = true;
     }
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override

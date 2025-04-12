@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class OperatorFromGroundCommand extends SequentialCommandGroup {
+public class ZZ_OperatorFromGroundCommand extends SequentialCommandGroup {
   /** Creates a new OperatorFromGroundCommand. */
-  public OperatorFromGroundCommand() {
+  public ZZ_OperatorFromGroundCommand() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands()

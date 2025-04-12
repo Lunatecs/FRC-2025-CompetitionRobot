@@ -12,12 +12,12 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CoralFeederSubSystem extends SubsystemBase {
+public class ZZ_CoralFeederSubSystem extends SubsystemBase {
   /** Creates a new CoralFeederSubSystem. */
 
   public SparkMax motor = new SparkMax(Constants.CoralFeederSubSystemConstants.CAN_ID_FEEDER,SparkLowLevel.MotorType.kBrushless);
 
-  public CoralFeederSubSystem() {
+  public ZZ_CoralFeederSubSystem() {
     motor.configure(new SparkMaxConfig().inverted(true), SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 

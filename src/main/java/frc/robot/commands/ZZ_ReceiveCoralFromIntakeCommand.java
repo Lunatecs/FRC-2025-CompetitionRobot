@@ -6,20 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CarriageSubSystem;
-import frc.robot.subsystems.CoralFeederSubSystem;
-import frc.robot.subsystems.CoralGroundIntakeSubSystem;
+import frc.robot.subsystems.ZZ_CoralFeederSubSystem;
+import frc.robot.subsystems.ZZ_CoralGroundIntakeSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ReceiveCoralFromIntakeCommand extends Command {
+public class ZZ_ReceiveCoralFromIntakeCommand extends Command {
   private CoralOutakeSubSystem outake;
   private CarriageSubSystem carriage;
-  private CoralFeederSubSystem feeder;
-  private CoralGroundIntakeSubSystem intake;
+  private ZZ_CoralFeederSubSystem feeder;
+  private ZZ_CoralGroundIntakeSubSystem intake;
   private boolean isFinished;
 
   /** Creates a new ReceiveCoralCommand. */
-  public ReceiveCoralFromIntakeCommand(CoralOutakeSubSystem outake, CarriageSubSystem carriage, CoralFeederSubSystem feeder, CoralGroundIntakeSubSystem intake) {
+  public ZZ_ReceiveCoralFromIntakeCommand(CoralOutakeSubSystem outake, CarriageSubSystem carriage, ZZ_CoralFeederSubSystem feeder, ZZ_CoralGroundIntakeSubSystem intake) {
     this.outake = outake;
     this.carriage = carriage;
     this.feeder = feeder;

@@ -16,13 +16,13 @@ import frc.robot.subsystems.ScoringLimeLightSubSystemLeft;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class FullAlignLeftLimeLight extends SequentialCommandGroup {
+public class ZZ_FullAlignLeftLimeLight extends SequentialCommandGroup {
   /** Creates a new FullAlignLeft. */
-  public FullAlignLeftLimeLight(ScoringLimeLightSubSystemLeft limelightLeft, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+  public ZZ_FullAlignLeftLimeLight(ScoringLimeLightSubSystemLeft limelightLeft, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AlignRobotToTagLeftLimeLight(limelightLeft, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
+      new ZZ_AlignRobotToTagLeftLimeLight(limelightLeft, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
       new ParallelDeadlineGroup(new WaitCommand(1.5), new InstantCommand(() -> drivetrain.setControl(robotCentric.withVelocityX(0.8).withVelocityY(0.0))))
     );
   }

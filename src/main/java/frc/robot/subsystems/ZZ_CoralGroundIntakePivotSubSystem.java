@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;//ilovesaquonbarkley -"Locke" (Tush Push)
 import frc.robot.Constants;
 
-public class CoralGroundIntakePivotSubSystem extends SubsystemBase {
+public class ZZ_CoralGroundIntakePivotSubSystem extends SubsystemBase {
   private final double gearRatio = 53.125;//25/1
   private final double rotationsToDegrees = 360.0/gearRatio;
   /** Creates a new CoralGroundIntakePivotSubSystem. */
   private TalonFX pivotMotor;
 
-  public CoralGroundIntakePivotSubSystem() {
+  public ZZ_CoralGroundIntakePivotSubSystem() {
     pivotMotor = new TalonFX(Constants.CoralGroundIntakePivotSubSystemConstants.CAN_ID_INTAKE_PIVOT);
     pivotMotor.setPosition(0);
     pivotMotor.setInverted(true);

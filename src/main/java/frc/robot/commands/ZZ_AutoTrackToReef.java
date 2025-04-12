@@ -22,13 +22,13 @@ import frc.robot.AprilTagPositions;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoTrackToReef extends Command {
+public class ZZ_AutoTrackToReef extends Command {
   private Command fullPath;
   private CommandSwerveDrivetrain drive;
   private boolean isLeftBumper = false;
 
   /** Creates a new DriveToNearestReefSideCommand. */
-  public AutoTrackToReef(CommandSwerveDrivetrain drive) {
+  public ZZ_AutoTrackToReef(CommandSwerveDrivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drive = drive;
     addRequirements(drive);

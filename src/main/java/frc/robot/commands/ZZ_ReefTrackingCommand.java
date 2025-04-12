@@ -21,12 +21,12 @@ import frc.robot.AprilTagPositions;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ReefTrackingCommand extends Command {
+public class ZZ_ReefTrackingCommand extends Command {
   /** Creates a new ReefTrackingCommand. */
   private CommandSwerveDrivetrain drive;
   private Command fullPath;
 
-  public ReefTrackingCommand(CommandSwerveDrivetrain drive) {
+  public ZZ_ReefTrackingCommand(CommandSwerveDrivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drive = drive;
     addRequirements(drive);

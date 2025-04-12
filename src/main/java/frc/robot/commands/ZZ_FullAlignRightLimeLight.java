@@ -6,23 +6,24 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.CoralOutakeSubSystem;
-import frc.robot.subsystems.ElevatorSubSystem;
 import frc.robot.subsystems.ScoringLimeLightSubSystemRight;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoTargetScoreLeftPoleL4Sequence extends SequentialCommandGroup {
-  /** Creates a new AutoTargetScoreLeftPoleL4Sequence. */
-  public AutoTargetScoreLeftPoleL4Sequence(ScoringLimeLightSubSystemRight limelightRight, CommandSwerveDrivetrain drivetrain, ElevatorSubSystem elevator, CoralOutakeSubSystem coralOutake, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
+public class ZZ_FullAlignRightLimeLight extends SequentialCommandGroup {
+  /** Creates a new FullAlignRight. */
+  public ZZ_FullAlignRightLimeLight(ScoringLimeLightSubSystemRight limelightRight, CommandSwerveDrivetrain drivetrain, SwerveRequest.RobotCentric robotCentric, double MaxSpeed, double MaxAngularRate) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new FullAlignRightLimeLight(limelightRight, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
-      new AutoDeliverCommand(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 70.65) //70.5
+      new ZZ_AlignRobotToTagRightLimeLight(limelightRight, drivetrain, robotCentric, MaxSpeed, MaxAngularRate),
+      new ParallelDeadlineGroup(new WaitCommand(1.5), new InstantCommand(() -> drivetrain.setControl(robotCentric.withVelocityX(0.8).withVelocityY(0.0))))
     );
   }
 }

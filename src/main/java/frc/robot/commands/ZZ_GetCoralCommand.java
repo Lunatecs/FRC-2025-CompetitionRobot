@@ -9,21 +9,21 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CarriageSubSystem;
-import frc.robot.subsystems.CoralHopperSubSystem;
+import frc.robot.subsystems.ZZ_CoralHopperSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GetCoralCommand extends SequentialCommandGroup {
+public class ZZ_GetCoralCommand extends SequentialCommandGroup {
 
   /** Creates a new GetCoralCommand. */
-  public GetCoralCommand(CoralHopperSubSystem hopper, CarriageSubSystem carriage, CoralOutakeSubSystem outake, ElevatorSubSystem elevator) {
+  public ZZ_GetCoralCommand(ZZ_CoralHopperSubSystem hopper, CarriageSubSystem carriage, CoralOutakeSubSystem outake, ElevatorSubSystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new HopperIntakeCommand(hopper, carriage, outake), 
+      new ZZ_HopperIntakeCommand(hopper, carriage, outake), 
       new ParallelDeadlineGroup(
         new WaitCommand(0.25), //0.25
         new InstantCommand(()->{outake.setSpeed(-1);},outake)),
