@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9656410256358647,
-        "y": 5.1912179487179495
+        "x": 3.7018229166666656,
+        "y": 3.032725694444444
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.514545123430708,
-        "y": 4.690825043043537
+        "x": 3.386386996601206,
+        "y": 2.6749565635562385
       },
       "isLocked": false,
-      "linkedName": "second real point"
+      "linkedName": "third coral right REAL"
     },
     {
       "anchor": {
-        "x": 1.560961538461538,
-        "y": 7.368846153846153
+        "x": 1.555568181818182,
+        "y": 0.6595880681818176
       },
       "prevControl": {
-        "x": 1.279822156232922,
-        "y": 7.6213754345276215
+        "x": 2.0266873531009595,
+        "y": 1.1528131391936607
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "four piece pick up 1"
+      "linkedName": "right pick up"
     }
   ],
   "rotationTargets": [],
@@ -42,17 +42,6 @@
           "name": "Elevator Down"
         }
       }
-    },
-    {
-      "name": "",
-      "waypointRelativePos": 0.6819672131147533,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "Station Pick Up Command"
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -65,13 +54,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -53.880659150520174
+    "rotation": 52.76516601842542
   },
   "reversed": false,
-  "folder": "4 Piece Straight",
+  "folder": "Right 4 Piece",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -57.5288077091516
+    "rotation": 57.72435568542236
   },
   "useDefaultConstraints": true
 }

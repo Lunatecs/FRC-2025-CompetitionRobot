@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.712928082191781,
-        "y": 0.7494006849315065
+        "x": 1.555568181818182,
+        "y": 0.6595880681818176
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.654585238143399,
-        "y": 1.8038769108317545
+        "x": 2.4972253377698,
+        "y": 1.7140642940820656
       },
       "isLocked": false,
       "linkedName": "right pick up"
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "third coral right REAL"
     }
   ],
   "rotationTargets": [],
