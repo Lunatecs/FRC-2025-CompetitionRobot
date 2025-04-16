@@ -181,9 +181,9 @@ public class RobotContainer {
         operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
         //Climber Manual Commands
-        operator.axisGreaterThan(0, 0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+        operator.axisGreaterThan(0, 0.3).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
-        operator.axisLessThan(0, -0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+        operator.axisLessThan(0, -0.3).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
 
         //Climber MANUAL Servo Commands    
@@ -194,9 +194,9 @@ public class RobotContainer {
         //operator.touchpad().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));
 
         //Climber AUTO Servo Commands
-        operator.touchpad().onTrue(new ClimberReleaseCommand(chuteServo, whaleServo));
-        operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
-
+        //UNTESTED COMMANDS:
+        operator.touchpad().and(operator.options()).onTrue(new ClimberReleaseCommand(chuteServo, whaleServo));
+        //operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
@@ -206,8 +206,8 @@ public class RobotContainer {
 
         // OPERATOR CONTROLS
         // Coral Elevator Bindings
-        operator.cross().onTrue(new ElevatorLevelOneCommand(elevator));
-        operator.square().onTrue(new ElevatorCoralStationCommand(elevator));
+        operator.cross().onTrue(new ElevatorCoralStationCommand(elevator));
+        operator.square().onTrue(new ElevatorLevelTwoCommand(elevator));
         //Changed from Level 1 Elevator command to Coral Station command on 4/10
         operator.circle().onTrue(new ElevatorLevelThreeCommand(elevator));
         operator.triangle().onTrue(new ElevatorLevelFourCommand(elevator));

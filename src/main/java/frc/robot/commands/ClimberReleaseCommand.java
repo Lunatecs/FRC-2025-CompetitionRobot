@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.ChuteReleaseSubSystem;
 import frc.robot.subsystems.WhaleTailReleaseSubSystem;
 
@@ -18,8 +20,11 @@ public class ClimberReleaseCommand extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> {chuteServo.releaseChute();}),
-      new InstantCommand(()-> {whaleServo.releaseTail();})
+      new InstantCommand(()-> {whaleServo.releaseTail();}),
+      new SequentialCommandGroup(
+        new WaitCommand(1),
+        new InstantCommand(() -> {chuteServo.releaseChute();})
+      )
     );
   }
 }
