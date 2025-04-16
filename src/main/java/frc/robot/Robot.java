@@ -26,7 +26,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
   }
 
-  @Override public void driverStationConnected() {
+  @Override
+  public void driverStationConnected() {
       double targetRotationDegrees = (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red) ? 0 : 180; //Switched 180 and 0, 4/1 SWITCHED IT BACK
       m_robotContainer.drivetrain.resetRotation(Rotation2d.fromDegrees(targetRotationDegrees));
   }
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    m_robotContainer.dropWhaleTale();
+    //m_robotContainer.dropWhaleTale();
   }
 
   @Override
@@ -95,7 +96,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.drivetrain.resetRotation(autonEndingAngle.plus(Rotation2d.fromDegrees(180)));
+    m_robotContainer.drivetrain.resetRotation(autonEndingAngle);
   }
 
   @Override

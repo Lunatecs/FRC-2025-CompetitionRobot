@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 
+import com.ctre.phoenix6.configs.FovParamsConfigs;
 import com.ctre.phoenix6.configs.ProximityParamsConfigs;
 import com.ctre.phoenix6.hardware.CANrange;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -21,10 +22,15 @@ public class CoralOutakeSubSystem extends SubsystemBase {
   public CoralOutakeSubSystem() {
     outtakeMotor = new TalonFX(Constants.CoralOutakeSubSystemConstants.CAN_ID_OUTTAKE);
     sensor = new CANrange(Constants.CoralOutakeSubSystemConstants.CAN_ID_SENSOR);
-    ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
+   /* ProximityParamsConfigs proxConfig = new ProximityParamsConfigs();
     proxConfig.ProximityThreshold = 0.16;//0.1525;
     proxConfig.ProximityHysteresis = 0.03;//0.0225;
-    sensor.getConfigurator().apply(proxConfig);
+    sensor.getConfigurator().apply(proxConfig);*/
+    FovParamsConfigs fovConfig = new FovParamsConfigs();
+    //fovConfig.withFOVRangeX(7);
+    //fovConfig.withFOVRangeY(7);
+    fovConfig.withFOVCenterX(11);
+    sensor.getConfigurator().apply(fovConfig);
   }
 
 

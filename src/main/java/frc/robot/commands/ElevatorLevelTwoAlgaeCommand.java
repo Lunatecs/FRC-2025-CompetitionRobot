@@ -13,7 +13,7 @@ public class ElevatorLevelTwoAlgaeCommand extends AbstractAlgaeElevatorCommand  
 
   private ElevatorSubSystem elevator;
   private PIDController controller;
-  private static double setPoint = 20.875; 
+  private static double setPoint = 20.875; //20.875   // 19.300 was running at 6:45 PM 4/3/25
 
   /** Creates a new ElevatorSixFeetCommand. */
   public ElevatorLevelTwoAlgaeCommand(ElevatorSubSystem elevator) {
@@ -21,7 +21,7 @@ public class ElevatorLevelTwoAlgaeCommand extends AbstractAlgaeElevatorCommand  
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.03, 0, 0); //0.0139, 0.017375, 0.019, 0.022, 0.0275, 0.031, 0.022
-    controller.setSetpoint(setPoint);//34.875-6, 28.875, 26.875
+    controller.setSetpoint(setPoint);//34.875-6, 28.875, 26.875  
     controller.setTolerance(0.25);
   }
 

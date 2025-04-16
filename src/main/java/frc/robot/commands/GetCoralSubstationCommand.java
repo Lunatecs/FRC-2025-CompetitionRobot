@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CarriageSubSystem;
 import frc.robot.subsystems.CoralOutakeSubSystem;
 import frc.robot.subsystems.ElevatorSubSystem;
@@ -20,7 +22,11 @@ public class GetCoralSubstationCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelDeadlineGroup(new ReceiveCoralCommand(outake, carriage), new ElevatorCoralStationCommand(elevator)),
-        new ElevatorDownCommand(elevator)
+        new ParallelDeadlineGroup(
+          new WaitCommand(0.25), //0.25
+          new InstantCommand(()->{outake.setSpeed(-1);},outake)),
+        new InstantCommand(()->{outake.setSpeed(0);},outake),
+        new ElevatorCoralStationCommand(elevator)
     );
     addRequirements(elevator, outake, carriage);
   }

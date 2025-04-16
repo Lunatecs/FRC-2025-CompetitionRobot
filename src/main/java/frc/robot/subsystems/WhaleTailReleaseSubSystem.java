@@ -15,17 +15,16 @@ public class WhaleTailReleaseSubSystem extends SubsystemBase {
   public WhaleTailReleaseSubSystem() {
     dropServo.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);    
     //setBounds(2.0,1.8,1.5,1.2,1.0);
-    dropServo.set(0.0);
+    dropServo.set(1.0);
   }
 
-  public void dropTail(boolean rahhh) {
-    if (rahhh) {
-      dropServo.set(0.25);
-      SmartDashboard.putBoolean("dropped climber", rahhh);
-    }  else {
-      dropServo.set(0.0);
-    }
-  }
+  public void releaseTail() {
+    dropServo.set(0.0);
+}
+
+public void setTail(){
+  dropServo.set(1);
+}
 
 
   @Override

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7054487179487177,
-        "y": 7.275961538461538
+        "x": 1.6528253424657535,
+        "y": 7.285573630136986
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.259942603895192,
-        "y": 6.921346056087058
+        "x": 2.207319228412228,
+        "y": 6.930958147762506
       },
       "isLocked": false,
       "linkedName": "four piece pick up 1"
@@ -45,7 +45,7 @@
     },
     {
       "name": "",
-      "waypointRelativePos": 0.57704918032787,
+      "waypointRelativePos": 0.4779661016949162,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -56,7 +56,7 @@
     },
     {
       "name": "",
-      "waypointRelativePos": 0.79562841530054,
+      "waypointRelativePos": 0.6949152542372891,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

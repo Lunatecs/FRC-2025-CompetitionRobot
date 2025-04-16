@@ -37,8 +37,8 @@ public class ReceiveCoralCommand extends Command {
       carriage.setSpeed(0);
     }
     else{
-      outake.setSpeed(0.5);
-      carriage.setSpeed(0.5);
+      outake.setSpeed(0.75);
+      carriage.setSpeed(0.75);
     }
   }
 

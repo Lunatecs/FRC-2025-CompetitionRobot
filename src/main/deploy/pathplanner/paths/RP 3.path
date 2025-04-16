@@ -1,0 +1,88 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.712928082191781,
+        "y": 0.7494006849315065
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.30320834966971,
+        "y": 1.2723746479259574
+      },
+      "isLocked": false,
+      "linkedName": "right pick up"
+    },
+    {
+      "anchor": {
+        "x": 3.995312499999999,
+        "y": 2.8650173611111107
+      },
+      "prevControl": {
+        "x": 3.066262590427359,
+        "y": 1.9772177397657051
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "second coral left"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Station Pick Up Command"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.8029850746268667,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4 Check"
+        }
+      }
+    },
+    {
+      "name": "",
+      "waypointRelativePos": 0.9,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L4 Check"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 58.877529803208034
+  },
+  "reversed": false,
+  "folder": "Right 4 Piece",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 52.76516601842542
+  },
+  "useDefaultConstraints": true
+}

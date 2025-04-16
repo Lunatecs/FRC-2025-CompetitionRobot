@@ -13,6 +13,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static double DEFAULT_ALGEA_INTAKE = .1;
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
@@ -39,8 +42,8 @@ public final class Constants {
   }
 
   public static class ClimberSubSystemConstants{
-    public static final int CAN_ID_CLIMBER1 = 17;
-    public static final int CAN_ID_CLIMBER2 = 18;
+    public static final int CAN_ID_CLIMBER = 20;
+    //switched from 17 to 20
   }
 
   public static class ElevatorSubSystemConstants{
@@ -54,9 +57,10 @@ public final class Constants {
     public static final int CAN_ID_FEEDER = 14;
   }
 
-  public static class CoralHopperSubSystemConstants{
-    public static final int CAN_ID_HOPPER = 20;
-  }
+  //public static class CoralHopperSubSystemConstants{
+    //public static final int CAN_ID_HOPPER = 20;
+    //Switched from 20 to 17, because the hopper motor is the climber
+ // }
 
   public static class AlgaePivotSubSystemConstants{
     public static final int CAN_ID_ALGAE_PIVOT = 19;
