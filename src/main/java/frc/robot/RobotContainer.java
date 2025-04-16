@@ -37,6 +37,8 @@ import frc.robot.commands.AutoDeliverCoralTeleop;
 import frc.robot.commands.BabyBirdFromStationSequentialCommand;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
+import frc.robot.commands.ClimberReleaseCommand;
+import frc.robot.commands.ClimberSetCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
 import frc.robot.commands.CoralLevelOnePivotCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
@@ -178,16 +180,23 @@ public class RobotContainer {
         operator.axisLessThan(5, -0.75).onTrue(new AlgaePivotResetCommand(pivot));
         operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
+        //Climber Manual Commands
         operator.axisGreaterThan(0, 0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
         operator.axisLessThan(0, -0.1).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
 
-        operator.axisGreaterThan(2, 0.5).onTrue(new InstantCommand(() -> {chuteServo.releaseChute();}));
-        operator.axisLessThan(2, -0.5).onTrue(new InstantCommand(() -> {chuteServo.setChute();}));
+        //Climber MANUAL Servo Commands    
+        //operator.axisGreaterThan(2, 0.5).onTrue(new InstantCommand(() -> {chuteServo.releaseChute();}));
+        //operator.axisLessThan(2, -0.5).onTrue(new InstantCommand(() -> {chuteServo.setChute();}));
 
-        operator.options().onTrue(new InstantCommand(()-> {whaleServo.releaseTail();}));
-        operator.touchpad().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));
+        //operator.options().onTrue(new InstantCommand(()-> {whaleServo.releaseTail();}));
+        //operator.touchpad().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));
+
+        //Climber AUTO Servo Commands
+        operator.touchpad().onTrue(new ClimberReleaseCommand(chuteServo, whaleServo));
+        operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
+
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
