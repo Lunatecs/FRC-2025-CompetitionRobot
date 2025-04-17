@@ -32,6 +32,7 @@ import frc.robot.commands.NewAlageDown;
 import frc.robot.commands.AUTOAlgaeFromReef_PoolsideDelight;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
+import frc.robot.commands.AlgaeLollipopPivotCommand;
 import frc.robot.commands.AlgaePivotResetCommand;
 import frc.robot.commands.AlignToReefPoseCommand;
 import frc.robot.commands.AutoDeliverCoralTeleop;
@@ -184,6 +185,8 @@ public class RobotContainer {
 
         operator.axisLessThan(5, -0.75).onTrue(new AlgaePivotResetCommand(pivot));
         operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
+        operator.axisLessThan(2, -0.75).onTrue(new AlgaeLollipopPivotCommand(pivot));
+        //Lollipop Algae Command is UNTESTED
 
         //Climber Manual Commands  
         //UNTESTED!!!!!!!
