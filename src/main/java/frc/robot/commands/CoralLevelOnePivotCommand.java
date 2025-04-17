@@ -32,8 +32,8 @@ public class CoralLevelOnePivotCommand extends Command {
   @Override
   public void execute() {
     double speed = controller.calculate(pivot.getDegreesOfPivot());
-    if(Math.abs(speed)> 0.5){
-      speed = Math.signum(speed) * 0.5;
+    if(Math.abs(speed)> 0.3){
+      speed = Math.signum(speed) * 0.3;
     }
     pivot.setSpeed(speed);
   }

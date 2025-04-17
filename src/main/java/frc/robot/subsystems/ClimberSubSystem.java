@@ -45,5 +45,6 @@ public class ClimberSubSystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("climber encoder", getEncoder());
     SmartDashboard.putBoolean("DID WE CLIMB?", (getEncoder() <= Constants.ClimberSubSystemConstants.climbedSuccessfullyEncoderVal));
+    SmartDashboard.putBoolean("BAD CLIMB", (getCurrent()>Constants.ClimberSubSystemConstants.climbCurrentLimit));
   }
 }
