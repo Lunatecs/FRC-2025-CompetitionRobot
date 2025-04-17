@@ -33,6 +33,18 @@
           "data": {
             "pathName": "algae to score"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Algae Barge Deliver"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Second alaeg"
+          }
         }
       ]
     }

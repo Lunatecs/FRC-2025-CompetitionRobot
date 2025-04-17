@@ -44,6 +44,7 @@ import frc.robot.commands.ClimberReleaseCommand;
 import frc.robot.commands.ClimberSetCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
 import frc.robot.commands.CoralLevelOnePivotCommand;
+import frc.robot.commands.DeliverAlgaeBargeCommand;
 import frc.robot.commands.DeliverCoralAtHeight;
 import frc.robot.commands.DeliverCoralLevelOneSequentialCommand;
 import frc.robot.commands.ElevatorCoralStationCommand;
@@ -117,6 +118,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("Collect Algae L2", new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelTwoAlgaeCommand(elevator), liberator, pivot, elevator));
         NamedCommands.registerCommand("Collect Algae L3", new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelThreeAlgaeCommand(elevator), liberator, pivot, elevator));
         NamedCommands.registerCommand("Algae Elevator Down", new NewAlageDown(pivot, elevator, liberator, coralOutake));
+        NamedCommands.registerCommand("Algae Barge Deliver", new DeliverAlgaeBargeCommand(new ElevatorLevelFourCommand(elevator), elevator, liberator, 71)); //Shoot at height needs to be adjusted
         NamedCommands.registerCommand("L4 Check", new ConditionalCommand(
             new ElevatorLevelFourCommand(elevator),
             new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage),

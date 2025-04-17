@@ -45,7 +45,7 @@
     },
     {
       "name": "",
-      "waypointRelativePos": 0.7389830508474587,
+      "waypointRelativePos": 0.6508474576271204,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
