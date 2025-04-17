@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.AlgaeLiberatorSubSystem;
 import frc.robot.subsystems.AlgaePivotSubSystem;
@@ -14,11 +15,17 @@ import frc.robot.subsystems.ElevatorSubSystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AUTOAlgaeFromReef extends SequentialCommandGroup {
   /** Creates a new AUTOAlgaeFromReef. */
-  public AUTOAlgaeFromReef(AlgaeLiberatorSubSystem roller, AlgaePivotSubSystem pivot, ElevatorSubSystem elevator) {
+  public AUTOAlgaeFromReef(AbstractAlgaeElevatorCommand elevatorCommand, AlgaeLiberatorSubSystem roller, AlgaePivotSubSystem pivot, ElevatorSubSystem elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      
+      new ParallelDeadlineGroup(
+        new RunAlgaeTillCurrent(roller),
+        elevatorCommand,
+        new SequentialCommandGroup(
+        new WaitTillSetpointElevatorCommand(elevator, elevatorCommand.getSetpoint()),
+        new AlgaeFromReefPivotCommand(pivot)))
+
 
     );
   }

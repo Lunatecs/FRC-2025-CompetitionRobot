@@ -29,6 +29,7 @@ import frc.robot.commands.GetCoralFromGroundSequentialCommand;
 import frc.robot.commands.GetCoralSubstationCommand;
 import frc.robot.commands.ManualClimbCommand;
 import frc.robot.commands.NewAlageDown;
+import frc.robot.commands.AUTOAlgaeFromReef_PoolsideDelight;
 import frc.robot.commands.AlgaeFromGroundPivotCommand;
 import frc.robot.commands.AlgaeFromReefPivotCommand;
 import frc.robot.commands.AlgaePivotResetCommand;
@@ -37,6 +38,7 @@ import frc.robot.commands.AutoDeliverCoralTeleop;
 import frc.robot.commands.BabyBirdFromStationSequentialCommand;
 import frc.robot.commands.BensalemAlgaeClutch;
 import frc.robot.commands.BlinkAlignCommand;
+import frc.robot.commands.ClimbCurrentLimiter;
 import frc.robot.commands.ClimberReleaseCommand;
 import frc.robot.commands.ClimberSetCommand;
 import frc.robot.commands.CoralFromGroundPivotCommand;
@@ -111,6 +113,9 @@ public class RobotContainer {
         NamedCommands.registerCommand("L4", new ElevatorLevelFourCommand(elevator));
         NamedCommands.registerCommand("Elevator Down", new ElevatorDownCommand(elevator));
         NamedCommands.registerCommand("Score At L4", new DeliverCoralAtHeight(new ElevatorLevelFourCommand(elevator), elevator, coralOutake, 69.8)); //70.65
+        NamedCommands.registerCommand("Collect Algae L2", new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelTwoAlgaeCommand(elevator), liberator, pivot, elevator));
+        NamedCommands.registerCommand("Collect Algae L3", new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelThreeAlgaeCommand(elevator), liberator, pivot, elevator));
+        NamedCommands.registerCommand("Algae Elevator Down", new NewAlageDown(pivot, elevator, liberator, coralOutake));
         NamedCommands.registerCommand("L4 Check", new ConditionalCommand(
             new ElevatorLevelFourCommand(elevator),
             new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage),
@@ -180,10 +185,14 @@ public class RobotContainer {
         operator.axisLessThan(5, -0.75).onTrue(new AlgaePivotResetCommand(pivot));
         operator.axisGreaterThan(5, 0.75).onTrue(new AlgaeFromGroundPivotCommand(pivot));
 
-        //Climber Manual Commands
-        operator.axisGreaterThan(0, 0.3).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
-                                        .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
-        operator.axisLessThan(0, -0.3).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+        //Climber Manual Commands  
+        //UNTESTED!!!!!!!
+        operator.axisGreaterThan(0, 0.1).and(operator.touchpad()).onTrue(new ClimbCurrentLimiter(climber, () -> {return operator.getRawAxis(0);}))
+                                                                .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
+
+        //operator.axisGreaterThan(0, 0.1).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
+                  //                      .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
+        operator.axisLessThan(0, -0.1).and(operator.touchpad()).onTrue(new ManualClimbCommand(climber, () -> {return operator.getRawAxis(0);}))
                                         .onFalse(new InstantCommand(() -> {climber.setSpeed(0);},climber));
 
         //Climber MANUAL Servo Commands    
@@ -196,6 +205,9 @@ public class RobotContainer {
         //Climber AUTO Servo Commands
         //UNTESTED COMMANDS:
         operator.touchpad().and(operator.options()).onTrue(new ClimberReleaseCommand(chuteServo, whaleServo));
+        //driver.povUp().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
+        driver.povUp().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));  //seems to activate chute
+        driver.options().onTrue(new InstantCommand(() -> {chuteServo.setChute();})); // seems to activate whale tail
         //operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));

@@ -29,6 +29,7 @@ public class CollectAlgaeFromReef extends ParallelDeadlineGroup {
       new WaitTillSetpointElevatorCommand(elevator, elevatorCommand.getSetpoint()),
       new AlgaeFromReefPivotCommand(pivot)),
       new RunCommand(()-> {roller.setSpeed(0.8); coralOutake.setSpeed(0.4);}, roller, coralOutake));
+      //NEED TO TEST REMOVING CORAL OUTTAKE, Stopped running it in the new RunAlgaeTillCurrent command
       /*new ParallelDeadlineGroup(
         new HasAlgae(roller),
         new RunCommand(()-> {roller.setSpeed(1.0); coralOutake.setSpeed(0.4);}, roller, coralOutake)));*/

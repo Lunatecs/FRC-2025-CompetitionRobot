@@ -35,10 +35,15 @@ public class ClimberSubSystem extends SubsystemBase {
     return motor1.getPosition().getValueAsDouble();
   }
 
+  public double getCurrent() {
+    return motor1.getStatorCurrent().getValueAsDouble();
+  }
+
   
 
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("climber encoder", getEncoder());
+    SmartDashboard.putBoolean("DID WE CLIMB?", (getEncoder() <= Constants.ClimberSubSystemConstants.climbedSuccessfullyEncoderVal));
   }
 }
