@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7787820512820502,
-        "y": 2.0125
+        "x": 3.443032347081901,
+        "y": 2.6875660378552926
       },
       "isLocked": false,
       "linkedName": "third coral right"
     },
     {
       "anchor": {
-        "x": 1.6848076923076918,
-        "y": 0.8566025641025646
+        "x": 1.4657118055555545,
+        "y": 0.7267361111111108
       },
       "prevControl": {
-        "x": 2.871666666666666,
-        "y": 2.053782051282052
+        "x": 2.4886551404094486,
+        "y": 1.8090960796807005
       },
       "nextControl": null,
       "isLocked": false,
@@ -54,7 +54,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.972626614896356
+    "rotation": 53.84181456019167
   },
   "reversed": false,
   "folder": "RIGHT 3 Piece Paths",

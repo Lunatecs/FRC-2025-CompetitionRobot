@@ -19,7 +19,7 @@ public class AlgaeFromReefPivotCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.0125, 0, 0); 
-    controller.setSetpoint(35);  //45 CHANGED AFTER 6:45 PM 4/3/25
+    controller.setSetpoint(40);  //45 CHANGED AFTER 6:45 PM 4/3/25  //35 as of 11:15 AM 4/17/25
     controller.setTolerance(2);
   }
 

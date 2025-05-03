@@ -19,7 +19,7 @@ public class AlgaeFromGroundPivotCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pivot);
     controller = new PIDController(0.008, 0, 0); 
-    controller.setSetpoint(100); 
+    controller.setSetpoint(110); //100 as of 11:15 AM 4/17/25 //Changed to 105 as of 2:41 pm on 4/18/2025
     controller.setTolerance(2);
   }
 

@@ -51,6 +51,12 @@
           "data": {
             "name": "Score At L4"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "end path right"
+          }
         }
       ]
     }

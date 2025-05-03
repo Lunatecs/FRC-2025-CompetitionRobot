@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class WhaleTailReleaseSubSystem extends SubsystemBase {
   /** Creates a new WhaleTailReleaseSubSystem. */
-  private final Servo dropServo = new Servo(8);  // CHANGE
+  private final Servo dropServo = new Servo(7);  // CHANGED
 
   public WhaleTailReleaseSubSystem() {
     dropServo.setBoundsMicroseconds(2000, 1800, 1500, 1200, 1000);    

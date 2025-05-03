@@ -22,7 +22,7 @@ public class ClimberReleaseCommand extends ParallelCommandGroup {
     addCommands(
       new InstantCommand(()-> {whaleServo.releaseTail();}),
       new SequentialCommandGroup(
-        new WaitCommand(1),
+        new WaitCommand(1.5), //Switched the servo ting.
         new InstantCommand(() -> {chuteServo.releaseChute();})
       )
     );

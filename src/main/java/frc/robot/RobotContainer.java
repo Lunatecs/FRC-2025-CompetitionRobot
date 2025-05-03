@@ -11,6 +11,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -91,6 +92,9 @@ public class RobotContainer {
     private final CommandPS5Controller driver = new CommandPS5Controller(0);
     private final CommandPS5Controller operator = new CommandPS5Controller(1);
 
+    //NEW TEST CONTROLLER BELOW:
+    private final CommandPS5Controller tester = new CommandPS5Controller(2);
+
     // Subsystem Instantiation
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private final CarriageSubSystem coralCarriage = new CarriageSubSystem();
@@ -107,6 +111,9 @@ public class RobotContainer {
     private final ClimberSubSystem climber = new ClimberSubSystem();
 
     public RobotContainer() {
+
+        CameraServer.startAutomaticCapture(0);
+        //Removed camera because of issues
         
         // Event Marker Commands for Path Planner
         NamedCommands.registerCommand("Station Pick Up Command", new GetCoralSubstationCommand(elevator, coralOutake, coralCarriage));
@@ -220,8 +227,8 @@ public class RobotContainer {
         //UNTESTED COMMANDS:
         operator.touchpad().and(operator.options()).onTrue(new ClimberReleaseCommand(chuteServo, whaleServo));
         //driver.povUp().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
-        driver.povUp().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));  //seems to activate chute
-        driver.options().onTrue(new InstantCommand(() -> {chuteServo.setChute();})); // seems to activate whale tail
+        driver.povUp().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));  //seems to activate chute UPDATE: FIXED by changing the pin slots in the code, because they were wrong.
+        driver.options().onTrue(new InstantCommand(() -> {chuteServo.setChute();})); // seems to activate whale tail UPDATE: Above.
         //operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
@@ -268,6 +275,12 @@ public class RobotContainer {
         operator.povUp().onTrue(new BensalemAlgaeClutch(new ElevatorLevelThreeAlgaeCommand(elevator), pivot, liberator, coralOutake, elevator))
                                             .onFalse(new NewAlageDown(pivot, elevator, liberator, coralOutake));
 
+
+        //TEST CONTROLLER CONTROLS FOR AUTO ALGAE COMMAND
+        //UNTESTED
+        tester.povDown().onTrue(new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelTwoAlgaeCommand(elevator), liberator, pivot, elevator));
+        tester.povLeft().onTrue(new AUTOAlgaeFromReef_PoolsideDelight(new ElevatorLevelThreeAlgaeCommand(elevator), liberator, pivot, elevator));
+        tester.povUp().onTrue(new DeliverAlgaeBargeCommand(new ElevatorLevelFourCommand(elevator), elevator, liberator, 71));
 
         //operator.triangle().and(operator.R1()).onTrue(new ElevatorLevelFourCommand(elevator));
 

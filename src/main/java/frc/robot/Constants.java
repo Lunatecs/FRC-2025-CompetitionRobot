@@ -44,7 +44,7 @@ public final class Constants {
   public static class ClimberSubSystemConstants{
     public static final int CAN_ID_CLIMBER = 20;
     public static final double climbedSuccessfullyEncoderVal = -60; //needs to be tested
-    public static final double climbCurrentLimit = 90.0; //needs to be tested
+    public static final double climbCurrentLimit = 150.0; //needs to be tested
     
     //switched from 17 to 20
   }

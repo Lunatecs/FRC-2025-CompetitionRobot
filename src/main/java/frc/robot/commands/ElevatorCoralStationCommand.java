@@ -20,7 +20,7 @@ public class ElevatorCoralStationCommand extends Command {
     this.elevator = elevator;
     addRequirements(elevator);
     controller = new PIDController(0.03, 0, 0); //0.01025
-    controller.setSetpoint(19.0);
+    controller.setSetpoint(20.0); //19 as of 4:55 PM 4/17/25
     controller.setTolerance(0.25);
   }
 
