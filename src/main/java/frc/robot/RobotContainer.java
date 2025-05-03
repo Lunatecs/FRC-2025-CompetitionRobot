@@ -230,6 +230,7 @@ public class RobotContainer {
         driver.povUp().onTrue(new InstantCommand(()-> {whaleServo.setTail();}));  //seems to activate chute UPDATE: FIXED by changing the pin slots in the code, because they were wrong.
         driver.options().onTrue(new InstantCommand(() -> {chuteServo.setChute();})); // seems to activate whale tail UPDATE: Above.
         //operator.options().onTrue(new ClimberSetCommand(chuteServo, whaleServo));
+        //Test Change
 
         //driver.povUp().onTrue(new AlgaePivotResetCommand(pivot));
 
